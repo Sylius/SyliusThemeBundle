@@ -1,12 +1,11 @@
 parameters:
     locale: en
-    secret: "Three can keep a secret, if two of them are dead."
 
 framework:
     translator: { fallbacks: ["%locale%"] }
-    secret: "%secret%"
+    secret: "Three can keep a secret, if two of them are dead."
     router:
-        resource: "%kernel.project_dir%/app/config/routing.yml"
+        resource: "%kernel.project_dir%/config/routing.yml"
     form: ~
     csrf_protection: true
     templating:
