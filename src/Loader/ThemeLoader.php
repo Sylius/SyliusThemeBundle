@@ -20,6 +20,7 @@ use Sylius\Bundle\ThemeBundle\Factory\ThemeScreenshotFactoryInterface;
 use Sylius\Bundle\ThemeBundle\Model\ThemeAuthor;
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 use Sylius\Bundle\ThemeBundle\Model\ThemeScreenshot;
+use Webmozart\Assert\Assert;
 use Zend\Hydrator\HydrationInterface;
 
 final class ThemeLoader implements ThemeLoaderInterface
@@ -101,7 +102,12 @@ final class ThemeLoader implements ThemeLoaderInterface
             $configuration['authors'] = $this->convertAuthorsArraysToAuthorsObjects($configuration['authors']);
             $configuration['screenshots'] = $this->convertScreenshotsArraysToScreenshotsObjects($configuration['screenshots']);
 
-            $themes[$themeName] = $this->themeHydrator->hydrate($configuration, $themes[$themeName]);
+            /** @var ThemeInterface $theme */
+            $theme = $this->themeHydrator->hydrate($configuration, $themes[$themeName]);
+
+            Assert::isInstanceOf($theme, ThemeInterface::class);
+
+            $themes[$themeName] = $theme;
         }
 
         return $themes;
