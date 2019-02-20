@@ -29,7 +29,7 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
     {
         $this->beConstructedWith($themeRepository);
 
-        $this->fixturesPath = realpath(__DIR__ . '/../Fixtures');
+        $this->fixturesPath = (string) realpath(__DIR__ . '/../Fixtures');
     }
 
     function it_streams_screenshot_as_a_response(ThemeRepositoryInterface $themeRepository, ThemeInterface $theme): void

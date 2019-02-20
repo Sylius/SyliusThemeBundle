@@ -139,7 +139,7 @@ final class AssetsInstaller implements AssetsInstallerInterface
     {
         if (AssetsInstallerInterface::RELATIVE_SYMLINK === $symlinkMask) {
             try {
-                $targetDirname = realpath(is_dir($target) ? $target : dirname($target));
+                $targetDirname = (string) realpath(is_dir($target) ? $target : dirname($target));
                 $relativeOrigin = rtrim($this->filesystem->makePathRelative($origin, $targetDirname), '/');
 
                 $this->doInstallAsset($relativeOrigin, $target, true);

@@ -22,6 +22,6 @@ final class Filesystem extends BaseFilesystem implements FilesystemInterface
      */
     public function getFileContents(string $file): string
     {
-        return file_get_contents($file);
+        return (string) file_get_contents($file);
     }
 }

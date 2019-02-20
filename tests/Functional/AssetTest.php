@@ -117,7 +117,7 @@ final class AssetTest extends WebTestCase
 
             [$expectedText, $assetFile] = explode(': ', $line);
 
-            $contents = file_get_contents($webDirectory . $assetFile);
+            $contents = (string) file_get_contents($webDirectory . $assetFile);
 
             $this->assertEquals($expectedText, trim($contents));
         }
