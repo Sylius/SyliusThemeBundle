@@ -54,30 +54,15 @@
         "twig/twig": "^1.0"
     },
     "autoload": {
-        "psr-4": { "Sylius\\Bundle\\ThemeBundle\\": "" },
-        "exclude-from-classmap": ["/Tests/"]
+        "psr-4": {
+            "Sylius\\Bundle\\ThemeBundle\\": "src/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
+            "spec\\Sylius\\Bundle\\ThemeBundle\\": "spec/",
             "Sylius\\Bundle\\ThemeBundle\\Tests\\": "tests/"
-        },
-        "files": ["Tests/Functional/app/AppKernel.php"]
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../../*/*"
         }
-    ],
-    "scripts": {
-        "test": [
-            "@composer validate --strict",
-            "Tests/Functional/bin/console cache:clear --no-warmup --ansi --no-interaction",
-            "bin/phpunit --colors=always",
-            "bin/phpspec run --ansi --no-interaction"
-        ]
     },
     "extra": {
         "branch-alias": {

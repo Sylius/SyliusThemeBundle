@@ -18,20 +18,11 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class AssetTest extends WebTestCase
 {
-    protected function tearDown()
-    {
-        parent::tearDown();
-
-        file_put_contents(__DIR__ . '/../Fixtures/themes/FirstTestTheme/TestBundle/public/theme_asset.txt', 'Theme asset' . \PHP_EOL);
-    }
-
     /**
      * @test
      * @dataProvider getSymlinkMasks
-     *
-     * @param int $symlinkMask
      */
-    public function it_dumps_assets($symlinkMask): void
+    public function it_dumps_assets(int $symlinkMask): void
     {
         $client = self::createClient();
 
@@ -48,10 +39,8 @@ final class AssetTest extends WebTestCase
     /**
      * @test
      * @dataProvider getSymlinkMasks
-     *
-     * @param int $symlinkMask
      */
-    public function it_updates_dumped_assets_if_they_are_modified($symlinkMask): void
+    public function it_updates_dumped_assets_if_they_are_modified(int $symlinkMask): void
     {
         $client = self::createClient();
 
@@ -59,25 +48,28 @@ final class AssetTest extends WebTestCase
 
         $client->getContainer()->get('sylius.theme.asset.assets_installer')->installAssets($webDirectory, $symlinkMask);
 
-        sleep(1);
-        file_put_contents(__DIR__ . '/../Fixtures/themes/FirstTestTheme/TestBundle/public/theme_asset.txt', 'Theme asset modified');
-        clearstatcache();
+        $themeAssetPath = __DIR__ . '/../Fixtures/themes/FirstTestTheme/TestBundle/public/theme_asset.txt';
+        $themeAssetContent = file_get_contents($themeAssetPath);
 
-        $client->getContainer()->get('sylius.theme.asset.assets_installer')->installAssets($webDirectory, $symlinkMask);
+        try {
+            file_put_contents($themeAssetPath, 'Theme asset modified' . \PHP_EOL);
 
-        $crawler = $client->request('GET', '/template/:Asset:modifiedAssetsTest.txt.twig');
-        $lines = explode("\n", $crawler->text());
+            $client->getContainer()->get('sylius.theme.asset.assets_installer')->installAssets($webDirectory, $symlinkMask);
 
-        $this->assertFileContent($lines, $webDirectory);
+            $crawler = $client->request('GET', '/template/:Asset:modifiedAssetsTest.txt.twig');
+            $lines = explode("\n", $crawler->text());
+
+            $this->assertFileContent($lines, $webDirectory);
+        } finally {
+            file_put_contents($themeAssetPath, $themeAssetContent);
+        }
     }
 
     /**
      * @test
      * @dataProvider getSymlinkMasks
-     *
-     * @param int $symlinkMask
      */
-    public function it_dumps_assets_correctly_even_if_nothing_has_changed($symlinkMask): void
+    public function it_dumps_assets_correctly_even_if_nothing_has_changed(int $symlinkMask): void
     {
         $client = self::createClient();
 
@@ -92,7 +84,16 @@ final class AssetTest extends WebTestCase
         $this->assertFileContent($lines, $webDirectory);
     }
 
-    private function createWebDirectory()
+    public function getSymlinkMasks(): array
+    {
+        return [
+            [AssetsInstallerInterface::RELATIVE_SYMLINK],
+            [AssetsInstallerInterface::SYMLINK],
+            [AssetsInstallerInterface::HARD_COPY],
+        ];
+    }
+
+    private function createWebDirectory(): string
     {
         $webDirectory = self::$kernel->getCacheDir() . '/web';
         if (!is_dir($webDirectory)) {
@@ -111,23 +112,13 @@ final class AssetTest extends WebTestCase
                 continue;
             }
 
+            $this->assertStringContainsString(':', $line);
+
             [$expectedText, $assetFile] = explode(': ', $line);
 
             $contents = file_get_contents($webDirectory . $assetFile);
 
             $this->assertEquals($expectedText, trim($contents));
         }
-    }
-
-    /**
-     * @return array
-     */
-    public function getSymlinkMasks()
-    {
-        return [
-            [AssetsInstallerInterface::RELATIVE_SYMLINK],
-            [AssetsInstallerInterface::SYMLINK],
-            [AssetsInstallerInterface::HARD_COPY],
-        ];
     }
 }

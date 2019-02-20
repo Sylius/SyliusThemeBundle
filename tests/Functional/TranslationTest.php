@@ -31,10 +31,7 @@ final class TranslationTest extends WebTestCase
         }
     }
 
-    /**
-     * @return array
-     */
-    protected function getTranslationsLines()
+    private function getTranslationsLines(): array
     {
         return [
             'BUNDLE/Resources/translations: BUNDLE/Resources/translations',
