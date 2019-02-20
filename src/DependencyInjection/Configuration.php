@@ -38,31 +38,23 @@ final class Configuration implements ConfigurationInterface
     {
         if (method_exists(TreeBuilder::class, 'getRootNode')) {
             $treeBuilder = new TreeBuilder('sylius_theme');
-            $rootNode = $treeBuilder->getRootNode();
+
+            /** @var ArrayNodeDefinition $rootNodeDefinition */
+            $rootNodeDefinition = $treeBuilder->getRootNode();
         } else {
             // BC layer for symfony/config 4.1 and older
             $treeBuilder = new TreeBuilder();
-            $rootNode = $treeBuilder->root('sylius_theme');
+
+            /** @var ArrayNodeDefinition $rootNodeDefinition */
+            $rootNodeDefinition = $treeBuilder->root('sylius_theme');
         }
 
-        $this->addSourcesConfiguration($rootNode);
+        $this->addSourcesConfiguration($rootNodeDefinition);
 
-        $rootNode
-            ->children()
-                ->arrayNode('assets')
-                    ->canBeDisabled()
-                ->end()
-                ->arrayNode('templating')
-                    ->canBeDisabled()
-                ->end()
-                ->arrayNode('translations')
-                    ->canBeDisabled()
-                ->end()
-                ->scalarNode('context')
-                    ->defaultValue('sylius.theme.context.settable')
-                    ->cannotBeEmpty()
-                ->end()
-        ;
+        $rootNodeDefinition->children()->arrayNode('assets')->canBeDisabled();
+        $rootNodeDefinition->children()->arrayNode('templating')->canBeDisabled();
+        $rootNodeDefinition->children()->arrayNode('translations')->canBeDisabled();
+        $rootNodeDefinition->children()->scalarNode('context')->defaultValue('sylius.theme.context.settable')->cannotBeEmpty();
 
         return $treeBuilder;
     }

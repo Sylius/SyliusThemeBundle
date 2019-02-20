@@ -103,7 +103,7 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
     public function getMatchers(): array
     {
         return [
-            'beBinaryFileResponseStreamingFile' => function (BinaryFileResponse $response, $file) {
+            'beBinaryFileResponseStreamingFile' => function (BinaryFileResponse $response, string $file) {
                 return $response->getFile()->getRealPath() === $file;
             },
         ];

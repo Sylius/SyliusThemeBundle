@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\Tests\Functional;
 
 use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface;
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class AssetTest extends WebTestCase
@@ -28,7 +29,7 @@ final class AssetTest extends WebTestCase
 
         $webDirectory = $this->createWebDirectory();
 
-        $client->getContainer()->get('sylius.theme.asset.assets_installer')->installAssets($webDirectory, $symlinkMask);
+        $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
 
         $crawler = $client->request('GET', '/template/:Asset:assetsTest.txt.twig');
         $lines = explode("\n", $crawler->text());
@@ -46,7 +47,7 @@ final class AssetTest extends WebTestCase
 
         $webDirectory = $this->createWebDirectory();
 
-        $client->getContainer()->get('sylius.theme.asset.assets_installer')->installAssets($webDirectory, $symlinkMask);
+        $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
 
         $themeAssetPath = __DIR__ . '/../Fixtures/themes/FirstTestTheme/TestBundle/public/theme_asset.txt';
         $themeAssetContent = file_get_contents($themeAssetPath);
@@ -54,7 +55,7 @@ final class AssetTest extends WebTestCase
         try {
             file_put_contents($themeAssetPath, 'Theme asset modified' . \PHP_EOL);
 
-            $client->getContainer()->get('sylius.theme.asset.assets_installer')->installAssets($webDirectory, $symlinkMask);
+            $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
 
             $crawler = $client->request('GET', '/template/:Asset:modifiedAssetsTest.txt.twig');
             $lines = explode("\n", $crawler->text());
@@ -75,8 +76,8 @@ final class AssetTest extends WebTestCase
 
         $webDirectory = $this->createWebDirectory();
 
-        $client->getContainer()->get('sylius.theme.asset.assets_installer')->installAssets($webDirectory, $symlinkMask);
-        $client->getContainer()->get('sylius.theme.asset.assets_installer')->installAssets($webDirectory, $symlinkMask);
+        $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
+        $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
 
         $crawler = $client->request('GET', '/template/:Asset:assetsTest.txt.twig');
         $lines = explode("\n", $crawler->text());
@@ -120,5 +121,14 @@ final class AssetTest extends WebTestCase
 
             $this->assertEquals($expectedText, trim($contents));
         }
+    }
+
+    private function getThemeAssetsInstaller(Client $client): AssetsInstallerInterface
+    {
+        $themeAssetsInstaller = $client->getContainer()->get('sylius.theme.asset.assets_installer');
+
+        assert($themeAssetsInstaller instanceof AssetsInstallerInterface);
+
+        return $themeAssetsInstaller;
     }
 }

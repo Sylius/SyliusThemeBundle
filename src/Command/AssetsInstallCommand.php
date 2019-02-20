@@ -50,6 +50,7 @@ final class AssetsInstallCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
+        /** @var AssetsInstallerInterface $assetsInstaller */
         $assetsInstaller = $this->getContainer()->get('sylius.theme.asset.assets_installer');
         if ($assetsInstaller instanceof OutputAwareInterface) {
             $assetsInstaller->setOutput($output);
