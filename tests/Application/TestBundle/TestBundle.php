@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\Bundle\ThemeBundle\Tests\Functional\TestBundle;
+namespace Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

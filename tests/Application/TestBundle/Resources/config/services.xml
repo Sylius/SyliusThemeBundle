@@ -15,7 +15,7 @@ file that was distributed with this source code.
     <services>
         <defaults public="true" />
 
-        <service id="test.sylius_theme.request_listener" class="Sylius\Bundle\ThemeBundle\Tests\Functional\TestBundle\Listener\RequestListener">
+        <service id="test.sylius_theme.request_listener" class="Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\Listener\RequestListener">
             <argument type="service" id="sylius.repository.theme" />
             <argument type="service" id="sylius.theme.context.settable" />
             <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />

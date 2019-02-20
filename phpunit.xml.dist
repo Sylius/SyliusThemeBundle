@@ -5,14 +5,16 @@
          colors="true"
 >
     <php>
-        <server name="KERNEL_CLASS" value="AppKernel" />
+        <ini name="error_reporting" value="-1" />
+
+        <env name="KERNEL_CLASS" value="Sylius\Bundle\ThemeBundle\Tests\Application\Kernel" />
 
         <server name="SHELL_VERBOSITY" value="-1" />
     </php>
 
     <testsuites>
         <testsuite name="SyliusThemeBundle Test Suite">
-            <directory>./Tests/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>
