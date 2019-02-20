@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\Bundle\ThemeBundle\Tests\Functional\TestBundle\DependencyInjection;
+namespace Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
