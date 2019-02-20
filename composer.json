@@ -69,7 +69,7 @@
     },
     "scripts": {
         "analyse": [
-            "@php vendor/bin/phpstan analyse --ansi -c phpstan.neon -l 4 spec src tests"
+            "@php vendor/bin/phpstan analyse --ansi -c phpstan.neon -l 5 spec src tests"
         ]
     },
     "extra": {
