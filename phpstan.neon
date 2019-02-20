@@ -15,3 +15,4 @@ parameters:
         # Symfony 3.4 support
         - '/^Method Symfony\\Component\\HttpKernel\\KernelInterface::getBundle\(\) invoked with 2 parameters, 1 required\.$/'
         - '/^Method Symfony\\Component\\HttpKernel\\KernelInterface::getBundle\(\) invoked with 2 parameters, 0-1 required\.$/'
+        - '/^Call to function method_exists\(\) with .Symfony\\\\Component…. and .getRootNode. will always evaluate to false\.$/'

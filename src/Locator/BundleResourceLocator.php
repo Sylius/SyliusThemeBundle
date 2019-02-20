@@ -15,6 +15,7 @@ namespace Sylius\Bundle\ThemeBundle\Locator;
 
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 final class BundleResourceLocator implements ResourceLocatorInterface
@@ -64,6 +65,7 @@ final class BundleResourceLocator implements ResourceLocatorInterface
         $resourceName = substr($resourcePath, strpos($resourcePath, 'Resources/') + strlen('Resources/'));
 
         // Symfony 4.0+ always returns a single bundle
+        /** @var BundleInterface|BundleInterface[] $bundles */
         $bundles = $this->kernel->getBundle($bundleName, false);
 
         // So we need to hack it to support both Symfony 3.4 and Symfony 4.0+
