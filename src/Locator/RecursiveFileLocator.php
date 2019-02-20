@@ -24,7 +24,7 @@ final class RecursiveFileLocator implements FileLocatorInterface
     /** @var array */
     private $paths;
 
-    /** @var int */
+    /** @var int|null */
     private $depth;
 
     /**
