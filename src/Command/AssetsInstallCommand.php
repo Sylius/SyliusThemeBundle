@@ -50,6 +50,7 @@ final class AssetsInstallCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
+        /** @var AssetsInstallerInterface $assetsInstaller */
         $assetsInstaller = $this->getContainer()->get('sylius.theme.asset.assets_installer');
         if ($assetsInstaller instanceof OutputAwareInterface) {
             $assetsInstaller->setOutput($output);
@@ -74,7 +75,10 @@ final class AssetsInstallCommand extends ContainerAwareCommand
             return $this->getContainer()->getParameter('sylius_core.public_dir');
         }
 
-        return $input->getArgument('target');
+        /** @var string $target */
+        $target = $input->getArgument('target');
+
+        return $target;
     }
 
     private function getHelpMessage(): string

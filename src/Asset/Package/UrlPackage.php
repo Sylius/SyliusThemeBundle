@@ -38,9 +38,7 @@ class UrlPackage extends BaseUrlPackage
     protected $pathResolver;
 
     /**
-     * @param string|array $baseUrls Base asset URLs
-     * @param VersionStrategyInterface $versionStrategy The version strategy
-     * @param ContextInterface|null $context Context
+     * @param string|string[] $baseUrls Base asset URLs
      */
     public function __construct(
         $baseUrls,

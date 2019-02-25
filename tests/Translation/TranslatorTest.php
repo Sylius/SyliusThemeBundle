@@ -170,7 +170,7 @@ final class TranslatorTest extends TestCase
         $translator = $this->createTranslator($locale);
 
         $catalogue = new MessageCatalogue($locale);
-        $themeDelimiter = strrpos($locale, '@');
+        $themeDelimiter = (int) strrpos($locale, '@');
 
         $catalogue->addFallbackCatalogue(new MessageCatalogue(substr($locale, 0, $themeDelimiter)));
 

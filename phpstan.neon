@@ -1,0 +1,22 @@
+includes:
+    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/proget-hq/phpstan-phpspec/extension.neon
+
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+
+parameters:
+    reportUnmatchedIgnoredErrors: false
+    specDir: 'spec/'
+    ignoreErrors:
+        # PHPStan integration
+        - '/^Call to an undefined method Prophecy\\Prophecy\\MethodProphecy::getRealPath\(\)\.$/'
+
+        # Symfony 3.4 support
+        - '/^Method Symfony\\Component\\HttpKernel\\KernelInterface::getBundle\(\) invoked with 2 parameters, 1 required\.$/'
+        - '/^Method Symfony\\Component\\HttpKernel\\KernelInterface::getBundle\(\) invoked with 2 parameters, 0-1 required\.$/'
+        - '/^Call to function method_exists\(\) with .Symfony\\\\Component…. and .getRootNode. will always evaluate to false\.$/'
+
+        # Symfony caveats
+        - '/^Parameter \#1 \$name of method Symfony\\Component\\Config\\FileLocatorInterface::locate\(\) expects string, Symfony\\Component\\Templating\\TemplateReferenceInterface given\.$/'
+        - '/^Parameter \#1 \$translator of class Symfony\\Component\\Translation\\Formatter\\MessageFormatter constructor expects Symfony\\Contracts\\Translation\\TranslatorInterface|null, Symfony\\Component\\Translation\\MessageSelector given\.$/'

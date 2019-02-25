@@ -13,21 +13,21 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-final class TemplatingController implements ContainerAwareInterface
+final class TemplatingController
 {
-    use ContainerAwareTrait;
+    /** @var EngineInterface */
+    private $templating;
 
-    /**
-     * @param string $templateName
-     *
-     * @return Response
-     */
-    public function renderTemplateAction($templateName)
+    public function __construct(EngineInterface $templating)
     {
-        return $this->container->get('templating')->renderResponse($templateName);
+        $this->templating = $templating;
+    }
+
+    public function renderTemplateAction(string $templateName): Response
+    {
+        return $this->templating->renderResponse($templateName);
     }
 }
