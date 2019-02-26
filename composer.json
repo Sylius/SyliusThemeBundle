@@ -43,8 +43,12 @@
         "matthiasnoback/symfony-dependency-injection-test": "^3.0",
         "mikey179/vfsstream": "^1.6",
         "phpspec/phpspec": "^5.0",
+        "phpstan/phpstan-phpunit": "^0.10",
+        "phpstan/phpstan-shim": "^0.10",
+        "phpstan/phpstan-webmozart-assert": "^0.10",
         "phpunit/phpunit": "^7.0",
-        "sylius/registry": "^1.1",
+        "proget-hq/phpstan-phpspec": "^0.1.1",
+        "sylius-labs/coding-standard": "^3.0",
         "symfony/browser-kit": "^3.4|^4.1.1",
         "symfony/security-csrf": "^3.4|^4.1.1",
         "symfony/twig-bundle": "^3.4|^4.1.1",
@@ -63,6 +67,11 @@
             "spec\\Sylius\\Bundle\\ThemeBundle\\": "spec/",
             "Sylius\\Bundle\\ThemeBundle\\Tests\\": "tests/"
         }
+    },
+    "scripts": {
+        "analyse": [
+            "@php vendor/bin/phpstan analyse --ansi -c phpstan.neon -l max spec src tests"
+        ]
     },
     "extra": {
         "branch-alias": {

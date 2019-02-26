@@ -1,47 +1,26 @@
-SyliusThemeBundle [![Build status...](https://secure.travis-ci.org/Sylius/SyliusThemeBundle.png?branch=master)](http://travis-ci.org/Sylius/SyliusThemeBundle)
-==================
+<p align="center">
+    <a href="https://sylius.com" target="_blank">
+        <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
+    </a>
+</p>
 
-Theme management for [**Symfony**](http://symfony.com).
+<h1 align="center">Theme Bundle</h1>
 
-Sylius
-------
+<p align="center">Theme management for Symfony.</p>
 
-![Sylius](https://demo.sylius.com/assets/shop/img/logo.png)
+## Documentation
 
-Sylius is an Open Source eCommerce solution built from decoupled components with powerful API and the highest quality code. [Read more on sylius.com](http://sylius.com).
+[Documentation is available in the *docs* folder.](docs/index.md)
 
-Documentation
--------------
+## Security issues
 
-Documentation is available on [**docs.sylius.com**](http://docs.sylius.com/en/latest/components_and_bundles/bundles/SyliusThemeBundle/index.html).
+Please use `security@sylius.com` email to report security issues.
 
-Contributing
-------------
+## License
 
-[This page](http://docs.sylius.com/en/latest/contributing/index.html) contains all the information about contributing to Sylius.
+[This bundle uses MIT License.](LICENSE)
 
-Follow Sylius' Development
---------------------------
+## Authors
 
-If you want to keep up with the updates and latest features, follow us on the following channels:
-
-* [Official Blog](https://sylius.com/blog)
-* [Sylius on Twitter](https://twitter.com/Sylius)
-* [Sylius on Facebook](https://facebook.com/SyliusEcommerce)
-
-Bug tracking
-------------
-
-Sylius uses [GitHub issues](https://github.com/Sylius/Sylius/issues).
-If you have found bug, please create an issue.
-
-MIT License
------------
-
-License can be found [here](https://github.com/Sylius/Sylius/blob/master/LICENSE).
-
-Authors
--------
-
-The bundle was originally created by [Kamil Kokot](http://kamil.kokot.me).
+The bundle was originally created by [Kamil Kokot](https://kamil.kokot.me).
 See the list of [contributors](https://github.com/Sylius/SyliusThemeBundle/contributors).

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\Listener;
 
 use Sylius\Bundle\ThemeBundle\Context\SettableThemeContext;
+use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 use Sylius\Bundle\ThemeBundle\Repository\ThemeRepositoryInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -32,13 +33,16 @@ final class RequestListener
         $this->themeContext = $themeContext;
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event): void
     {
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
             // don't do anything if it's not the master request
             return;
         }
 
-        $this->themeContext->setTheme($this->themeRepository->findOneByName('sylius/first-test-theme'));
+        /** @var ThemeInterface $theme */
+        $theme = $this->themeRepository->findOneByName('sylius/first-test-theme');
+
+        $this->themeContext->setTheme($theme);
     }
 }

@@ -82,11 +82,9 @@ final class TemplateFileLocatorSpec extends ObjectBehavior
     function it_falls_back_to_decorated_template_locator_if_there_are_no_themes_active(
         FileLocatorInterface $decoratedFileLocator,
         ThemeContextInterface $themeContext,
-        ThemeHierarchyProviderInterface $themeHierarchyProvider,
         TemplateReferenceInterface $template
     ): void {
         $themeContext->getTheme()->willReturn(null);
-        $themeHierarchyProvider->getThemeHierarchy(null)->willReturn([]);
 
         $decoratedFileLocator->locate($template, Argument::cetera())->willReturn('/app/template/path');
 

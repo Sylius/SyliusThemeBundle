@@ -104,19 +104,7 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
             if (isset($config['sources'][$sourceName]) && $config['sources'][$sourceName]['enabled']) {
                 $sourceConfig = $config['sources'][$sourceName];
 
-                $configurationProvider = $configurationSourceFactory->initializeSource($container, $sourceConfig);
-
-                if (!$configurationProvider instanceof Reference && !$configurationProvider instanceof Definition) {
-                    throw new \InvalidArgumentException(sprintf(
-                        'Source factory "%s" was expected to return an instance of "%s" or "%s", "%s" found',
-                        $configurationSourceFactory->getName(),
-                        Reference::class,
-                        Definition::class,
-                        is_object($configurationProvider) ? get_class($configurationProvider) : gettype($configurationProvider)
-                    ));
-                }
-
-                $configurationProviders[] = $configurationProvider;
+                $configurationProviders[] = $configurationSourceFactory->initializeSource($container, $sourceConfig);
             }
         }
 

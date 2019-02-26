@@ -24,7 +24,7 @@ final class RecursiveFileLocator implements FileLocatorInterface
     /** @var array */
     private $paths;
 
-    /** @var int */
+    /** @var int|null */
     private $depth;
 
     /**
@@ -94,7 +94,7 @@ final class RecursiveFileLocator implements FileLocatorInterface
 
     private function assertNameIsNotEmpty(string $name): void
     {
-        if (null === $name || '' === $name) {
+        if ('' === $name) {
             throw new \InvalidArgumentException(
                 'An empty file name is not valid to be located.'
             );
