@@ -46,7 +46,7 @@ class Theme implements ThemeInterface
 
     public function __toString(): string
     {
-        return (string) ($this->title ?: $this->name);
+        return $this->title ?? $this->name;
     }
 
     /**

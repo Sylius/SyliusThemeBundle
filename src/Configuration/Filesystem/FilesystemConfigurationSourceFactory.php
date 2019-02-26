@@ -27,17 +27,26 @@ final class FilesystemConfigurationSourceFactory implements ConfigurationSourceF
      */
     public function buildConfiguration(ArrayNodeDefinition $node): void
     {
-        $node
-            ->fixXmlConfig('directory', 'directories')
-                ->children()
-                    ->scalarNode('filename')->defaultValue('composer.json')->cannotBeEmpty()->end()
-                    ->integerNode('scan_depth')->info('Restrict depth to scan for configuration file inside theme folder')->defaultNull()->end()
-                    ->arrayNode('directories')
-                        ->defaultValue(['%kernel.project_dir%/app/themes'])
-                        ->requiresAtLeastOneElement()
-                        ->performNoDeepMerging()
-                        ->prototype('scalar')
-                    ->end()
+        $filesystemNode = $node->fixXmlConfig('directory', 'directories')->children();
+
+        $filesystemNode
+            ->scalarNode('filename')
+                ->defaultValue('composer.json')
+                ->cannotBeEmpty()
+        ;
+
+        $filesystemNode
+            ->integerNode('scan_depth')
+                ->info('Restrict depth to scan for configuration file inside theme folder')
+                ->defaultNull()
+        ;
+
+        $filesystemNode
+            ->arrayNode('directories')
+                ->defaultValue(['%kernel.project_dir%/app/themes'])
+                ->requiresAtLeastOneElement()
+                ->performNoDeepMerging()
+                ->prototype('scalar')
         ;
     }
 

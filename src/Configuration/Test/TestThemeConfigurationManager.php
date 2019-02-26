@@ -91,7 +91,7 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
 
     private function load(): array
     {
-        return unserialize(file_get_contents($this->configurationsFile));
+        return unserialize((string) file_get_contents($this->configurationsFile));
     }
 
     private function save(array $configurations): void

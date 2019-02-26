@@ -34,11 +34,11 @@ final class TemplatePathsCacheClearerSpec extends ObjectBehavior
     {
         $cache->deleteAll()->shouldBeCalled();
 
-        $this->clear(null);
+        $this->clear('');
     }
 
     function it_does_not_throw_any_error_if_cache_is_not_clearable(): void
     {
-        $this->clear(null);
+        $this->clear('');
     }
 }

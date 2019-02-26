@@ -69,7 +69,10 @@ final class TemplateFileLocator implements FileLocatorInterface, \Serializable
             }
         }
 
-        return $this->decoratedFileLocator->locate($template, $currentPath, $first);
+        /** @var string $result */
+        $result = $this->decoratedFileLocator->locate($template, $currentPath);
+
+        return $result;
     }
 
     /**

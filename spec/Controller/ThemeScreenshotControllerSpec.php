@@ -29,7 +29,7 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
     {
         $this->beConstructedWith($themeRepository);
 
-        $this->fixturesPath = realpath(__DIR__ . '/../Fixtures');
+        $this->fixturesPath = (string) realpath(__DIR__ . '/../Fixtures');
     }
 
     function it_streams_screenshot_as_a_response(ThemeRepositoryInterface $themeRepository, ThemeInterface $theme): void
@@ -103,7 +103,7 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
     public function getMatchers(): array
     {
         return [
-            'beBinaryFileResponseStreamingFile' => function (BinaryFileResponse $response, $file) {
+            'beBinaryFileResponseStreamingFile' => function (BinaryFileResponse $response, string $file) {
                 return $response->getFile()->getRealPath() === $file;
             },
         ];

@@ -27,7 +27,7 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
     /** @var TemplateNameParserInterface */
     private $templateNameParser;
 
-    /** @var array */
+    /** @var string[] */
     private $cache = [];
 
     public function __construct(
@@ -46,11 +46,11 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
     public function getSourceContext($name): \Twig_Source
     {
         try {
-            $path = $this->findTemplate((string) $name);
+            $path = $this->findTemplate($name);
 
-            return new \Twig_Source(file_get_contents($path), $name, $path);
+            return new \Twig_Source((string) file_get_contents($path), $name, $path);
         } catch (\Exception $exception) {
-            return $this->decoratedLoader->getSourceContext((string) $name);
+            return $this->decoratedLoader->getSourceContext($name);
         }
     }
 
@@ -60,9 +60,9 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
     public function getCacheKey($name): string
     {
         try {
-            return $this->findTemplate((string) $name);
+            return $this->findTemplate($name);
         } catch (\Exception $exception) {
-            return $this->decoratedLoader->getCacheKey((string) $name);
+            return $this->decoratedLoader->getCacheKey($name);
         }
     }
 
@@ -72,9 +72,9 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
     public function isFresh($name, $time): bool
     {
         try {
-            return filemtime($this->findTemplate((string) $name)) <= $time;
+            return filemtime($this->findTemplate($name)) <= $time;
         } catch (\Exception $exception) {
-            return $this->decoratedLoader->isFresh((string) $name, $time);
+            return $this->decoratedLoader->isFresh($name, $time);
         }
     }
 
@@ -84,16 +84,16 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
     public function exists($name): bool
     {
         try {
-            return stat($this->findTemplate((string) $name)) !== false;
+            return stat($this->findTemplate($name)) !== false;
         } catch (\Exception $exception) {
-            return $this->decoratedLoader->exists((string) $name);
+            return $this->decoratedLoader->exists($name);
         }
     }
 
     private function findTemplate(string $logicalName): string
     {
         if (isset($this->cache[$logicalName])) {
-            return (string) $this->cache[$logicalName];
+            return $this->cache[$logicalName];
         }
 
         $template = $this->templateNameParser->parse($logicalName);
