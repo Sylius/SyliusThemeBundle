@@ -1,5 +1,12 @@
 ## CHANGELOG FOR `1.4.x`
 
+### v1.4.2 (2019-02-28)
+
+#### Details
+
+- [#19](https://github.com/Sylius/SyliusThemeBundle/issues/19) [HotFix] Allow to pass `TemplateReference` to `findTemplate` function ([@Zales0123](https://github.com/Zales0123))
+- [#20](https://github.com/Sylius/SyliusThemeBundle/issues/20) Move string parsing to `findTemplate` method ([@Zales0123](https://github.com/Zales0123))
+
 ### v1.4.1 (2019-02-26)
 
 #### TL;DR
