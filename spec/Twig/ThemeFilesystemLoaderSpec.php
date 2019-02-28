@@ -28,7 +28,7 @@ final class ThemeFilesystemLoaderSpec extends ObjectBehavior
         $this->beConstructedWith($decoratedLoader, $templateLocator, $templateNameParser);
     }
 
-    function it_get_cache_key_for_a_template_name(
+    function it_gets_source_context_for_a_template_name(
         TemplateNameParserInterface $templateNameParser,
         FileLocatorInterface $templateLocator
     ): void {
@@ -38,7 +38,7 @@ final class ThemeFilesystemLoaderSpec extends ObjectBehavior
         $this->getCacheKey('theme_test')->shouldReturn('file');
     }
 
-    function it_get_cache_key_for_a_template_reference(
+    function it_gets_cache_key_for_a_template_reference(
         TemplateNameParserInterface $templateNameParser,
         FileLocatorInterface $templateLocator,
         TemplateReferenceInterface $templateReference
