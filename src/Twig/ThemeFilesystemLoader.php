@@ -60,7 +60,7 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
     public function getCacheKey($name): string
     {
         try {
-            return $this->findTemplate((string) $name);
+            return $this->findTemplate($name);
         } catch (\Exception $exception) {
             return $this->decoratedLoader->getCacheKey($name);
         }
@@ -92,6 +92,8 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
 
     private function findTemplate($logicalName): string
     {
+        $logicalName = (string) $logicalName;
+
         if (isset($this->cache[$logicalName])) {
             return $this->cache[$logicalName];
         }
