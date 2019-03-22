@@ -61,7 +61,7 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
         try {
             $path = $this->findTemplate((string) $name);
 
-            return new \Twig_Source(file_get_contents($path), $name, $path);
+            return new \Twig_Source((string) file_get_contents($path), (string) $name, $path);
         } catch (\Exception $exception) {
             return $this->decoratedLoader->getSourceContext((string) $name);
         }
