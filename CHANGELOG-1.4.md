@@ -1,5 +1,11 @@
 ## CHANGELOG FOR `1.4.x`
 
+### v1.4.3 (2019-03-22)
+
+#### Details
+
+- [#21](https://github.com/Sylius/SyliusThemeBundle/issues/21) Add conflict with Twig v2.7.3 ([@pamil](https://github.com/pamil))
+
 ### v1.4.2 (2019-02-28)
 
 #### Details
