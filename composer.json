@@ -55,7 +55,7 @@
         "twig/twig": "^2.0"
     },
     "conflict": {
-        "twig/twig": "^1.0|2.7.3"
+        "twig/twig": "^1.0"
     },
     "autoload": {
         "psr-4": {
