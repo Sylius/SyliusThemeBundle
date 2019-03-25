@@ -1,5 +1,11 @@
 ## CHANGELOG FOR `1.2.x`
 
+### v1.2.17 (2019-03-25)
+
+#### Details
+
+- [#22](https://github.com/Sylius/SyliusThemeBundle/issues/22) Cast name from TemplateReference to string before passing to Twig_Source ([@mkilmanas](https://github.com/mkilmanas))
+
 ### v1.2.16 (2019-02-26)
 
 #### TL;DR
