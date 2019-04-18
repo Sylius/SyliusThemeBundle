@@ -23,7 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagInterface, WarmableInterface, LocaleAwareInterface, LegacyTranslatorInterface
 {
-    /** @var TranslatorInterface&TranslatorBagInterface */
+    /** @var LegacyTranslatorInterface&TranslatorBagInterface */
     private $translator;
 
     /** @var ThemeContextInterface */
@@ -32,7 +32,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /**
      * {@inheritdoc}
      */
-    public function __construct(TranslatorInterface $translator, ThemeContextInterface $themeContext)
+    public function __construct(LegacyTranslatorInterface $translator, ThemeContextInterface $themeContext)
     {
         if (!$translator instanceof TranslatorBagInterface) {
             throw new \InvalidArgumentException(sprintf(
