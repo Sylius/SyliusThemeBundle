@@ -18,8 +18,8 @@ use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Translation\TranslatorInterface as OldTranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagInterface, WarmableInterface, LocaleAwareInterface, OldTranslatorInterface
 {
