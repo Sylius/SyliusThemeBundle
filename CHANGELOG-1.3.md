@@ -1,5 +1,11 @@
 ## CHANGELOG FOR `1.3.x`
 
+### v1.3.13 (2019-04-19)
+
+#### Details
+
+- [#25](https://github.com/Sylius/SyliusThemeBundle/issues/25) Fix ThemeAwareTranslator for Symfony 4.2.7 ([@pierre-H](https://github.com/pierre-H))
+
 ### v1.3.12 (2019-03-22)
 
 #### Details
