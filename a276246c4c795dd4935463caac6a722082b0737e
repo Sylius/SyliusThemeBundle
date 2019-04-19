@@ -1,0 +1,30 @@
+---------------------------------------------------------------------------
+
+by pamil at 2019-04-18T09:47:54Z
+
+I've filed https://github.com/symfony/symfony/issues/31161, but it has to be addressed sooner or later.
+
+---------------------------------------------------------------------------
+
+by stof at 2019-04-18T12:02:15Z
+
+the constructor typehint should also be updated to accept implementations of the new interface in addition to legacy ones. Otherwise the migration is only half done.
+
+---------------------------------------------------------------------------
+
+by pamil at 2019-04-19T06:10:00Z
+
+The base of this pull-request was changed, you need fetch and reset your local branch
+if you want to add new commits to this pull request. **Reset before you pull, else commits
+may become messed-up.**
+
+Unless you added new commits (to this branch) locally that you did not push yet,
+execute `git fetch origin && git reset "patch-1"` to update your local branch.
+
+Feel free to ask for assistance when you get stuck :+1:
+
+---------------------------------------------------------------------------
+
+by GSadee at 2019-04-19T06:21:23Z
+
+Thank you, Pierre! :1st_place_medal:
