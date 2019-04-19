@@ -17,11 +17,13 @@ use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
+use Symfony\Contracts\Translation\LocaleAwareInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagInterface, WarmableInterface
+final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagInterface, WarmableInterface, LocaleAwareInterface, LegacyTranslatorInterface
 {
-    /** @var TranslatorInterface&TranslatorBagInterface */
+    /** @var LegacyTranslatorInterface&TranslatorBagInterface */
     private $translator;
 
     /** @var ThemeContextInterface */
@@ -30,7 +32,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /**
      * {@inheritdoc}
      */
-    public function __construct(TranslatorInterface $translator, ThemeContextInterface $themeContext)
+    public function __construct(LegacyTranslatorInterface $translator, ThemeContextInterface $themeContext)
     {
         if (!$translator instanceof TranslatorBagInterface) {
             throw new \InvalidArgumentException(sprintf(
