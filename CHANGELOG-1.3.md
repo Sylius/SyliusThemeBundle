@@ -1,5 +1,11 @@
 ## CHANGELOG FOR `1.3.x`
 
+### v1.3.14 (2019-05-17)
+
+#### Details
+
+- [#27](https://github.com/Sylius/SyliusThemeBundle/issues/27) TranslatorInterface and Symfony3. ([@plotek](https://github.com/plotek))
+
 ### v1.3.13 (2019-04-19)
 
 #### Details
