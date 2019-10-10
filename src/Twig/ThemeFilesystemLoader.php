@@ -15,10 +15,14 @@ namespace Sylius\Bundle\ThemeBundle\Twig;
 
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Templating\TemplateNameParserInterface;
+use Symfony\Component\Templating\TemplateReference;
+use Twig\Loader\ExistsLoaderInterface;
+use Twig\Loader\LoaderInterface;
+use Twig\Source;
 
-final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_ExistsLoaderInterface
+final class ThemeFilesystemLoader implements LoaderInterface, ExistsLoaderInterface
 {
-    /** @var \Twig_LoaderInterface */
+    /** @var LoaderInterface */
     private $decoratedLoader;
 
     /** @var FileLocatorInterface */
@@ -31,7 +35,7 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
     private $cache = [];
 
     public function __construct(
-        \Twig_LoaderInterface $decoratedLoader,
+        LoaderInterface $decoratedLoader,
         FileLocatorInterface $templateLocator,
         TemplateNameParserInterface $templateNameParser
     ) {
@@ -41,55 +45,62 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
     }
 
     /**
-     * {@inheritdoc}
+     * @param string|TemplateReference $name
      */
-    public function getSourceContext($name): \Twig_Source
+    public function getSourceContext($name): Source
     {
         try {
             $path = $this->findTemplate($name);
 
-            return new \Twig_Source((string) file_get_contents($path), (string) $name, $path);
+            return new Source((string) file_get_contents($path), (string) $name, $path);
         } catch (\Exception $exception) {
+            /** @psalm-suppress ImplicitToStringCast */
             return $this->decoratedLoader->getSourceContext($name);
         }
     }
 
     /**
-     * {@inheritdoc}
+     * @param string|TemplateReference $name
      */
     public function getCacheKey($name): string
     {
         try {
             return $this->findTemplate($name);
         } catch (\Exception $exception) {
+            /** @psalm-suppress ImplicitToStringCast */
             return $this->decoratedLoader->getCacheKey($name);
         }
     }
 
     /**
-     * {@inheritdoc}
+     * @param string|TemplateReference $name
      */
     public function isFresh($name, $time): bool
     {
         try {
             return filemtime($this->findTemplate($name)) <= $time;
         } catch (\Exception $exception) {
+            /** @psalm-suppress ImplicitToStringCast */
             return $this->decoratedLoader->isFresh($name, $time);
         }
     }
 
     /**
-     * {@inheritdoc}
+     * @param string|TemplateReference $name
      */
     public function exists($name): bool
     {
         try {
             return stat($this->findTemplate($name)) !== false;
         } catch (\Exception $exception) {
+            /** @psalm-suppress ImplicitToStringCast */
             return $this->decoratedLoader->exists($name);
         }
     }
 
+    /**
+     * @param string|TemplateReference $logicalName
+     */
     private function findTemplate($logicalName): string
     {
         $logicalName = (string) $logicalName;
@@ -100,7 +111,10 @@ final class ThemeFilesystemLoader implements \Twig_LoaderInterface, \Twig_Exists
 
         $template = $this->templateNameParser->parse($logicalName);
 
-        /** @var string $file */
+        /**
+         * @var string
+         * @psalm-suppress ImplicitToStringCast
+         */
         $file = $this->templateLocator->locate($template);
 
         return $this->cache[$logicalName] = $file;

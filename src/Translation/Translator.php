@@ -61,9 +61,6 @@ final class Translator extends BaseTranslator implements WarmableInterface
         parent::__construct($locale, $this->provideMessageFormatter($messageFormatterOrSelector), $this->options['cache_dir'], $this->options['debug']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function warmUp($cacheDir): void
     {
         // skip warmUp when translator doesn't use cache
@@ -71,6 +68,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
             return;
         }
 
+        /** @psalm-suppress InternalMethod */
         $locales = array_merge(
             $this->getFallbackLocales(),
             [$this->getLocale()],
@@ -86,9 +84,6 @@ final class Translator extends BaseTranslator implements WarmableInterface
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function initializeCatalogue($locale): void
     {
         $this->initialize();
@@ -97,7 +92,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $locale
      */
     protected function computeFallbackLocales($locale): array
     {
@@ -110,7 +105,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
         $fallbackLocales = [];
         foreach (array_diff($computedFallbackLocales, [$locale]) as $computedFallback) {
             $fallback = $computedFallback . $themeModifier;
-            if (null !== $themeModifier && $locale !== $fallback) {
+            if ('' !== $themeModifier && $locale !== $fallback) {
                 $fallbackLocales[] = $fallback;
             }
 
@@ -172,11 +167,15 @@ final class Translator extends BaseTranslator implements WarmableInterface
         }
     }
 
+    /**
+     * @param mixed $messageFormatterOrSelector
+     */
     private function provideMessageFormatter($messageFormatterOrSelector): MessageFormatterInterface
     {
         if ($messageFormatterOrSelector instanceof MessageSelector) {
             @trigger_error(sprintf('Passing a "%s" instance into the "%s" as a third argument is deprecated since Sylius 1.2 and will be removed in 2.0. Inject a "%s" implementation instead.', MessageSelector::class, __METHOD__, MessageFormatterInterface::class), \E_USER_DEPRECATED);
 
+            /** @psalm-suppress InvalidArgument */
             return new MessageFormatter($messageFormatterOrSelector);
         }
 

@@ -83,9 +83,15 @@ final class ThemeCollector extends DataCollector
     {
         $usedTheme = $this->themeContext->getTheme();
 
+        /** @var ThemeInterface[] $usedThemes */
+        $usedThemes = null !== $usedTheme ? $this->themeHierarchyProvider->getThemeHierarchy($usedTheme) : [];
+
+        /** @var ThemeInterface[] $themes */
+        $themes = $this->themeRepository->findAll();
+
         $this->data['used_theme'] = $usedTheme;
-        $this->data['used_themes'] = null !== $usedTheme ? $this->themeHierarchyProvider->getThemeHierarchy($usedTheme) : [];
-        $this->data['themes'] = $this->themeRepository->findAll();
+        $this->data['used_themes'] = $usedThemes;
+        $this->data['themes'] = $themes;
     }
 
     /**

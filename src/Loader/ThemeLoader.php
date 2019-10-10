@@ -102,9 +102,8 @@ final class ThemeLoader implements ThemeLoaderInterface
             $configuration['authors'] = $this->convertAuthorsArraysToAuthorsObjects($configuration['authors']);
             $configuration['screenshots'] = $this->convertScreenshotsArraysToScreenshotsObjects($configuration['screenshots']);
 
-            /** @var ThemeInterface $theme */
             $theme = $this->themeHydrator->hydrate($configuration, $themes[$themeName]);
-
+            /** @var ThemeInterface $theme */
             Assert::isInstanceOf($theme, ThemeInterface::class);
 
             $themes[$themeName] = $theme;
@@ -132,7 +131,7 @@ final class ThemeLoader implements ThemeLoaderInterface
      */
     private function convertParentsNamesToParentsObjects(string $themeName, array $parentsNames, array $existingThemes): array
     {
-        return array_map(function ($parentName) use ($themeName, $existingThemes) {
+        return array_map(function (string $parentName) use ($themeName, $existingThemes): ThemeInterface {
             if (!isset($existingThemes[$parentName])) {
                 throw new ThemeLoadingFailedException(sprintf(
                     'Unexisting theme "%s" is required by "%s".',
@@ -150,7 +149,7 @@ final class ThemeLoader implements ThemeLoaderInterface
      */
     private function convertAuthorsArraysToAuthorsObjects(array $authorsArrays): array
     {
-        return array_map(function (array $authorArray) {
+        return array_map(function (array $authorArray): ThemeAuthor {
             return $this->themeAuthorFactory->createFromArray($authorArray);
         }, $authorsArrays);
     }
@@ -160,7 +159,7 @@ final class ThemeLoader implements ThemeLoaderInterface
      */
     private function convertScreenshotsArraysToScreenshotsObjects(array $screenshotsArrays): array
     {
-        return array_map(function (array $screenshotArray) {
+        return array_map(function (array $screenshotArray): ThemeScreenshot {
             return $this->themeScreenshotFactory->createFromArray($screenshotArray);
         }, $screenshotsArrays);
     }

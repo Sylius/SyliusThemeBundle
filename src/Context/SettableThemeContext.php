@@ -17,7 +17,7 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
 final class SettableThemeContext implements ThemeContextInterface
 {
-    /** @var ThemeInterface */
+    /** @var ThemeInterface|null */
     private $theme;
 
     /**

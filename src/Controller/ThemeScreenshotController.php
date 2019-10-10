@@ -46,7 +46,7 @@ final class ThemeScreenshotController
         $screenshots = $theme->getScreenshots();
 
         if (!isset($screenshots[$screenshotNumber])) {
-            throw new NotFoundHttpException(sprintf('Theme "%s" does not have screenshot #%d', $theme->getTitle(), $screenshotNumber));
+            throw new NotFoundHttpException(sprintf('Theme "%s" does not have screenshot #%d', $theme->getTitle() ?? $theme->getName(), $screenshotNumber));
         }
 
         $screenshotRelativePath = $screenshots[$screenshotNumber]->getPath();
