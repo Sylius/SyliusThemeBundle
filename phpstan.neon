@@ -30,3 +30,4 @@ parameters:
 
         # Symfony passes TemplateReference object instead of a string
         - "/Casting to string something that\\'s already string./"
+        - '/Parameter \#1 \$name of method Twig\\Loader\\LoaderInterface::[A-Za-z]+\(\) expects string, string\|Symfony\\Component\\Templating\\TemplateReference given\./'

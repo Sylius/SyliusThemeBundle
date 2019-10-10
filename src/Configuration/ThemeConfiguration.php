@@ -94,17 +94,23 @@ final class ThemeConfiguration implements ConfigurationInterface
 
         $screenshotNodeDefinition
             ->validate()
-                ->ifTrue(function ($screenshot) {
-                    return [] === $screenshot || ['path' => ''] === $screenshot;
-                })
+                ->ifTrue(
+                    /** @param mixed $screenshot */
+                    function ($screenshot): bool {
+                        return [] === $screenshot || ['path' => ''] === $screenshot;
+                    }
+                )
                 ->thenInvalid('Screenshot cannot be empty!')
         ;
         $screenshotNodeDefinition
             ->beforeNormalization()
                 ->ifString()
-                ->then(function ($value) {
-                    return ['path' => $value];
-                })
+                ->then(
+                    /** @param mixed $value */
+                    function ($value): array {
+                        return ['path' => $value];
+                    }
+                )
         ;
 
         $screenshotNodeBuilder = $screenshotNodeDefinition->children();
@@ -125,9 +131,12 @@ final class ThemeConfiguration implements ConfigurationInterface
         $authorNodeDefinition = $authorsNodeDefinition->arrayPrototype();
         $authorNodeDefinition
             ->validate()
-                ->ifTrue(function ($author) {
-                    return [] === $author;
-                })
+                ->ifTrue(
+                    /** @param mixed $author */
+                    function ($author): bool {
+                        return [] === $author;
+                    }
+                )
                 ->thenInvalid('Author cannot be empty!')
         ;
 

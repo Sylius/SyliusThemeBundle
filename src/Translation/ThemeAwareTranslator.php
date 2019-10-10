@@ -29,9 +29,6 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /** @var ThemeContextInterface */
     private $themeContext;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(LegacyTranslatorInterface $translator, ThemeContextInterface $themeContext)
     {
         if (!$translator instanceof TranslatorBagInterface) {
@@ -57,31 +54,25 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     }
 
     /**
-     * {@inheritdoc}
+     * @psalm-suppress MissingParamType Two interfaces defining the same method
      */
     public function trans($id, array $parameters = [], $domain = null, $locale = null): string
     {
         return $this->translator->trans($id, $parameters, $domain, $this->transformLocale($locale));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function transChoice($id, $number, array $parameters = [], $domain = null, $locale = null): string
     {
         return $this->translator->transChoice($id, $number, $parameters, $domain, $this->transformLocale($locale));
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLocale(): string
     {
         return $this->translator->getLocale();
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $locale
      */
     public function setLocale($locale): void
     {
@@ -91,17 +82,11 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         $this->translator->setLocale($locale);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getCatalogue($locale = null): MessageCatalogueInterface
     {
         return $this->translator->getCatalogue($locale);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function warmUp($cacheDir): void
     {
         if ($this->translator instanceof WarmableInterface) {

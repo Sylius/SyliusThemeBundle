@@ -61,8 +61,8 @@ final class BundleResourceLocator implements ResourceLocatorInterface
 
     private function locateResourceBasedOnBundleNotation(string $resourcePath, ThemeInterface $theme): string
     {
-        $bundleName = substr($resourcePath, 1, strpos($resourcePath, '/') - 1);
-        $resourceName = substr($resourcePath, strpos($resourcePath, 'Resources/') + strlen('Resources/'));
+        $bundleName = substr($resourcePath, 1, (int) strpos($resourcePath, '/') - 1);
+        $resourceName = substr($resourcePath, (int) strpos($resourcePath, 'Resources/') + strlen('Resources/'));
 
         // Symfony 4.0+ always returns a single bundle
         /** @var BundleInterface|BundleInterface[] $bundles */
@@ -86,8 +86,8 @@ final class BundleResourceLocator implements ResourceLocatorInterface
 
     private function locateResourceBasedOnTwigNamespace(string $resourcePath, ThemeInterface $theme): string
     {
-        $twigNamespace = substr($resourcePath, 1, strpos($resourcePath, '/') - 1);
-        $resourceName = substr($resourcePath, strpos($resourcePath, '/') + 1);
+        $twigNamespace = substr($resourcePath, 1, (int) strpos($resourcePath, '/') - 1);
+        $resourceName = substr($resourcePath, (int) strpos($resourcePath, '/') + 1);
 
         $path = sprintf('%s/%s/views/%s', $theme->getPath(), $this->getBundleOrPluginName($twigNamespace), $resourceName);
 

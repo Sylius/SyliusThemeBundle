@@ -28,7 +28,7 @@ class UrlPackage extends BaseUrlPackage
     /** @var array<string> */
     private $baseUrls = [];
 
-    /** @var UrlPackage */
+    /** @var UrlPackage|null */
     private $sslPackage;
 
     /** @var ThemeContextInterface */
