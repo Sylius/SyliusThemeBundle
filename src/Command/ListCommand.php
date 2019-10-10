@@ -36,14 +36,14 @@ final class ListCommand extends ContainerAwareCommand
     /**
      * {@inheritdoc}
      */
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $themes = $this->getThemeRepository()->findAll();
 
         if (0 === count($themes)) {
             $output->writeln('<error>There are no themes.</error>');
 
-            return;
+            return 0;
         }
 
         $output->writeln('<question>Successfully loaded themes:</question>');
@@ -57,6 +57,8 @@ final class ListCommand extends ContainerAwareCommand
 
         $table->setStyle('borderless');
         $table->render();
+
+        return 0;
     }
 
     private function getThemeRepository(): ThemeRepositoryInterface

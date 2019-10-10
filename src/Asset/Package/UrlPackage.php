@@ -25,7 +25,7 @@ use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
  */
 class UrlPackage extends BaseUrlPackage
 {
-    /** @var array */
+    /** @var array<string> */
     private $baseUrls = [];
 
     /** @var UrlPackage */
@@ -98,6 +98,11 @@ class UrlPackage extends BaseUrlPackage
         return $this->getBaseUrl($path) . $url;
     }
 
+    /**
+     * @param array<string> $urls
+     *
+     * @return array<string>
+     */
     private function getSslUrls(array $urls): array
     {
         $sslUrls = [];

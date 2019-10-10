@@ -32,6 +32,13 @@ final class ThemeCollector extends DataCollector
     /** @var ThemeHierarchyProviderInterface */
     private $themeHierarchyProvider;
 
+    /**
+     * @var array
+     *
+     * @psalm-var array{used_theme: ?ThemeInterface, used_themes: ThemeInterface[], themes: ThemeInterface[]}
+     */
+    protected $data;
+
     public function __construct(
         ThemeRepositoryInterface $themeRepository,
         ThemeContextInterface $themeContext,

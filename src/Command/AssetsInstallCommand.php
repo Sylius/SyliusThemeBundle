@@ -48,7 +48,7 @@ final class AssetsInstallCommand extends ContainerAwareCommand
      *
      * @throws \InvalidArgumentException When the target directory does not exist or symlink cannot be used
      */
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         /** @var AssetsInstallerInterface $assetsInstaller */
         $assetsInstaller = $this->getContainer()->get('sylius.theme.asset.assets_installer');
@@ -67,6 +67,8 @@ final class AssetsInstallCommand extends ContainerAwareCommand
         }
 
         $assetsInstaller->installAssets($this->getTargetDir($input), $symlinkMask);
+
+        return 0;
     }
 
     private function getTargetDir(InputInterface $input): string
