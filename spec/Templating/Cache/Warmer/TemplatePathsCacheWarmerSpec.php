@@ -62,6 +62,6 @@ final class TemplatePathsCacheWarmerSpec extends ObjectBehavior
         $cache->save('Logical:Name:First|theme/name', '/First/Theme/index.html.twig')->shouldBeCalled();
         $cache->save('Logical:Name:Second|theme/name', null)->shouldBeCalled();
 
-        $this->warmUp(null);
+        $this->warmUp('');
     }
 }

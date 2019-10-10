@@ -7,7 +7,12 @@ includes:
 
 parameters:
     reportUnmatchedIgnoredErrors: false
+
     specDir: 'spec/'
+
+    excludes_analyse:
+        - %currentWorkingDirectory%/tests/Application/var/*
+
     ignoreErrors:
         # PHPStan integration
         - '/Call to an undefined method Prophecy\\Prophecy\\MethodProphecy::getRealPath\(\)/'
