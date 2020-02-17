@@ -67,10 +67,7 @@ class UrlPackage extends BaseUrlPackage
         $this->pathResolver = $pathResolver;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getUrl($path): string
+    public function getUrl(string $path): string
     {
         if ($this->isAbsoluteUrl($path)) {
             return $path;

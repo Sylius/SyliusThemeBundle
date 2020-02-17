@@ -20,7 +20,6 @@ use Sylius\Bundle\ThemeBundle\Repository\ThemeRepositoryInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -110,7 +109,6 @@ final class AssetsInstaller implements AssetsInstallerInterface
         $finder = new Finder();
         $finder->sortByName()->ignoreDotFiles(false)->in($originDir);
 
-        /** @var SplFileInfo[] $finder */
         foreach ($finder as $originFile) {
             $targetFile = $targetDir . '/' . $originFile->getRelativePathname();
             $targetFile = $this->pathResolver->resolve($targetFile, $theme);

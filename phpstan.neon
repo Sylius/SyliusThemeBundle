@@ -5,23 +5,18 @@ includes:
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
 parameters:
+    checkMissingIterableValueType: false
     reportUnmatchedIgnoredErrors: false
-
-    specDir: 'spec/'
+    treatPhpDocTypesAsCertain: false
 
     excludes_analyse:
-        - %currentWorkingDirectory%/tests/Application/var/*
+        # Test dependencies
+        - %currentWorkingDirectory%/spec/
+        - %currentWorkingDirectory%/tests/Application/var/
 
     ignoreErrors:
         # PHPStan integration
         - '/Call to an undefined method Prophecy\\Prophecy\\MethodProphecy::getRealPath\(\)/'
-
-        # Symfony 3.4 support
-        - '/Method Symfony\\Component\\HttpKernel\\KernelInterface::getBundle\(\) invoked with 2 parameters, 1 required/'
-        - '/Method Symfony\\Component\\HttpKernel\\KernelInterface::getBundle\(\) invoked with 2 parameters, 0-1 required/'
-        - '/Call to function method_exists\(\) with .Symfony\\\\Component…. and .getRootNode. will always evaluate to false/'
-        - '/Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder::getRootNode\(\)/'
-        - '/Class Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder does not have a constructor and must be instantiated without any parameters/'
 
         # Symfony caveats
         - '/Parameter \#1 \$name of method Symfony\\Component\\Config\\FileLocatorInterface::locate\(\) expects string, Symfony\\Component\\Templating\\TemplateReferenceInterface given/'
@@ -30,3 +25,8 @@ parameters:
         # Symfony passes TemplateReference object instead of a string
         - "/Casting to string something that\\'s already string./"
         - '/Parameter \#1 \$name of method Twig\\Loader\\LoaderInterface::[A-Za-z]+\(\) expects string, string\|Symfony\\Component\\Templating\\TemplateReference given\./'
+
+        - '/Method Sylius\\Bundle\\ThemeBundle\\Filesystem\\FilesystemInterface::[A-Za-z]+\(\) has no return typehint specified./'
+        - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::__call\(\) has no return typehint specified./'
+        - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::trans\(\) has parameter \$[A-Za-z]+ with no typehint specified./'
+        - '/Method Sylius\\Bundle\\ThemeBundle\\Templating\\Locator\\TemplateFileLocator::unserialize\(\) has parameter \$serialized with no typehint specified./'

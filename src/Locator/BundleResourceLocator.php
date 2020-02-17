@@ -66,7 +66,7 @@ final class BundleResourceLocator implements ResourceLocatorInterface
 
         // Symfony 4.0+ always returns a single bundle
         /** @var BundleInterface|BundleInterface[] $bundles */
-        $bundles = $this->kernel->getBundle($bundleName, false);
+        $bundles = $this->kernel->getBundle($bundleName);
 
         // So we need to hack it to support both Symfony 3.4 and Symfony 4.0+
         if (!is_array($bundles)) {

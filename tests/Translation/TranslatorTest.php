@@ -51,7 +51,7 @@ final class TranslatorTest extends TestCase
      * @dataProvider getInvalidLocalesTests
      * @expectedException \InvalidArgumentException
      */
-    public function it_throws_exception_on_instantiating_with_invalid_locale($locale): void
+    public function it_throws_exception_on_instantiating_with_invalid_locale(string $locale): void
     {
         $this->createTranslator($locale);
     }
@@ -60,7 +60,7 @@ final class TranslatorTest extends TestCase
      * @test
      * @dataProvider getAllValidLocalesTests
      */
-    public function it_instantiates_with_valid_locale($locale): void
+    public function it_instantiates_with_valid_locale(string $locale): void
     {
         $translator = $this->createTranslator($locale);
 
@@ -72,7 +72,7 @@ final class TranslatorTest extends TestCase
      * @dataProvider getInvalidLocalesTests
      * @expectedException \InvalidArgumentException
      */
-    public function its_throws_exception_on_setting_invalid_fallback_locales($locale): void
+    public function its_throws_exception_on_setting_invalid_fallback_locales(string $locale): void
     {
         $translator = $this->createTranslator('fr');
         $translator->setFallbackLocales(['fr', $locale]);
@@ -82,7 +82,7 @@ final class TranslatorTest extends TestCase
      * @test
      * @dataProvider getAllValidLocalesTests
      */
-    public function its_fallback_locales_can_be_set_only_if_valid($locale): void
+    public function its_fallback_locales_can_be_set_only_if_valid(string $locale): void
     {
         $translator = $this->createTranslator('fr');
         $translator->setFallbackLocales(['fr', $locale]);
@@ -94,7 +94,7 @@ final class TranslatorTest extends TestCase
      * @test
      * @dataProvider getAllValidLocalesTests
      */
-    public function it_adds_resources_with_valid_locales($locale): void
+    public function it_adds_resources_with_valid_locales(string $locale): void
     {
         $translator = $this->createTranslator('fr');
         $translator->addLoader('array', new ArrayLoader());
@@ -107,7 +107,7 @@ final class TranslatorTest extends TestCase
      * @test
      * @dataProvider getAllValidLocalesTests
      */
-    public function it_translates_valid_locales($locale): void
+    public function it_translates_valid_locales(string $locale): void
     {
         $translator = $this->createTranslator($locale);
         $translator->addLoader('array', new ArrayLoader());
@@ -153,7 +153,7 @@ final class TranslatorTest extends TestCase
      * @test
      * @dataProvider getThemelessLocalesTests
      */
-    public function it_gets_catalogue_with_fallback_catalogues_of_a_simple_locale($locale): void
+    public function it_gets_catalogue_with_fallback_catalogues_of_a_simple_locale(string $locale): void
     {
         $translator = $this->createTranslator($locale);
         $catalogue = new MessageCatalogue($locale);
@@ -165,7 +165,7 @@ final class TranslatorTest extends TestCase
      * @test
      * @dataProvider getThemedLocalesTests
      */
-    public function it_gets_catalogue_with_fallback_catalogues_of_a_themed_locale($locale): void
+    public function it_gets_catalogue_with_fallback_catalogues_of_a_themed_locale(string $locale): void
     {
         $translator = $this->createTranslator($locale);
 
@@ -269,10 +269,7 @@ final class TranslatorTest extends TestCase
         $this->assertEquals($catalogue, $translator->getCatalogue());
     }
 
-    /**
-     * @return array
-     */
-    public function getInvalidLocalesTests()
+    public function getInvalidLocalesTests(): array
     {
         return [
             ['fr FR'],
@@ -289,10 +286,7 @@ final class TranslatorTest extends TestCase
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getAllValidLocalesTests()
+    public function getAllValidLocalesTests(): array
     {
         return array_merge(
             $this->getThemedLocalesTests(),
@@ -300,10 +294,7 @@ final class TranslatorTest extends TestCase
         );
     }
 
-    /**
-     * @return array
-     */
-    public function getThemedLocalesTests()
+    public function getThemedLocalesTests(): array
     {
         return [
             ['fr@heron'],
@@ -316,10 +307,7 @@ final class TranslatorTest extends TestCase
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getThemelessLocalesTests()
+    public function getThemelessLocalesTests(): array
     {
         return [
             [''],
@@ -333,10 +321,7 @@ final class TranslatorTest extends TestCase
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getValidOptionsTests()
+    public function getValidOptionsTests(): array
     {
         return [
             [['cache_dir' => null, 'debug' => false]],
@@ -347,10 +332,7 @@ final class TranslatorTest extends TestCase
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getInvalidOptionsTests()
+    public function getInvalidOptionsTests(): array
     {
         return [
             [['heron' => '']],
@@ -360,10 +342,9 @@ final class TranslatorTest extends TestCase
     }
 
     /**
-     * @param string $locale
      * @param string[] $options
      */
-    private function createTranslator($locale = 'en', $options = []): Translator
+    private function createTranslator(string $locale = 'en', array $options = []): Translator
     {
         $loaderProvider = new TranslatorLoaderProvider();
         $resourceProvider = new TranslatorResourceProvider();

@@ -18,9 +18,6 @@ use Symfony\Component\HttpKernel\Kernel as HttpKernel;
 
 final class Kernel extends HttpKernel
 {
-    /**
-     * {@inheritdoc}
-     */
     public function registerBundles()
     {
         return [
@@ -31,10 +28,7 @@ final class Kernel extends HttpKernel
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/config/config.yml');
     }

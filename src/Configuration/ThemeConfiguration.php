@@ -24,28 +24,19 @@ final class ThemeConfiguration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        if (method_exists(TreeBuilder::class, 'getRootNode')) {
-            $treeBuilder = new TreeBuilder('sylius_theme');
+        $treeBuilder = new TreeBuilder('sylius_theme');
+        /** @var ArrayNodeDefinition $rootNode */
+        $rootNode = $treeBuilder->getRootNode();
 
-            /** @var ArrayNodeDefinition $rootNodeDefinition */
-            $rootNodeDefinition = $treeBuilder->getRootNode();
-        } else {
-            // BC layer for symfony/config 4.1 and older
-            $treeBuilder = new TreeBuilder();
+        $rootNode->ignoreExtraKeys();
 
-            /** @var ArrayNodeDefinition $rootNodeDefinition */
-            $rootNodeDefinition = $treeBuilder->root('sylius_theme');
-        }
-
-        $rootNodeDefinition->ignoreExtraKeys();
-
-        $this->addRequiredNameField($rootNodeDefinition);
-        $this->addOptionalTitleField($rootNodeDefinition);
-        $this->addOptionalDescriptionField($rootNodeDefinition);
-        $this->addOptionalPathField($rootNodeDefinition);
-        $this->addOptionalParentsList($rootNodeDefinition);
-        $this->addOptionalScreenshotsList($rootNodeDefinition);
-        $this->addOptionalAuthorsList($rootNodeDefinition);
+        $this->addRequiredNameField($rootNode);
+        $this->addOptionalTitleField($rootNode);
+        $this->addOptionalDescriptionField($rootNode);
+        $this->addOptionalPathField($rootNode);
+        $this->addOptionalParentsList($rootNode);
+        $this->addOptionalScreenshotsList($rootNode);
+        $this->addOptionalAuthorsList($rootNode);
 
         return $treeBuilder;
     }

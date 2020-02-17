@@ -45,6 +45,7 @@
 
         <InvalidArgument>
             <errorLevel type="suppress">
+                <referencedFunction name="Symfony\Component\Config\FileLocatorInterface::locate" />
                 <referencedFunction name="Symfony\Component\EventDispatcher\EventDispatcherInterface::dispatch" />
             </errorLevel>
         </InvalidArgument>
