@@ -16,17 +16,18 @@ namespace spec\Sylius\Bundle\ThemeBundle\Translation;
 use PhpSpec\ObjectBehavior;
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
+use Sylius\Bundle\ThemeBundle\Model\TranslatorBridgeInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
-use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ThemeAwareTranslatorSpec extends ObjectBehavior
 {
-    function let(LegacyTranslatorInterface $translator, ThemeContextInterface $themeContext): void
+    function let(TranslatorInterface $translator, ThemeContextInterface $themeContext): void
     {
         $translator->implement(TranslatorBagInterface::class);
+        $translator->implement(TranslatorBridgeInterface::class);
 
         $this->beConstructedWith($translator, $themeContext);
     }
@@ -34,11 +35,6 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
     function it_implements_translator_interface(): void
     {
         $this->shouldImplement(TranslatorInterface::class);
-    }
-
-    function it_implements_legacy_translator_interface(): void
-    {
-        $this->shouldImplement(LegacyTranslatorInterface::class);
     }
 
     function it_implements_translator_bag_interface(): void
@@ -51,14 +47,14 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
         $this->shouldImplement(WarmableInterface::class);
     }
 
-    function it_proxies_getting_the_locale_to_the_decorated_translator(LegacyTranslatorInterface $translator): void
+    function it_proxies_getting_the_locale_to_the_decorated_translator(TranslatorInterface $translator): void
     {
         $translator->getLocale()->willReturn('pl_PL');
 
         $this->getLocale()->shouldReturn('pl_PL');
     }
 
-    function it_proxies_setting_the_locale_to_the_decorated_translator(LegacyTranslatorInterface $translator): void
+    function it_proxies_setting_the_locale_to_the_decorated_translator(TranslatorInterface $translator): void
     {
         $translator->setLocale('pl_PL')->shouldBeCalled();
 
@@ -74,7 +70,7 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
         $this->getCatalogue('pl_PL')->shouldReturn($messageCatalogue);
     }
 
-    function it_just_proxies_translating(LegacyTranslatorInterface $translator, ThemeContextInterface $themeContext): void
+    function it_just_proxies_translating(TranslatorInterface $translator, ThemeContextInterface $themeContext): void
     {
         $themeContext->getTheme()->willReturn(null);
 
@@ -83,7 +79,7 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
         $this->trans('id', ['param'], 'domain')->shouldReturn('translated string');
     }
 
-    function it_just_proxies_translating_with_custom_locale(LegacyTranslatorInterface $translator, ThemeContextInterface $themeContext): void
+    function it_just_proxies_translating_with_custom_locale(TranslatorInterface $translator, ThemeContextInterface $themeContext): void
     {
         $themeContext->getTheme()->willReturn(null);
 
@@ -93,7 +89,7 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
     }
 
     function it_proxies_translating_with_modified_default_locale(
-        LegacyTranslatorInterface $translator,
+        TranslatorInterface $translator,
         ThemeContextInterface $themeContext,
         ThemeInterface $theme
     ): void {
@@ -107,7 +103,7 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
     }
 
     function it_proxies_translating_with_modified_custom_locale(
-        LegacyTranslatorInterface $translator,
+        TranslatorInterface $translator,
         ThemeContextInterface $themeContext,
         ThemeInterface $theme
     ): void {
@@ -119,7 +115,7 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
         $this->trans('id', ['param'], 'domain', 'customlocale')->shouldReturn('translated string');
     }
 
-    function it_just_proxies_choice_translating(LegacyTranslatorInterface $translator, ThemeContextInterface $themeContext): void
+    function it_just_proxies_choice_translating(TranslatorInterface $translator, ThemeContextInterface $themeContext): void
     {
         $themeContext->getTheme()->willReturn(null);
 
@@ -128,7 +124,7 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
         $this->transChoice('id', 2, ['param'], 'domain')->shouldReturn('translated string');
     }
 
-    function it_just_proxies_choice_translating_with_custom_locale(LegacyTranslatorInterface $translator, ThemeContextInterface $themeContext): void
+    function it_just_proxies_choice_translating_with_custom_locale(TranslatorInterface $translator, ThemeContextInterface $themeContext): void
     {
         $themeContext->getTheme()->willReturn(null);
 
@@ -138,7 +134,7 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
     }
 
     function it_proxies_choice_translating_with_modified_default_locale(
-        LegacyTranslatorInterface $translator,
+        TranslatorInterface $translator,
         ThemeContextInterface $themeContext,
         ThemeInterface $theme
     ): void {
@@ -152,7 +148,7 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
     }
 
     function it_proxies_choice_translating_with_modified_custom_locale(
-        LegacyTranslatorInterface $translator,
+        TranslatorInterface $translator,
         ThemeContextInterface $themeContext,
         ThemeInterface $theme
     ): void {

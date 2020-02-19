@@ -18,10 +18,12 @@ use Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourcePr
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\Formatter\MessageFormatter;
 use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
-use Symfony\Component\Translation\MessageSelector;
+use Symfony\Component\Translation\IdentityTranslator;
 use Symfony\Component\Translation\Translator as BaseTranslator;
+use Symfony\Contracts\Translation\LocaleAwareInterface;
+use Symfony\Component\Translation\MessageSelector;
 
-final class Translator extends BaseTranslator implements WarmableInterface
+final class Translator extends BaseTranslator implements WarmableInterface, LocaleAwareInterface
 {
     /** @var array */
     protected $options = [
@@ -39,7 +41,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
     private $resourcesLoaded = false;
 
     /**
-     * @param MessageSelector|MessageFormatterInterface $messageFormatterOrSelector
+     * @param IdentityTranslator|MessageFormatterInterface $messageFormatterOrSelector
      */
     public function __construct(
         TranslatorLoaderProviderInterface $loaderProvider,
@@ -172,8 +174,8 @@ final class Translator extends BaseTranslator implements WarmableInterface
      */
     private function provideMessageFormatter($messageFormatterOrSelector): MessageFormatterInterface
     {
-        if ($messageFormatterOrSelector instanceof MessageSelector) {
-            @trigger_error(sprintf('Passing a "%s" instance into the "%s" as a third argument is deprecated since Sylius 1.2 and will be removed in 2.0. Inject a "%s" implementation instead.', MessageSelector::class, __METHOD__, MessageFormatterInterface::class), \E_USER_DEPRECATED);
+        if ($messageFormatterOrSelector instanceof IdentityTranslator) {
+            @trigger_error(sprintf('Passing a "%s" instance into the "%s" as a third argument is deprecated since Sylius 1.2 and will be removed in 2.0. Inject a "%s" implementation instead.', IdentityTranslator::class, __METHOD__, MessageFormatterInterface::class), \E_USER_DEPRECATED);
 
             /** @psalm-suppress InvalidArgument */
             return new MessageFormatter($messageFormatterOrSelector);
@@ -186,8 +188,23 @@ final class Translator extends BaseTranslator implements WarmableInterface
         throw new \UnexpectedValueException(sprintf(
             'Expected an instance of "%s" or "%s", got "%s"!',
             MessageFormatterInterface::class,
-            MessageSelector::class,
+            IdentityTranslator::class,
             is_object($messageFormatterOrSelector) ? get_class($messageFormatterOrSelector) : gettype($messageFormatterOrSelector)
         ));
+    }
+
+    public function getLocale(): string
+    {
+        return parent::getLocale();
+    }
+
+    /**
+     * @psalm-suppress MissingReturnType
+     *
+     * @param string $locale
+     */
+    public function setLocale($locale)
+    {
+        parent::setLocale($locale);
     }
 }

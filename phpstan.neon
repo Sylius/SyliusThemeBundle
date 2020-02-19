@@ -30,3 +30,5 @@ parameters:
         - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::__call\(\) has no return typehint specified./'
         - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::trans\(\) has parameter \$[A-Za-z]+ with no typehint specified./'
         - '/Method Sylius\\Bundle\\ThemeBundle\\Templating\\Locator\\TemplateFileLocator::unserialize\(\) has parameter \$serialized with no typehint specified./'
+        - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\Translator::setLocale\(\) has no return typehint specified./'
+        - '/Property Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::\$translator \(Sylius\\Bundle\\ThemeBundle\\Model\\TranslatorBridgeInterface\&Symfony\\Component\\Translation\\TranslatorBagInterface\&Symfony\\Contracts\\Translation\\TranslatorInterface\) does not accept Symfony\\Component\\Translation\\TranslatorBagInterface\&Symfony\\Contracts\\Translation\\TranslatorInterface./'

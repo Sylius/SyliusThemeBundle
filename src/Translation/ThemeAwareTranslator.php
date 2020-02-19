@@ -14,22 +14,22 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\Translation;
 
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
+use Sylius\Bundle\ThemeBundle\Model\TranslatorBridgeInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
-use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
-use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagInterface, WarmableInterface, LocaleAwareInterface, LegacyTranslatorInterface
+final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagInterface, WarmableInterface, TranslatorBridgeInterface
 {
-    /** @var LegacyTranslatorInterface&TranslatorBagInterface */
+    /** @var TranslatorInterface&TranslatorBagInterface&TranslatorBridgeInterface */
     private $translator;
 
     /** @var ThemeContextInterface */
     private $themeContext;
 
-    public function __construct(LegacyTranslatorInterface $translator, ThemeContextInterface $themeContext)
+    /** * @psalm-suppress InvalidPropertyAssignmentValue */
+    public function __construct(TranslatorInterface $translator, ThemeContextInterface $themeContext)
     {
         if (!$translator instanceof TranslatorBagInterface) {
             throw new \InvalidArgumentException(sprintf(
@@ -61,8 +61,13 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         return $this->translator->trans($id, $parameters, $domain, $this->transformLocale($locale));
     }
 
-    public function transChoice($id, $number, array $parameters = [], $domain = null, $locale = null): string
-    {
+    public function transChoice(
+        string $id,
+        int $number,
+        array $parameters = [],
+        ?string $domain = null,
+        ?string $locale = null
+    ): string {
         return $this->translator->transChoice($id, $number, $parameters, $domain, $this->transformLocale($locale));
     }
 
