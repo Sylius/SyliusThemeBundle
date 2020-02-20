@@ -103,10 +103,7 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
         $this->assertContainerBuilderHasService('sylius.theme.translation.translator');
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
+    protected function registerCompilerPass(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new TranslatorFallbackLocalesPass());
     }

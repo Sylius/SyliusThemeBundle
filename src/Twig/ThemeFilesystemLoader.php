@@ -74,6 +74,7 @@ final class ThemeFilesystemLoader implements LoaderInterface, ExistsLoaderInterf
 
     /**
      * @param string|TemplateReference $name
+     * @param int $time
      */
     public function isFresh($name, $time): bool
     {

@@ -32,9 +32,6 @@ final class BundleResourceLocator implements ResourceLocatorInterface
         $this->kernel = $kernel;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function locateResource(string $resourcePath, ThemeInterface $theme): string
     {
         $this->assertResourcePathIsValid($resourcePath);
@@ -64,21 +61,13 @@ final class BundleResourceLocator implements ResourceLocatorInterface
         $bundleName = substr($resourcePath, 1, (int) strpos($resourcePath, '/') - 1);
         $resourceName = substr($resourcePath, (int) strpos($resourcePath, 'Resources/') + strlen('Resources/'));
 
-        // Symfony 4.0+ always returns a single bundle
-        /** @var BundleInterface|BundleInterface[] $bundles */
-        $bundles = $this->kernel->getBundle($bundleName, false);
+        /** @var BundleInterface $bundle */
+        $bundle = $this->kernel->getBundle($bundleName);
 
-        // So we need to hack it to support both Symfony 3.4 and Symfony 4.0+
-        if (!is_array($bundles)) {
-            $bundles = [$bundles];
-        }
+        $path = sprintf('%s/%s/%s', $theme->getPath(), $bundle->getName(), $resourceName);
 
-        foreach ($bundles as $bundle) {
-            $path = sprintf('%s/%s/%s', $theme->getPath(), $bundle->getName(), $resourceName);
-
-            if ($this->filesystem->exists($path)) {
-                return $path;
-            }
+        if ($this->filesystem->exists($path)) {
+            return $path;
         }
 
         throw new ResourceNotFoundException($resourcePath, $theme);

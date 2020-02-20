@@ -5,8 +5,7 @@ php:
     - 7.3
 
 env:
-    - SYMFONY_VERSION=3.4.*
-    - SYMFONY_VERSION=4.3.*
+    - SYMFONY_VERSION=4.4.*
 
 cache:
     directories:
@@ -21,6 +20,7 @@ install:
             symfony/asset:${SYMFONY_VERSION} \
             symfony/config:${SYMFONY_VERSION} \
             symfony/console:${SYMFONY_VERSION} \
+            symfony/dom-crawler:${SYMFONY_VERSION} \
             symfony/dependency-injection:${SYMFONY_VERSION} \
             symfony/filesystem:${SYMFONY_VERSION} \
             symfony/finder:${SYMFONY_VERSION} \

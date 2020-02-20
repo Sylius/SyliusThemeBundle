@@ -33,33 +33,13 @@ final class BundleResourceLocatorSpec extends ObjectBehavior
         $this->shouldImplement(ResourceLocatorInterface::class);
     }
 
-    function it_locates_bundle_resource_using_path_derived_from_bundle_notation_and_symfony3_kernel_behaviour(
-        Filesystem $filesystem,
-        KernelInterface $kernel,
-        ThemeInterface $theme,
-        BundleInterface $childBundle,
-        BundleInterface $parentBundle
-    ): void {
-        $kernel->getBundle('ParentBundle', false)->willReturn([$childBundle, $parentBundle]);
-
-        $childBundle->getName()->willReturn('ChildBundle');
-        $parentBundle->getName()->willReturn('ParentBundle');
-
-        $theme->getPath()->willReturn('/theme/path');
-
-        $filesystem->exists('/theme/path/ChildBundle/views/Directory/index.html.twig')->shouldBeCalled()->willReturn(false);
-        $filesystem->exists('/theme/path/ParentBundle/views/Directory/index.html.twig')->shouldBeCalled()->willReturn(true);
-
-        $this->locateResource('@ParentBundle/Resources/views/Directory/index.html.twig', $theme)->shouldReturn('/theme/path/ParentBundle/views/Directory/index.html.twig');
-    }
-
     function it_locates_bundle_resource_using_path_derived_from_bundle_notation_and_symfony4_kernel_behaviour(
         Filesystem $filesystem,
         KernelInterface $kernel,
         ThemeInterface $theme,
         BundleInterface $justBundle
     ): void {
-        $kernel->getBundle('JustBundle', false)->willReturn($justBundle);
+        $kernel->getBundle('JustBundle')->willReturn($justBundle);
 
         $justBundle->getName()->willReturn('JustBundle');
 
@@ -74,21 +54,18 @@ final class BundleResourceLocatorSpec extends ObjectBehavior
         Filesystem $filesystem,
         KernelInterface $kernel,
         ThemeInterface $theme,
-        BundleInterface $childBundle,
-        BundleInterface $parentBundle
+        BundleInterface $bundle
     ): void {
-        $kernel->getBundle('ParentBundle', false)->willReturn([$childBundle, $parentBundle]);
+        $kernel->getBundle('Bundle')->willReturn( $bundle);
 
-        $childBundle->getName()->willReturn('ChildBundle');
-        $parentBundle->getName()->willReturn('ParentBundle');
+        $bundle->getName()->willReturn('Bundle');
 
         $theme->getName()->willReturn('theme/name');
         $theme->getPath()->willReturn('/theme/path');
 
-        $filesystem->exists('/theme/path/ChildBundle/views/Directory/index.html.twig')->shouldBeCalled()->willReturn(false);
-        $filesystem->exists('/theme/path/ParentBundle/views/Directory/index.html.twig')->shouldBeCalled()->willReturn(false);
+        $filesystem->exists('/theme/path/Bundle/views/Directory/index.html.twig')->shouldBeCalled()->willReturn(false);
 
-        $this->shouldThrow(ResourceNotFoundException::class)->during('locateResource', ['@ParentBundle/Resources/views/Directory/index.html.twig', $theme]);
+        $this->shouldThrow(ResourceNotFoundException::class)->during('locateResource', ['@Bundle/Resources/views/Directory/index.html.twig', $theme]);
     }
 
     function it_locates_bundle_resource_using_path_derived_from_twig_namespaces(
