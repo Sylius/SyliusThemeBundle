@@ -32,7 +32,7 @@ interface FilesystemInterface
      * @throws FileNotFoundException When originFile doesn't exist
      * @throws IOException           When copy fails
      */
-    public function copy(string $originFile, string $targetFile, bool $override = false);
+    public function copy($originFile, $targetFile, $override = false);
 
     /**
      * Creates a directory recursively.
@@ -42,7 +42,7 @@ interface FilesystemInterface
      *
      * @throws IOException On any directory creation failure
      */
-    public function mkdir($dirs, int $mode = 0777);
+    public function mkdir($dirs, $mode = 0777);
 
     /**
      * Checks the existence of files or directories.
@@ -62,7 +62,7 @@ interface FilesystemInterface
      *
      * @throws IOException When touch fails
      */
-    public function touch($files, int $time = null, int $atime = null);
+    public function touch($files, $time = null, $atime = null);
 
     /**
      * Removes files or directories.
@@ -83,7 +83,7 @@ interface FilesystemInterface
      *
      * @throws IOException When the change fail
      */
-    public function chmod($files, int $mode, int $umask = 0000, bool $recursive = false);
+    public function chmod($files, $mode, $umask = 0000, $recursive = false);
 
     /**
      * Change the owner of an array of files or directories.
@@ -94,7 +94,7 @@ interface FilesystemInterface
      *
      * @throws IOException When the change fail
      */
-    public function chown($files, string $user, bool $recursive = false);
+    public function chown($files, $user, $recursive = false);
 
     /**
      * Change the group of an array of files or directories.
@@ -105,7 +105,7 @@ interface FilesystemInterface
      *
      * @throws IOException When the change fail
      */
-    public function chgrp($files, string $group, bool $recursive = false);
+    public function chgrp($files, $group, $recursive = false);
 
     /**
      * Renames a file or a directory.
@@ -117,7 +117,7 @@ interface FilesystemInterface
      * @throws IOException When target file or directory already exists
      * @throws IOException When origin cannot be renamed
      */
-    public function rename(string $origin, string $target, bool $overwrite = false);
+    public function rename($origin, $target, $overwrite = false);
 
     /**
      * Creates a symbolic link or copy a directory.
@@ -128,7 +128,7 @@ interface FilesystemInterface
      *
      * @throws IOException When symlink fails
      */
-    public function symlink(string $originDir, string $targetDir, bool $copyOnWindows = false);
+    public function symlink($originDir, $targetDir, $copyOnWindows = false);
 
     /**
      * Mirrors a directory to another.
@@ -144,7 +144,7 @@ interface FilesystemInterface
      *
      * @throws IOException When file type is unknown
      */
-    public function mirror(string $originDir, string $targetDir, \Traversable $iterator = null, array $options = []);
+    public function mirror($originDir, $targetDir, \Traversable $iterator = null, $options = []);
 
     /**
      * Given an existing path, convert it to a path relative to a given starting path.
@@ -154,7 +154,7 @@ interface FilesystemInterface
      *
      * @return string Path of target relative to starting path
      */
-    public function makePathRelative(string $endPath, string $startPath);
+    public function makePathRelative($endPath, $startPath);
 
     /**
      * Returns whether the file path is an absolute path.
@@ -163,7 +163,7 @@ interface FilesystemInterface
      *
      * @return bool
      */
-    public function isAbsolutePath(string $file);
+    public function isAbsolutePath($file);
 
     public function getFileContents(string $file): string;
 }

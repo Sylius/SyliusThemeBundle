@@ -301,9 +301,7 @@ final class TranslatorTest extends TestCase
             ['francais@heron'],
             ['FR@heron'],
             ['frFR@heron'],
-            ['fr-FR@heron'],
             ['fr.FR@heron'],
-            ['fr-FR.UTF8@heron'],
         ];
     }
 
@@ -315,9 +313,7 @@ final class TranslatorTest extends TestCase
             ['francais'],
             ['FR'],
             ['frFR'],
-            ['fr-FR'],
             ['fr.FR'],
-            ['fr-FR.UTF8'],
         ];
     }
 
