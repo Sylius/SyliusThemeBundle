@@ -15,7 +15,7 @@ namespace Sylius\Bundle\ThemeBundle\Command;
 
 use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface;
 use Sylius\Bundle\ThemeBundle\Asset\Installer\OutputAwareInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -24,8 +24,22 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Command that places themes web assets into a given directory.
  */
-final class AssetsInstallCommand extends ContainerAwareCommand
+final class AssetsInstallCommand extends Command
 {
+    /** @var AssetsInstallerInterface */
+    private $assetsInstaller;
+
+    /** @var string */
+    private $publicDir;
+
+    public function __construct(AssetsInstallerInterface $assetsInstaller, string $publicDir)
+    {
+        parent::__construct(null);
+
+        $this->assetsInstaller = $assetsInstaller;
+        $this->publicDir = $publicDir;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -50,10 +64,8 @@ final class AssetsInstallCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
-        /** @var AssetsInstallerInterface $assetsInstaller */
-        $assetsInstaller = $this->getContainer()->get('sylius.theme.asset.assets_installer');
-        if ($assetsInstaller instanceof OutputAwareInterface) {
-            $assetsInstaller->setOutput($output);
+        if ($this->assetsInstaller instanceof OutputAwareInterface) {
+            $this->assetsInstaller->setOutput($output);
         }
 
         $symlinkMask = AssetsInstallerInterface::HARD_COPY;
@@ -66,7 +78,7 @@ final class AssetsInstallCommand extends ContainerAwareCommand
             $symlinkMask = max($symlinkMask, AssetsInstallerInterface::RELATIVE_SYMLINK);
         }
 
-        $assetsInstaller->installAssets($this->getTargetDir($input), $symlinkMask);
+        $this->assetsInstaller->installAssets($this->getTargetDir($input), $symlinkMask);
 
         return 0;
     }
@@ -74,7 +86,7 @@ final class AssetsInstallCommand extends ContainerAwareCommand
     private function getTargetDir(InputInterface $input): string
     {
         if ($input->getArgument('target') === null) {
-            return $this->getContainer()->getParameter('sylius_core.public_dir');
+            return $this->publicDir;
         }
 
         /** @var string $target */
