@@ -30,3 +30,4 @@ parameters:
         - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::__call\(\) has no return typehint specified./'
         - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::trans\(\) has parameter \$[A-Za-z]+ with no typehint specified./'
         - '/Method Sylius\\Bundle\\ThemeBundle\\Templating\\Locator\\TemplateFileLocator::unserialize\(\) has parameter \$serialized with no typehint specified./'
+        - '/Method Sylius\\Bundle\\ThemeBundle\\Asset\\Package\\[A-Za-z]+::getUrl\(\) has parameter \$path with no typehint specified./'

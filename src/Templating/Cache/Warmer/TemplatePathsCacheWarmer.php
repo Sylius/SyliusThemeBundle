@@ -51,7 +51,7 @@ final class TemplatePathsCacheWarmer implements CacheWarmerInterface
     /**
      * {@inheritdoc}
      */
-    public function warmUp($cacheDir): void
+    public function warmUp(string $cacheDir): void
     {
         $templates = $this->templateFinder->findAllTemplates();
 

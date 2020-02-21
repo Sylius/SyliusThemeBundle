@@ -82,12 +82,12 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         $this->translator->setLocale($locale);
     }
 
-    public function getCatalogue($locale = null): MessageCatalogueInterface
+    public function getCatalogue(string $locale = null): MessageCatalogueInterface
     {
         return $this->translator->getCatalogue($locale);
     }
 
-    public function warmUp($cacheDir): void
+    public function warmUp(string $cacheDir): void
     {
         if ($this->translator instanceof WarmableInterface) {
             $this->translator->warmUp($cacheDir);

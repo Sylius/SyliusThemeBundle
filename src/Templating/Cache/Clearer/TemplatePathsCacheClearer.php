@@ -30,7 +30,7 @@ final class TemplatePathsCacheClearer implements CacheClearerInterface
     /**
      * {@inheritdoc}
      */
-    public function clear($cacheDir): void
+    public function clear(string $cacheDir): void
     {
         if (!$this->cache instanceof ClearableCache) {
             return;
