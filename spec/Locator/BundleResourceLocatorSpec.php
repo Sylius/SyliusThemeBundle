@@ -45,9 +45,9 @@ final class BundleResourceLocatorSpec extends ObjectBehavior
 
         $theme->getPath()->willReturn('/theme/path');
 
-        $filesystem->exists('/theme/path/JustBundle/views/Directory/index.html.twig')->shouldBeCalled()->willReturn(true);
+        $filesystem->exists('/theme/path/templates/bundles/JustBundle/Directory/index.html.twig')->shouldBeCalled()->willReturn(true);
 
-        $this->locateResource('@JustBundle/Resources/views/Directory/index.html.twig', $theme)->shouldReturn('/theme/path/JustBundle/views/Directory/index.html.twig');
+        $this->locateResource('@JustBundle/Resources/views/Directory/index.html.twig', $theme)->shouldReturn('/theme/path/templates/bundles/JustBundle/Directory/index.html.twig');
     }
 
     function it_throws_an_exception_if_resource_can_not_be_located_using_path_derived_from_bundle_notation(
@@ -56,14 +56,14 @@ final class BundleResourceLocatorSpec extends ObjectBehavior
         ThemeInterface $theme,
         BundleInterface $bundle
     ): void {
-        $kernel->getBundle('Bundle')->willReturn( $bundle);
+        $kernel->getBundle('Bundle')->willReturn($bundle);
 
         $bundle->getName()->willReturn('Bundle');
 
         $theme->getName()->willReturn('theme/name');
         $theme->getPath()->willReturn('/theme/path');
 
-        $filesystem->exists('/theme/path/Bundle/views/Directory/index.html.twig')->shouldBeCalled()->willReturn(false);
+        $filesystem->exists('/theme/path/templates/bundles/Bundle/Directory/index.html.twig')->shouldBeCalled()->willReturn(false);
 
         $this->shouldThrow(ResourceNotFoundException::class)->during('locateResource', ['@Bundle/Resources/views/Directory/index.html.twig', $theme]);
     }
@@ -74,9 +74,9 @@ final class BundleResourceLocatorSpec extends ObjectBehavior
     ): void {
         $theme->getPath()->willReturn('/theme/path');
 
-        $filesystem->exists('/theme/path/JustBundle/views/Directory/index.html.twig')->shouldBeCalled()->willReturn(true);
+        $filesystem->exists('/theme/path/templates/bundles/JustBundle/Directory/index.html.twig')->shouldBeCalled()->willReturn(true);
 
-        $this->locateResource('@Just/Directory/index.html.twig', $theme)->shouldReturn('/theme/path/JustBundle/views/Directory/index.html.twig');
+        $this->locateResource('@Just/Directory/index.html.twig', $theme)->shouldReturn('/theme/path/templates/bundles/JustBundle/Directory/index.html.twig');
     }
 
     function it_locates_plugin_resource_using_path_derived_from_twig_namespaces(
@@ -85,9 +85,9 @@ final class BundleResourceLocatorSpec extends ObjectBehavior
     ): void {
         $theme->getPath()->willReturn('/theme/path');
 
-        $filesystem->exists('/theme/path/JustPlugin/views/Directory/index.html.twig')->shouldBeCalled()->willReturn(true);
+        $filesystem->exists('/theme/path/templates/bundles/JustPlugin/Directory/index.html.twig')->shouldBeCalled()->willReturn(true);
 
-        $this->locateResource('@JustPlugin/Directory/index.html.twig', $theme)->shouldReturn('/theme/path/JustPlugin/views/Directory/index.html.twig');
+        $this->locateResource('@JustPlugin/Directory/index.html.twig', $theme)->shouldReturn('/theme/path/templates/bundles/JustPlugin/Directory/index.html.twig');
     }
 
     function it_throws_an_exception_if_resource_can_not_be_located_using_path_derived_from_twig_namespaces(
@@ -97,7 +97,7 @@ final class BundleResourceLocatorSpec extends ObjectBehavior
         $theme->getName()->willReturn('theme/name');
         $theme->getPath()->willReturn('/theme/path');
 
-        $filesystem->exists('/theme/path/JustBundle/views/Directory/index.html.twig')->shouldBeCalled()->willReturn(false);
+        $filesystem->exists('/theme/path/templates/bundles/JustBundle/Directory/index.html.twig')->shouldBeCalled()->willReturn(false);
 
         $this->shouldThrow(ResourceNotFoundException::class)->during('locateResource', ['@Just/Directory/index.html.twig', $theme]);
     }

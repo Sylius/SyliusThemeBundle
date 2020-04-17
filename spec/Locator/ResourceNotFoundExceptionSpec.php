@@ -22,7 +22,7 @@ final class ResourceNotFoundExceptionSpec extends ObjectBehavior
     {
         $theme->getName()->willReturn('theme/name');
 
-        $this->beConstructedWith('resource name', $theme);
+        $this->beConstructedWith('resource name', [$theme]);
     }
 
     function it_is_a_runtime_exception(): void
@@ -32,6 +32,16 @@ final class ResourceNotFoundExceptionSpec extends ObjectBehavior
 
     function it_has_custom_message(): void
     {
-        $this->getMessage()->shouldReturn('Could not find resource "resource name" using theme "theme/name".');
+        $this->getMessage()->shouldReturn('Could not find template "resource name" using themes "theme/name".');
+    }
+
+    function it_has_custom_message_with_multiple_themes(ThemeInterface $firstTheme, ThemeInterface $secondTheme): void
+    {
+        $firstTheme->getName()->willReturn('theme/first');
+        $secondTheme->getName()->willReturn('theme/second');
+
+        $this->beConstructedWith('resource name', [$firstTheme, $secondTheme]);
+
+        $this->getMessage()->shouldReturn('Could not find template "resource name" using themes "theme/first", "theme/second".');
     }
 }

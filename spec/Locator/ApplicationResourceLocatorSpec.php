@@ -35,9 +35,9 @@ final class ApplicationResourceLocatorSpec extends ObjectBehavior
     {
         $theme->getPath()->willReturn('/theme/path');
 
-        $filesystem->exists('/theme/path/resource')->willReturn(true);
+        $filesystem->exists('/theme/path/templates/resource')->willReturn(true);
 
-        $this->locateResource('resource', $theme)->shouldReturn('/theme/path/resource');
+        $this->locateResource('resource', $theme)->shouldReturn('/theme/path/templates/resource');
     }
 
     function it_throws_an_exception_if_resource_can_not_be_located(Filesystem $filesystem, ThemeInterface $theme): void
@@ -45,7 +45,7 @@ final class ApplicationResourceLocatorSpec extends ObjectBehavior
         $theme->getName()->willReturn('theme/name');
         $theme->getPath()->willReturn('/theme/path');
 
-        $filesystem->exists('/theme/path/resource')->willReturn(false);
+        $filesystem->exists('/theme/path/templates/resource')->willReturn(false);
 
         $this->shouldThrow(ResourceNotFoundException::class)->during('locateResource', ['resource', $theme]);
     }
