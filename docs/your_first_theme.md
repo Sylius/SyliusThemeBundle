@@ -26,24 +26,21 @@ When adding or removing a theme, it's necessary to rebuild the container (same a
 ### Theme structure
 
 Themes can override and add both bundle resources and app resources. When your theme configuration is in `SampleTheme/theme.json`,
-app resources should be located at `SampleTheme/views` for templates, `SampleTheme/translations` for translations and `SampleTheme/public` for assets.
-Same comes with the bundle resources, eg. for `FOSUserBundle` the paths should be located at `SampleTheme/FOSUserBundle/views`,
-`SampleTheme/FOSUserBundle/translations` and `SampleTheme/FOSUserBundle/public` respectively.
+app resources should be located at `SampleTheme/templates` for templates, `SampleTheme/translations` for translations and `SampleTheme/public` for assets.
+To override a specific bundle's template (eg. `FOSUserBundle`), put it in `SampleTheme/templates/buncles/FOSUserBundle` directory.
 
 ```
 AcmeTheme
-├── AcmeBundle
-│   ├── public
-│   │   └── asset.jpg
-│   ├── translations
-│   │   └── messages.en.yml
-│   └── views
-│       └── template.html.twig
 ├── composer.json
-├── translations
-│   └── messages.en.yml
-└── views
-    └── template.html.twig
+├── public
+│   └── asset.jpg
+├── templates
+│   ├── bundles
+│   │   └── AcmeBundle
+│   │       └── bundleTemplate.html.twig
+|   └── template.html.twig
+└── translations
+    └── messages.en.yml
 ```
 
 ### Enabling themes
