@@ -33,7 +33,6 @@ install:
             symfony/http-foundation:${SYMFONY_VERSION} \
             symfony/http-kernel:${SYMFONY_VERSION} \
             symfony/options-resolver:${SYMFONY_VERSION} \
-            symfony/templating:${SYMFONY_VERSION} \
             symfony/translation:${SYMFONY_VERSION} \
             --no-update --no-scripts
     - |
