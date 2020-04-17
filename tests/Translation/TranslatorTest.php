@@ -18,6 +18,8 @@ use PHPUnit\Framework\TestCase;
 use Sylius\Bundle\ThemeBundle\Translation\Provider\Loader\TranslatorLoaderProvider;
 use Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProvider;
 use Sylius\Bundle\ThemeBundle\Translation\Translator;
+use Symfony\Component\Translation\Formatter\IntlFormatterInterface;
+use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\MessageSelector;
@@ -344,7 +346,7 @@ final class TranslatorTest extends TestCase
     {
         $loaderProvider = new TranslatorLoaderProvider();
         $resourceProvider = new TranslatorResourceProvider();
-        $messageSelector = $this->getMockBuilder(MessageSelector::class)->getMock();
+        $messageSelector = $this->getMockBuilder([IntlFormatterInterface::class, MessageFormatterInterface::class])->getMock();
 
         return new Translator($loaderProvider, $resourceProvider, $messageSelector, $locale, $options);
     }

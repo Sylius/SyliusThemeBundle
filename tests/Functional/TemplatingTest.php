@@ -19,29 +19,6 @@ final class TemplatingTest extends WebTestCase
 {
     /**
      * @test
-     * @dataProvider getBundleTemplates
-     */
-    public function it_renders_bundle_templates(string $templateName, string $contents): void
-    {
-        $client = self::createClient();
-
-        $crawler = $client->request('GET', '/template/' . $templateName);
-        $this->assertEquals($contents, trim($crawler->text()));
-    }
-
-    public function getBundleTemplates(): array
-    {
-        return [
-            ['TestBundle:Templating:vanillaTemplate.txt.twig', 'TestBundle:Templating:vanillaTemplate.txt.twig'],
-            ['TestBundle:Templating:vanillaOverriddenTemplate.txt.twig', 'TestBundle:Templating:vanillaOverriddenTemplate.txt.twig (app overridden)'],
-            ['TestBundle:Templating:vanillaOverriddenThemeTemplate.txt.twig', 'TestBundle:Templating:vanillaOverriddenThemeTemplate.txt.twig|sylius/first-test-theme'],
-            ['TestBundle:Templating:bothThemesTemplate.txt.twig', 'TestBundle:Templating:bothThemesTemplate.txt.twig|sylius/first-test-theme'],
-            ['TestBundle:Templating:lastThemeTemplate.txt.twig', 'TestBundle:Templating:lastThemeTemplate.txt.twig|sylius/second-test-theme'],
-        ];
-    }
-
-    /**
-     * @test
      * @dataProvider getBundleTemplatesUsingNamespacedPaths
      */
     public function it_renders_bundle_templates_using_namespaced_paths(string $templateName, string $contents): void
@@ -85,27 +62,6 @@ final class TemplatingTest extends WebTestCase
         return [
             ['@TestPlugin/Templating/twigNamespacedVanillaOverriddenThemeTemplate.txt.twig', '@TestPlugin/Templating/twigNamespacedVanillaOverriddenThemeTemplate.txt.twig|sylius/first-test-theme'],
             ['@TestPlugin/Templating/twigNamespacedBothThemesTemplate.txt.twig', '@TestPlugin/Templating/twigNamespacedBothThemesTemplate.txt.twig|sylius/first-test-theme'],
-        ];
-    }
-
-    /**
-     * @test
-     * @dataProvider getAppTemplates
-     */
-    public function it_renders_application_templates(string $templateName, string $contents): void
-    {
-        $client = self::createClient();
-
-        $crawler = $client->request('GET', '/template/' . $templateName);
-        $this->assertEquals($contents, trim($crawler->text()));
-    }
-
-    public function getAppTemplates(): array
-    {
-        return [
-            [':Templating:vanillaTemplate.txt.twig', ':Templating:vanillaTemplate.txt.twig'],
-            [':Templating:bothThemesTemplate.txt.twig', ':Templating:bothThemesTemplate.txt.twig|sylius/first-test-theme'],
-            [':Templating:lastThemeTemplate.txt.twig', ':Templating:lastThemeTemplate.txt.twig|sylius/second-test-theme'],
         ];
     }
 

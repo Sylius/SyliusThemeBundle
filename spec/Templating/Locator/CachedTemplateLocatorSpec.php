@@ -45,7 +45,7 @@ final class CachedTemplateLocatorSpec extends ObjectBehavior
         $cache->contains('Logical:Name|theme/name')->willReturn(true);
         $cache->fetch('Logical:Name|theme/name')->willReturn('/template.html.twig');
 
-        $decoratedTemplateLocator->locateTemplate(Argument::cetera())->shouldNotBeCalled();
+        $decoratedTemplateLocator->locate(Argument::cetera())->shouldNotBeCalled();
 
         $this->locateTemplate($template, $theme)->shouldReturn('/template.html.twig');
     }
@@ -62,7 +62,7 @@ final class CachedTemplateLocatorSpec extends ObjectBehavior
         $cache->contains('Logical:Name|theme/name')->willReturn(false);
         $cache->fetch(Argument::cetera())->shouldNotBeCalled();
 
-        $decoratedTemplateLocator->locateTemplate($template, $theme)->willReturn('/template.html.twig');
+        $decoratedTemplateLocator->locate($template, $theme)->willReturn('/template.html.twig');
 
         $this->locateTemplate($template, $theme)->shouldReturn('/template.html.twig');
     }
@@ -80,8 +80,8 @@ final class CachedTemplateLocatorSpec extends ObjectBehavior
         $cache->contains('Logical:Name|theme/name')->willReturn(true);
         $cache->fetch('Logical:Name|theme/name')->willReturn(null);
 
-        $decoratedTemplateLocator->locateTemplate(Argument::cetera())->shouldNotBeCalled();
+        $decoratedTemplateLocator->locate(Argument::cetera())->shouldNotBeCalled();
 
-        $this->shouldThrow(ResourceNotFoundException::class)->during('locateTemplate', [$template, $theme]);
+        $this->shouldThrow(ResourceNotFoundException::class)->during('locate', [$template, $theme]);
     }
 }

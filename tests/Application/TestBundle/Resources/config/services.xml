@@ -16,7 +16,7 @@ file that was distributed with this source code.
         <defaults public="true" />
 
         <service id="Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\Controller\TemplatingController">
-            <argument type="service" id="templating" />
+            <argument type="service" id="twig" />
         </service>
 
         <service id="test.sylius_theme.request_listener" class="Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\Listener\RequestListener">

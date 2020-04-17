@@ -176,7 +176,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
             @trigger_error(sprintf('Passing a "%s" instance into the "%s" as a third argument is deprecated since Sylius 1.2 and will be removed in 2.0. Inject a "%s" implementation instead.', MessageSelector::class, __METHOD__, MessageFormatterInterface::class), \E_USER_DEPRECATED);
 
             /** @psalm-suppress InvalidArgument */
-            return new MessageFormatter($messageFormatterOrSelector);
+            return new MessageFormatter($this, $messageFormatterOrSelector);
         }
 
         if ($messageFormatterOrSelector instanceof MessageFormatterInterface) {

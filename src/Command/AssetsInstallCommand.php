@@ -16,10 +16,13 @@ namespace Sylius\Bundle\ThemeBundle\Command;
 use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface;
 use Sylius\Bundle\ThemeBundle\Asset\Installer\OutputAwareInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Command that places themes web assets into a given directory.
@@ -30,14 +33,14 @@ final class AssetsInstallCommand extends Command
     private $assetsInstaller;
 
     /** @var string */
-    private $publicDir;
+    private $projectDir;
 
-    public function __construct(AssetsInstallerInterface $assetsInstaller, string $publicDir)
+    public function __construct(AssetsInstallerInterface $assetsInstaller, string $projectDir)
     {
         parent::__construct(null);
 
         $this->assetsInstaller = $assetsInstaller;
-        $this->publicDir = $publicDir;
+        $this->projectDir = $projectDir;
     }
 
     /**
@@ -85,14 +88,23 @@ final class AssetsInstallCommand extends Command
 
     private function getTargetDir(InputInterface $input): string
     {
-        if ($input->getArgument('target') === null) {
-            return $this->publicDir;
+        /** @var KernelInterface $kernel */
+        $kernel = $this->getApplication()->getKernel();
+        $targetDirectory = rtrim($input->getArgument('target'), '/');
+
+        if (!$targetDirectory) {
+            $targetDirectory = $this->getPublicDirectory($kernel->getContainer());
         }
 
-        /** @var string $target */
-        $target = $input->getArgument('target');
+        if (!is_dir($targetDirectory)) {
+            $targetDirectory = $kernel->getProjectDir().'/'.$targetDirectory;
 
-        return $target;
+            if (!is_dir($targetDirectory)) {
+                throw new InvalidArgumentException(sprintf('The target directory "%s" does not exist.', $input->getArgument('target')));
+            }
+        }
+
+        return $targetDirectory;
     }
 
     private function getHelpMessage(): string
@@ -115,5 +127,31 @@ To make symlink relative, add the <info>--relative</info> option:
   <info>php %command.full_name% public --symlink --relative</info>
 
 EOT;
+    }
+
+    /**
+     * @see \Symfony\Bundle\FrameworkBundle\Command\AssetsInstallCommand::getPublicDirectory()
+     */
+    private function getPublicDirectory(ContainerInterface $container)
+    {
+        $defaultPublicDir = 'public';
+
+        if (null === $this->projectDir && !$container->hasParameter('kernel.project_dir')) {
+            return $defaultPublicDir;
+        }
+
+        $composerFilePath = ($this->projectDir ?? $container->getParameter('kernel.project_dir')).'/composer.json';
+
+        if (!file_exists($composerFilePath)) {
+            return $defaultPublicDir;
+        }
+
+        $composerConfig = json_decode(file_get_contents($composerFilePath), true);
+
+        if (isset($composerConfig['extra']['public-dir'])) {
+            return $composerConfig['extra']['public-dir'];
+        }
+
+        return $defaultPublicDir;
     }
 }

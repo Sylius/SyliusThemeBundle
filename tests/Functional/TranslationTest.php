@@ -24,7 +24,7 @@ final class TranslationTest extends WebTestCase
     {
         $client = self::createClient();
 
-        $crawler = $client->request('GET', '/template/:Translation:translationsTest.txt.twig');
+        $crawler = $client->request('GET', '/template/Translation/translationsTest.txt.twig');
 
         foreach ($this->getTranslationsLines() as $expectedContent) {
             $this->assertContains($expectedContent, $crawler->text());

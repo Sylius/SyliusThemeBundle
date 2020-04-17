@@ -29,11 +29,11 @@ final class ApplicationResourceLocator implements ResourceLocatorInterface
     /**
      * {@inheritdoc}
      */
-    public function locateResource(string $resourceName, ThemeInterface $theme): string
+    public function locateResource(string $template, ThemeInterface $theme): string
     {
-        $path = sprintf('%s/%s', $theme->getPath(), $resourceName);
+        $path = sprintf('%s/templates/%s', $theme->getPath(), $template);
         if (!$this->filesystem->exists($path)) {
-            throw new ResourceNotFoundException($resourceName, $theme);
+            throw new ResourceNotFoundException($template, [$theme]);
         }
 
         return $path;

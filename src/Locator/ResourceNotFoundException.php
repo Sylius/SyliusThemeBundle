@@ -17,12 +17,23 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
 final class ResourceNotFoundException extends \RuntimeException
 {
-    public function __construct(string $resourceName, ThemeInterface $theme)
+    /**
+     * @param ThemeInterface[] $themes
+     */
+    public function __construct(string $template, array $themes)
     {
         parent::__construct(sprintf(
-            'Could not find resource "%s" using theme "%s".',
-            $resourceName,
-            $theme->getName()
+            'Could not find template "%s" using themes "%s".',
+            $template,
+            implode(
+                '", "',
+                array_map(
+                    static function (ThemeInterface $theme): string {
+                        return $theme->getName();
+                    },
+                    $themes
+                )
+            )
         ));
     }
 }

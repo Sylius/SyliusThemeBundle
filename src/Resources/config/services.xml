@@ -17,7 +17,7 @@
 
         <service id="Sylius\Bundle\ThemeBundle\Command\AssetsInstallCommand">
             <argument type="service" id="sylius.theme.asset.assets_installer" />
-            <argument>%sylius_core.public_dir%</argument>
+            <argument>%kernel.project_dir%</argument>
             <tag name="console.command" />
         </service>
         <service id="Sylius\Bundle\ThemeBundle\Command\ListCommand">

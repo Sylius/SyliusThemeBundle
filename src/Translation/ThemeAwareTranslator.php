@@ -17,19 +17,18 @@ use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
-use Symfony\Component\Translation\TranslatorInterface as LegacyTranslatorInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagInterface, WarmableInterface, LocaleAwareInterface, LegacyTranslatorInterface
+final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagInterface, WarmableInterface, LocaleAwareInterface
 {
-    /** @var LegacyTranslatorInterface&TranslatorBagInterface */
+    /** @var TranslatorInterface&TranslatorBagInterface */
     private $translator;
 
     /** @var ThemeContextInterface */
     private $themeContext;
 
-    public function __construct(LegacyTranslatorInterface $translator, ThemeContextInterface $themeContext)
+    public function __construct(TranslatorInterface $translator, ThemeContextInterface $themeContext)
     {
         if (!$translator instanceof TranslatorBagInterface) {
             throw new \InvalidArgumentException(sprintf(
@@ -82,12 +81,12 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         $this->translator->setLocale($locale);
     }
 
-    public function getCatalogue(string $locale = null): MessageCatalogueInterface
+    public function getCatalogue($locale = null): MessageCatalogueInterface
     {
         return $this->translator->getCatalogue($locale);
     }
 
-    public function warmUp(string $cacheDir): void
+    public function warmUp($cacheDir): void
     {
         if ($this->translator instanceof WarmableInterface) {
             $this->translator->warmUp($cacheDir);

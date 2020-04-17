@@ -20,5 +20,5 @@ interface ResourceLocatorInterface
     /**
      * @throws ResourceNotFoundException
      */
-    public function locateResource(string $resourceName, ThemeInterface $theme): string;
+    public function locateResource(string $template, ThemeInterface $theme): string;
 }

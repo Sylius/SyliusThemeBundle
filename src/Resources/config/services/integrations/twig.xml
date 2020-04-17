@@ -17,8 +17,7 @@
 
         <service id="sylius.theme.twig.loader" class="Sylius\Bundle\ThemeBundle\Twig\ThemeFilesystemLoader" decorates="twig.loader" decoration-priority="256" public="false">
             <argument type="service" id="sylius.theme.twig.loader.inner" />
-            <argument type="service" id="templating.locator" />
-            <argument type="service" id="templating.name_parser" />
+            <argument type="service" id="sylius.theme.templating.locator" />
         </service>
     </services>
 </container>

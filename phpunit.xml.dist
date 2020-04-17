@@ -3,6 +3,7 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/7.0/phpunit.xsd"
          colors="true"
+         processIsolation="false"
 >
     <php>
         <ini name="error_reporting" value="-1" />

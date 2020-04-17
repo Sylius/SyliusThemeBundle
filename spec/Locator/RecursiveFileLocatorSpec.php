@@ -46,7 +46,9 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
 
         $splFileInfo->getPathname()->willReturn('/search/path/nested/readme.md');
 
-        $this->locateFileNamed('readme.md')->shouldReturn('/search/path/nested/readme.md');
+        $this->
+
+        locateFileNamed('readme.md')->shouldReturn('/search/path/nested/readme.md');
     }
 
     function it_searches_for_files(

@@ -55,8 +55,8 @@ final class TemplateFileLocatorSpec extends ObjectBehavior
         $themeContext->getTheme()->willReturn($firstTheme);
         $themeHierarchyProvider->getThemeHierarchy($firstTheme)->willReturn([$firstTheme, $secondTheme]);
 
-        $templateLocator->locateTemplate($template, $firstTheme)->willThrow(ResourceNotFoundException::class);
-        $templateLocator->locateTemplate($template, $secondTheme)->willReturn('/second/theme/template/path');
+        $templateLocator->locate($template, $firstTheme)->willThrow(ResourceNotFoundException::class);
+        $templateLocator->locate($template, $secondTheme)->willReturn('/second/theme/template/path');
 
         $this->locate($template)->shouldReturn('/second/theme/template/path');
     }
@@ -72,7 +72,7 @@ final class TemplateFileLocatorSpec extends ObjectBehavior
         $themeContext->getTheme()->willReturn($theme);
         $themeHierarchyProvider->getThemeHierarchy($theme)->willReturn([$theme]);
 
-        $templateLocator->locateTemplate($template, $theme)->willThrow(ResourceNotFoundException::class);
+        $templateLocator->locate($template, $theme)->willThrow(ResourceNotFoundException::class);
 
         $decoratedFileLocator->locate($template, Argument::cetera())->willReturn('/app/template/path');
 

@@ -41,7 +41,7 @@ final class TemplateLocatorSpec extends ObjectBehavior
 
         $resourceLocator->locateResource('@AcmeBundle/Resources/views/Directory/index.html.twig', $theme)->willReturn('/acme/index.html.twig');
 
-        $this->locateTemplate($template, $theme)->shouldReturn('/acme/index.html.twig');
+        $this->locate($template, $theme)->shouldReturn('/acme/index.html.twig');
     }
 
     function it_does_not_catch_exceptions_thrown_while_locating_template_to_resource_locator_even(
@@ -53,6 +53,6 @@ final class TemplateLocatorSpec extends ObjectBehavior
 
         $resourceLocator->locateResource('@AcmeBundle/Resources/views/Directory/index.html.twig', $theme)->willThrow(ResourceNotFoundException::class);
 
-        $this->shouldThrow(ResourceNotFoundException::class)->during('locateTemplate', [$template, $theme]);
+        $this->shouldThrow(ResourceNotFoundException::class)->during('locate', [$template, $theme]);
     }
 }

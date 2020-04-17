@@ -14,13 +14,13 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\Templating\Locator;
 
 use Sylius\Bundle\ThemeBundle\Locator\ResourceNotFoundException;
-use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
-use Symfony\Component\Templating\TemplateReferenceInterface;
 
 interface TemplateLocatorInterface
 {
     /**
+     * @param string $template
+     *
      * @throws ResourceNotFoundException
      */
-    public function locateTemplate(TemplateReferenceInterface $template, ThemeInterface $theme): string;
+    public function locate(string $template): string;
 }
