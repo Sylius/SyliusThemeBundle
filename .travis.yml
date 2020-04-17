@@ -3,6 +3,7 @@ language: php
 php:
     - 7.2
     - 7.3
+    - 7.4
 
 env:
     - SYMFONY_VERSION=4.4.* TWIG_VERSION=2.*
