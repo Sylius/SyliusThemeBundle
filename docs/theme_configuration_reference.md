@@ -9,7 +9,7 @@
         {
             "name": "Kamil Kokot",
             "email": "kamil@kokot.me",
-            "homepage": "http://kamil.kokot.me",
+            "homepage": "https://kamilkokot.com",
             "role": "Developer"
         }
     ],
