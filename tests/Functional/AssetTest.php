@@ -15,6 +15,7 @@ namespace Sylius\Bundle\ThemeBundle\Tests\Functional;
 
 use Psr\Container\ContainerInterface;
 use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface;
+use Sylius\Bundle\ThemeBundle\Filesystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -50,7 +51,7 @@ final class AssetTest extends WebTestCase
 
         $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, $symlinkMask);
 
-        $themeAssetPath = __DIR__ . '/../Fixtures/themes/FirstTestTheme/TestBundle/public/theme_asset.txt';
+        $themeAssetPath = __DIR__ . '/../Fixtures/themes/FirstTestTheme/public/test/theme_asset.txt';
         $themeAssetContent = file_get_contents($themeAssetPath);
 
         try {
@@ -98,6 +99,11 @@ final class AssetTest extends WebTestCase
     private function createPublicDirectory(): string
     {
         $publicDirectory = self::$kernel->getCacheDir() . '/public';
+
+        if (is_dir($publicDirectory)) {
+            (new Filesystem())->remove($publicDirectory);
+        }
+
         if (!is_dir($publicDirectory)) {
             mkdir($publicDirectory, 0777, true);
         }
