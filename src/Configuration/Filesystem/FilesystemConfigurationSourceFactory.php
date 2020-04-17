@@ -36,14 +36,14 @@ final class FilesystemConfigurationSourceFactory implements ConfigurationSourceF
         ;
 
         $filesystemNode
-            ->integerNode('scan_depth')
+            ->scalarNode('scan_depth')
                 ->info('Restrict depth to scan for configuration file inside theme folder')
-                ->defaultNull()
+                ->defaultValue(1)
         ;
 
         $filesystemNode
             ->arrayNode('directories')
-                ->defaultValue(['%kernel.project_dir%/app/themes'])
+                ->defaultValue(['%kernel.project_dir%/themes'])
                 ->requiresAtLeastOneElement()
                 ->performNoDeepMerging()
                 ->prototype('scalar')
