@@ -1,3 +1,2 @@
 test:
   theme: 'THEME/translations'
-  theme_bundle: 'THEME/BUNDLE_NAME/translations'

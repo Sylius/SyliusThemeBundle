@@ -27,19 +27,16 @@ final class TranslationTest extends WebTestCase
         $crawler = $client->request('GET', '/template/Translation/translationsTest.txt.twig');
 
         foreach ($this->getTranslationsLines() as $expectedContent) {
-            $this->assertContains($expectedContent, $crawler->text());
+            $this->assertStringContainsString($expectedContent, $crawler->text());
         }
     }
 
     private function getTranslationsLines(): array
     {
         return [
+            'translations: translations',
             'BUNDLE/Resources/translations: BUNDLE/Resources/translations',
-            'app/Resources/BUNDLE_NAME/translations: app/Resources/BUNDLE_NAME/translations',
-            'app/Resources/translations: app/Resources/translations',
-            'THEME/BUNDLE_NAME/translations: THEME/BUNDLE_NAME/translations',
             'THEME/translations: THEME/translations',
-            'PARENT_THEME/BUNDLE_NAME/translations: PARENT_THEME/BUNDLE_NAME/translations',
             'PARENT_THEME/translations: PARENT_THEME/translations',
         ];
     }
