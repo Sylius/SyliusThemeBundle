@@ -16,13 +16,11 @@ namespace Sylius\Bundle\ThemeBundle\DependencyInjection;
 use Sylius\Bundle\ThemeBundle\Configuration\ConfigurationSourceFactoryInterface;
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-final class SyliusThemeExtension extends Extension implements PrependExtensionInterface
+final class SyliusThemeExtension extends Extension
 {
     /** @var ConfigurationSourceFactoryInterface[] */
     private $configurationSourceFactories = [];
@@ -41,7 +39,7 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
         }
 
         if ($config['templating']['enabled']) {
-            $loader->load('services/integrations/templating.xml');
+            $loader->load('services/integrations/twig.xml');
         }
 
         if ($config['translations']['enabled']) {
@@ -52,16 +50,6 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
 
         $container->setAlias('sylius.context.theme', $config['context']);
         $container->setAlias(ThemeContextInterface::class, 'sylius.context.theme');
-    }
-
-    /**
-     * @internal
-     */
-    public function prepend(ContainerBuilder $container): void
-    {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-
-        $this->prependTwig($container, $loader);
     }
 
     public function addConfigurationSourceFactory(ConfigurationSourceFactoryInterface $configurationSourceFactory): void
@@ -76,15 +64,6 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
         $container->addObjectResource($configuration);
 
         return $configuration;
-    }
-
-    private function prependTwig(ContainerBuilder $container, LoaderInterface $loader): void
-    {
-        if (!$container->hasExtension('twig')) {
-            return;
-        }
-
-        $loader->load('services/integrations/twig.xml');
     }
 
     private function resolveConfigurationSources(ContainerBuilder $container, array $config): void

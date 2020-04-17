@@ -36,7 +36,7 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
         $this->load([]);
 
         $this->assertContainerBuilderHasService('sylius.theme.asset.assets_installer');
-        $this->assertContainerBuilderHasService('sylius.theme.templating.locator');
+        $this->assertContainerBuilderHasService('sylius_theme.twig.template_locator');
         $this->assertContainerBuilderHasService('sylius.theme.translation.translator');
     }
 

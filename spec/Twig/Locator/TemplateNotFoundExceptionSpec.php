@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\Bundle\ThemeBundle\Locator;
+namespace spec\Sylius\Bundle\ThemeBundle\Twig\Locator;
 
 use PhpSpec\ObjectBehavior;
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
-final class ResourceNotFoundExceptionSpec extends ObjectBehavior
+final class TemplateNotFoundExceptionSpec extends ObjectBehavior
 {
     function let(ThemeInterface $theme): void
     {
@@ -32,7 +32,7 @@ final class ResourceNotFoundExceptionSpec extends ObjectBehavior
 
     function it_has_custom_message(): void
     {
-        $this->getMessage()->shouldReturn('Could not find template "resource name" using themes "theme/name".');
+        $this->getMessage()->shouldReturn('Could not find template "resource name" using theme(s) "theme/name".');
     }
 
     function it_has_custom_message_with_multiple_themes(ThemeInterface $firstTheme, ThemeInterface $secondTheme): void
@@ -42,6 +42,6 @@ final class ResourceNotFoundExceptionSpec extends ObjectBehavior
 
         $this->beConstructedWith('resource name', [$firstTheme, $secondTheme]);
 
-        $this->getMessage()->shouldReturn('Could not find template "resource name" using themes "theme/first", "theme/second".');
+        $this->getMessage()->shouldReturn('Could not find template "resource name" using theme(s) "theme/first", "theme/second".');
     }
 }

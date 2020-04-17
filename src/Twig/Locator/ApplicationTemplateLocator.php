@@ -11,12 +11,15 @@
 
 declare(strict_types=1);
 
-namespace Sylius\Bundle\ThemeBundle\Locator;
+namespace Sylius\Bundle\ThemeBundle\Twig\Locator;
 
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
-final class ApplicationResourceLocator implements ResourceLocatorInterface
+/**
+ * Handles paths like "template.html.twig" or "Directory/template.html.twig".
+ */
+final class ApplicationTemplateLocator implements TemplateLocatorInterface
 {
     /** @var Filesystem */
     private $filesystem;
@@ -26,13 +29,18 @@ final class ApplicationResourceLocator implements ResourceLocatorInterface
         $this->filesystem = $filesystem;
     }
 
-    public function locateResource(string $template, ThemeInterface $theme): string
+    public function locate(string $template, ThemeInterface $theme): string
     {
         $path = sprintf('%s/templates/%s', $theme->getPath(), $template);
         if (!$this->filesystem->exists($path)) {
-            throw new ResourceNotFoundException($template, [$theme]);
+            throw new TemplateNotFoundException($template, [$theme]);
         }
 
         return $path;
+    }
+
+    public function supports(string $template): bool
+    {
+        return strpos($template, '@') !== 0;
     }
 }

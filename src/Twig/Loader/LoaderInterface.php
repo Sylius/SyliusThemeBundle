@@ -11,18 +11,26 @@
 
 declare(strict_types=1);
 
-namespace Sylius\Bundle\ThemeBundle\Twig;
+namespace Sylius\Bundle\ThemeBundle\Twig\Loader;
 
 use Twig\Loader\ExistsLoaderInterface;
 use Twig\Loader\LoaderInterface as TwigLoaderInterface;
 
 if (class_exists(ExistsLoaderInterface::class)) {
-    // Twig 2.x compatibility
+    /**
+     * Twig 2.x compatibility
+     *
+     * @internal
+     */
     interface LoaderInterface extends TwigLoaderInterface, ExistsLoaderInterface
     {
     }
 } else {
-    // Twig 3.x compatibility
+    /**
+     * Twig 3.x compatibility
+     *
+     * @internal
+     */
     interface LoaderInterface extends TwigLoaderInterface
     {
     }

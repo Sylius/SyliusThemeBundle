@@ -11,14 +11,16 @@
 
 declare(strict_types=1);
 
-namespace Sylius\Bundle\ThemeBundle\Locator;
+namespace Sylius\Bundle\ThemeBundle\Twig\Locator;
 
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
-interface ResourceLocatorInterface
+interface TemplateLocatorInterface
 {
     /**
-     * @throws ResourceNotFoundException
+     * @throws TemplateNotFoundException
      */
-    public function locateResource(string $template, ThemeInterface $theme): string;
+    public function locate(string $template, ThemeInterface $theme): string;
+
+    public function supports(string $template): bool;
 }

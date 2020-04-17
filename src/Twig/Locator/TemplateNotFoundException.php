@@ -11,11 +11,11 @@
 
 declare(strict_types=1);
 
-namespace Sylius\Bundle\ThemeBundle\Locator;
+namespace Sylius\Bundle\ThemeBundle\Twig\Locator;
 
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
-final class ResourceNotFoundException extends \RuntimeException
+final class TemplateNotFoundException extends \RuntimeException
 {
     /**
      * @param ThemeInterface[] $themes
@@ -23,7 +23,7 @@ final class ResourceNotFoundException extends \RuntimeException
     public function __construct(string $template, array $themes)
     {
         parent::__construct(sprintf(
-            'Could not find template "%s" using themes "%s".',
+            'Could not find template "%s" using theme(s) "%s".',
             $template,
             implode(
                 '", "',

@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace spec\Sylius\Bundle\ThemeBundle\Locator;
+namespace spec\Sylius\Bundle\ThemeBundle\Twig\Locator;
 
 use PhpSpec\ObjectBehavior;
-use Sylius\Bundle\ThemeBundle\Locator\ResourceLocatorInterface;
-use Sylius\Bundle\ThemeBundle\Locator\ResourceNotFoundException;
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
+use Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateLocatorInterface;
+use Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateNotFoundException;
 use Symfony\Component\Filesystem\Filesystem;
 
-final class ApplicationResourceLocatorSpec extends ObjectBehavior
+final class ApplicationTemplateLocatorSpec extends ObjectBehavior
 {
     function let(Filesystem $filesystem): void
     {
@@ -28,7 +28,7 @@ final class ApplicationResourceLocatorSpec extends ObjectBehavior
 
     function it_implements_resource_locator_interface(): void
     {
-        $this->shouldImplement(ResourceLocatorInterface::class);
+        $this->shouldImplement(TemplateLocatorInterface::class);
     }
 
     function it_locates_application_resource(Filesystem $filesystem, ThemeInterface $theme): void
@@ -37,7 +37,7 @@ final class ApplicationResourceLocatorSpec extends ObjectBehavior
 
         $filesystem->exists('/theme/path/templates/resource')->willReturn(true);
 
-        $this->locateResource('resource', $theme)->shouldReturn('/theme/path/templates/resource');
+        $this->locate('resource', $theme)->shouldReturn('/theme/path/templates/resource');
     }
 
     function it_throws_an_exception_if_resource_can_not_be_located(Filesystem $filesystem, ThemeInterface $theme): void
@@ -47,6 +47,6 @@ final class ApplicationResourceLocatorSpec extends ObjectBehavior
 
         $filesystem->exists('/theme/path/templates/resource')->willReturn(false);
 
-        $this->shouldThrow(ResourceNotFoundException::class)->during('locateResource', ['resource', $theme]);
+        $this->shouldThrow(TemplateNotFoundException::class)->during('locate', ['resource', $theme]);
     }
 }

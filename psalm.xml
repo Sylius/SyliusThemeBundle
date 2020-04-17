@@ -10,7 +10,7 @@
         <ignoreFiles>
             <directory name="vendor" />
             <file name="src/Filesystem/FilesystemInterface.php" />
-            <file name="src/Twig/LoaderInterface.php" />
+            <file name="src/Twig/Loader/LoaderInterface.php" />
         </ignoreFiles>
     </projectFiles>
 
