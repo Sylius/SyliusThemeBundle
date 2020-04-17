@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstaller;
 use Sylius\Bundle\ThemeBundle\DependencyInjection\SyliusThemeExtension;
 use Sylius\Bundle\ThemeBundle\Translation\Translator;
 use Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateLocatorInterface;
@@ -37,7 +38,7 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
     {
         $this->load([]);
 
-        $this->assertContainerBuilderHasService('sylius.theme.asset.assets_installer');
+        $this->assertContainerBuilderHasService(AssetsInstaller::class);
         $this->assertContainerBuilderHasService(TemplateLocatorInterface::class);
         $this->assertContainerBuilderHasService(Translator::class);
     }
