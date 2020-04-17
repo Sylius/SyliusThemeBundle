@@ -21,8 +21,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Command that places themes web assets into a given directory.
@@ -88,19 +86,19 @@ final class AssetsInstallCommand extends Command
 
     private function getTargetDir(InputInterface $input): string
     {
-        /** @var KernelInterface $kernel */
-        $kernel = $this->getApplication()->getKernel();
-        $targetDirectory = rtrim($input->getArgument('target'), '/');
+        /** @var string|null $targetDirectory */
+        $targetDirectory = $input->getArgument('target');
+        $targetDirectory = rtrim((string) $targetDirectory, '/');
 
         if (!$targetDirectory) {
-            $targetDirectory = $this->getPublicDirectory($kernel->getContainer());
+            $targetDirectory = $this->getPublicDirectory();
         }
 
         if (!is_dir($targetDirectory)) {
-            $targetDirectory = $kernel->getProjectDir().'/'.$targetDirectory;
+            $targetDirectory = $this->projectDir . '/' . $targetDirectory;
 
             if (!is_dir($targetDirectory)) {
-                throw new InvalidArgumentException(sprintf('The target directory "%s" does not exist.', $input->getArgument('target')));
+                throw new InvalidArgumentException(sprintf('The target directory "%s" does not exist.', $targetDirectory));
             }
         }
 
@@ -132,21 +130,17 @@ EOT;
     /**
      * @see \Symfony\Bundle\FrameworkBundle\Command\AssetsInstallCommand::getPublicDirectory()
      */
-    private function getPublicDirectory(ContainerInterface $container)
+    private function getPublicDirectory(): string
     {
         $defaultPublicDir = 'public';
 
-        if (null === $this->projectDir && !$container->hasParameter('kernel.project_dir')) {
-            return $defaultPublicDir;
-        }
-
-        $composerFilePath = ($this->projectDir ?? $container->getParameter('kernel.project_dir')).'/composer.json';
+        $composerFilePath = $this->projectDir . '/composer.json';
 
         if (!file_exists($composerFilePath)) {
             return $defaultPublicDir;
         }
 
-        $composerConfig = json_decode(file_get_contents($composerFilePath), true);
+        $composerConfig = json_decode((string) file_get_contents($composerFilePath), true);
 
         if (isset($composerConfig['extra']['public-dir'])) {
             return $composerConfig['extra']['public-dir'];

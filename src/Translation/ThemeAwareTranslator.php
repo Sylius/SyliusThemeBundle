@@ -22,19 +22,26 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagInterface, WarmableInterface, LocaleAwareInterface
 {
-    /** @var TranslatorInterface&TranslatorBagInterface */
+    /** @var TranslatorInterface&LocaleAwareInterface&TranslatorBagInterface */
     private $translator;
 
     /** @var ThemeContextInterface */
     private $themeContext;
 
+    /**
+     * @param TranslatorInterface&LocaleAwareInterface&TranslatorBagInterface $translator
+     */
     public function __construct(TranslatorInterface $translator, ThemeContextInterface $themeContext)
     {
-        if (!$translator instanceof TranslatorBagInterface) {
-            throw new \InvalidArgumentException(sprintf(
-                'The Translator "%s" must implement TranslatorInterface and TranslatorBagInterface.',
-                get_class($translator)
-            ));
+        foreach ([LocaleAwareInterface::class, TranslatorBagInterface::class] as $interface) {
+            /** @psalm-suppress DocblockTypeContradiction Better safe than sorry */
+            if (!$translator instanceof $interface) {
+                throw new \InvalidArgumentException(sprintf(
+                    'The translator "%s" must implement %s.',
+                    get_class($translator),
+                    $interface
+                ));
+            }
         }
 
         $this->translator = $translator;
@@ -55,13 +62,17 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /**
      * @psalm-suppress MissingParamType Two interfaces defining the same method
      */
-    public function trans($id, array $parameters = [], $domain = null, $locale = null): string
+    public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
         return $this->translator->trans($id, $parameters, $domain, $this->transformLocale($locale));
     }
 
-    public function transChoice($id, $number, array $parameters = [], $domain = null, $locale = null): string
+    public function transChoice(string $id, int $number, array $parameters = [], ?string $domain = null, ?string $locale = null): string
     {
+        if (!method_exists($this->translator, 'transChoice')) {
+            throw new \RuntimeException(sprintf('%s::transChoice is not supported with symfony/translation v5', static::class));
+        }
+
         return $this->translator->transChoice($id, $number, $parameters, $domain, $this->transformLocale($locale));
     }
 
@@ -70,10 +81,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         return $this->translator->getLocale();
     }
 
-    /**
-     * @param string $locale
-     */
-    public function setLocale($locale): void
+    public function setLocale(string $locale): void
     {
         /** @var string $locale */
         $locale = $this->transformLocale($locale);
@@ -81,12 +89,12 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         $this->translator->setLocale($locale);
     }
 
-    public function getCatalogue($locale = null): MessageCatalogueInterface
+    public function getCatalogue(?string $locale = null): MessageCatalogueInterface
     {
         return $this->translator->getCatalogue($locale);
     }
 
-    public function warmUp($cacheDir): void
+    public function warmUp(string $cacheDir): void
     {
         if ($this->translator instanceof WarmableInterface) {
             $this->translator->warmUp($cacheDir);

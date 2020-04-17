@@ -15,7 +15,6 @@ namespace Sylius\Bundle\ThemeBundle\Locator;
 
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 final class BundleResourceLocator implements ResourceLocatorInterface

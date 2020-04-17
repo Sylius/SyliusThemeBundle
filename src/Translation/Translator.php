@@ -29,10 +29,18 @@ final class Translator extends BaseTranslator implements WarmableInterface
         'debug' => false,
     ];
 
-    /** @var TranslatorLoaderProviderInterface */
+    /**
+     * @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though
+     *
+     * @var TranslatorLoaderProviderInterface
+     */
     private $loaderProvider;
 
-    /** @var TranslatorResourceProviderInterface */
+    /**
+     * @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though
+     *
+     * @var TranslatorResourceProviderInterface
+     */
     private $resourceProvider;
 
     /** @var bool */
@@ -61,7 +69,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
         parent::__construct($locale, $this->provideMessageFormatter($messageFormatterOrSelector), $this->options['cache_dir'], $this->options['debug']);
     }
 
-    public function warmUp($cacheDir): void
+    public function warmUp(string $cacheDir): void
     {
         // skip warmUp when translator doesn't use cache
         if (null === $this->options['cache_dir']) {
@@ -84,17 +92,14 @@ final class Translator extends BaseTranslator implements WarmableInterface
         }
     }
 
-    protected function initializeCatalogue($locale): void
+    protected function initializeCatalogue(string $locale): void
     {
         $this->initialize();
 
         parent::initializeCatalogue($locale);
     }
 
-    /**
-     * @param string $locale
-     */
-    protected function computeFallbackLocales($locale): array
+    protected function computeFallbackLocales(string $locale): array
     {
         $themeModifier = $this->getLocaleModifier($locale);
         $localeWithoutModifier = $this->getLocaleWithoutModifier($locale, $themeModifier);

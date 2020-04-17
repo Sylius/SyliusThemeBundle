@@ -18,8 +18,6 @@ use Sylius\Bundle\ThemeBundle\Locator\ResourceNotFoundException;
 interface TemplateLocatorInterface
 {
     /**
-     * @param string $template
-     *
      * @throws ResourceNotFoundException
      */
     public function locate(string $template): string;
