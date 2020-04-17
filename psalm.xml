@@ -16,9 +16,16 @@
     <issueHandlers>
         <DeprecatedInterface>
             <errorLevel type="suppress">
+                <referencedClass name="Symfony\Component\Translation\TranslatorInterface" />
                 <referencedClass name="Twig\Loader\ExistsLoaderInterface" />
             </errorLevel>
         </DeprecatedInterface>
+
+        <DeprecatedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="Symfony\Component\Translation\MessageSelector" />
+            </errorLevel>
+        </DeprecatedClass>
 
         <PossiblyNullReference>
             <errorLevel type="suppress">

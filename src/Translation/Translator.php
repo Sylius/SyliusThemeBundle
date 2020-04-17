@@ -69,7 +69,10 @@ final class Translator extends BaseTranslator implements WarmableInterface
         parent::__construct($locale, $this->provideMessageFormatter($messageFormatterOrSelector), $this->options['cache_dir'], $this->options['debug']);
     }
 
-    public function warmUp(string $cacheDir): void
+    /**
+     * @param string $cacheDir
+     */
+    public function warmUp($cacheDir): void
     {
         // skip warmUp when translator doesn't use cache
         if (null === $this->options['cache_dir']) {
@@ -92,14 +95,20 @@ final class Translator extends BaseTranslator implements WarmableInterface
         }
     }
 
-    protected function initializeCatalogue(string $locale): void
+    /**
+     * @param string $locale
+     */
+    protected function initializeCatalogue($locale): void
     {
         $this->initialize();
 
         parent::initializeCatalogue($locale);
     }
 
-    protected function computeFallbackLocales(string $locale): array
+    /**
+     * @param string $locale
+     */
+    protected function computeFallbackLocales($locale): array
     {
         $themeModifier = $this->getLocaleModifier($locale);
         $localeWithoutModifier = $this->getLocaleWithoutModifier($locale, $themeModifier);

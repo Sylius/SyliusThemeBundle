@@ -13,7 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
