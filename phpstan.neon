@@ -31,3 +31,4 @@ parameters:
         - '/Method Sylius\\Bundle\\ThemeBundle\\Templating\\Locator\\TemplateFileLocator::unserialize\(\) has parameter \$serialized with no typehint specified./'
         - '/Method Sylius\\Bundle\\ThemeBundle\\Asset\\Package\\[A-Za-z]+::getUrl\(\) has parameter \$path with no typehint specified./'
         - '/Symfony\\Component\\Translation\\MessageSelector/'
+        - '/Twig\\Loader\\ExistsLoaderInterface/'

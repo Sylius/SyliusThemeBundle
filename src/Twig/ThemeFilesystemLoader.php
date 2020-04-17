@@ -14,20 +14,19 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\Twig;
 
 use Sylius\Bundle\ThemeBundle\Templating\Locator\TemplateLocatorInterface;
-use Twig\Loader\ExistsLoaderInterface;
-use Twig\Loader\LoaderInterface;
+use Twig\Loader\LoaderInterface as TwigLoaderInterface;
 use Twig\Source;
 
-final class ThemeFilesystemLoader implements LoaderInterface, ExistsLoaderInterface
+final class ThemeFilesystemLoader implements LoaderInterface
 {
-    /** @var LoaderInterface */
+    /** @var TwigLoaderInterface */
     private $decoratedLoader;
 
     /** @var TemplateLocatorInterface */
     private $templateLocator;
 
     public function __construct(
-        LoaderInterface $decoratedLoader,
+        TwigLoaderInterface $decoratedLoader,
         TemplateLocatorInterface $templateLocator
     ) {
         $this->decoratedLoader = $decoratedLoader;
