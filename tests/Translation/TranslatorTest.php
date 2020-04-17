@@ -16,7 +16,7 @@ namespace Sylius\Bundle\ThemeBundle\Tests\Translation;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Sylius\Bundle\ThemeBundle\Translation\Provider\Loader\TranslatorLoaderProvider;
-use Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProvider;
+use Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\SymfonyTranslatorResourceProvider;
 use Sylius\Bundle\ThemeBundle\Translation\Translator;
 use Symfony\Component\Translation\Formatter\MessageFormatter;
 use Symfony\Component\Translation\Loader\ArrayLoader;
@@ -346,7 +346,7 @@ final class TranslatorTest extends TestCase
     private function createTranslator(string $locale = 'en', array $options = []): Translator
     {
         $loaderProvider = new TranslatorLoaderProvider();
-        $resourceProvider = new TranslatorResourceProvider();
+        $resourceProvider = new SymfonyTranslatorResourceProvider();
         $messageFormatter = new MessageFormatter();
 
         return new Translator($loaderProvider, $resourceProvider, $messageFormatter, $locale, $options);

@@ -33,7 +33,7 @@
             <argument type="collection" /> <!-- loaders -->
         </service>
 
-        <service id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProvider">
+        <service id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\SymfonyTranslatorResourceProvider">
             <argument type="collection" /> <!-- resources filepaths -->
         </service>
 
@@ -45,7 +45,7 @@
 
         <service id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProviderInterface" class="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\CompositeTranslatorResourceProvider">
             <argument type="collection">
-                <argument type="service" id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProvider" />
+                <argument type="service" id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\SymfonyTranslatorResourceProvider" />
                 <argument type="service" id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\ThemeTranslatorResourceProvider" />
             </argument>
         </service>

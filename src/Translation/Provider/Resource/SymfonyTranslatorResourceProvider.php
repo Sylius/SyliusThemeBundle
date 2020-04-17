@@ -16,7 +16,7 @@ namespace Sylius\Bundle\ThemeBundle\Translation\Provider\Resource;
 use Sylius\Bundle\ThemeBundle\Translation\Resource\TranslationResource;
 use Sylius\Bundle\ThemeBundle\Translation\Resource\TranslationResourceInterface;
 
-final class TranslatorResourceProvider implements TranslatorResourceProviderInterface
+final class SymfonyTranslatorResourceProvider implements TranslatorResourceProviderInterface
 {
     /** @var TranslationResourceInterface[] */
     private $resources = [];
