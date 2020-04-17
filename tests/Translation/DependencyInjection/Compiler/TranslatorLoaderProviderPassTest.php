@@ -15,6 +15,7 @@ namespace Sylius\Bundle\ThemeBundle\Tests\Translation\DependencyInjection\Compil
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Sylius\Bundle\ThemeBundle\Translation\DependencyInjection\Compiler\TranslatorLoaderProviderPass;
+use Sylius\Bundle\ThemeBundle\Translation\Provider\Loader\TranslatorLoaderProvider;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -26,7 +27,7 @@ final class TranslatorLoaderProviderPassTest extends AbstractCompilerPassTestCas
      */
     public function it_adds_translation_loaders_to_sylius_loader_provider(): void
     {
-        $this->setDefinition('sylius.theme.translation.loader_provider', new Definition(null, [[]]));
+        $this->setDefinition(TranslatorLoaderProvider::class, new Definition(null, [[]]));
 
         $translationLoaderDefinition = new Definition();
         $translationLoaderDefinition->addTag('translation.loader', ['alias' => 'yml']);
@@ -35,7 +36,7 @@ final class TranslatorLoaderProviderPassTest extends AbstractCompilerPassTestCas
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'sylius.theme.translation.loader_provider',
+            TranslatorLoaderProvider::class,
             0,
             ['yml' => new Reference('translation.loader.yml')]
         );
@@ -46,7 +47,7 @@ final class TranslatorLoaderProviderPassTest extends AbstractCompilerPassTestCas
      */
     public function it_adds_translation_loaders_with_its_legacy_alias_to_sylius_loader_provider(): void
     {
-        $this->setDefinition('sylius.theme.translation.loader_provider', new Definition(null, [[]]));
+        $this->setDefinition(TranslatorLoaderProvider::class, new Definition(null, [[]]));
 
         $translationLoaderDefinition = new Definition();
         $translationLoaderDefinition->addTag('translation.loader', ['alias' => 'xlf', 'legacy-alias' => 'xliff']);
@@ -55,7 +56,7 @@ final class TranslatorLoaderProviderPassTest extends AbstractCompilerPassTestCas
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'sylius.theme.translation.loader_provider',
+            TranslatorLoaderProvider::class,
             0,
             ['xlf' => new Reference('translation.loader.xliff'), 'xliff' => new Reference('translation.loader.xliff')]
         );
@@ -66,7 +67,7 @@ final class TranslatorLoaderProviderPassTest extends AbstractCompilerPassTestCas
      */
     public function it_adds_translation_loaders_using_only_the_first_tag_alias(): void
     {
-        $this->setDefinition('sylius.theme.translation.loader_provider', new Definition(null, [[]]));
+        $this->setDefinition(TranslatorLoaderProvider::class, new Definition(null, [[]]));
 
         $translationLoaderDefinition = new Definition();
         $translationLoaderDefinition->addTag('translation.loader', ['alias' => 'yml']);
@@ -76,7 +77,7 @@ final class TranslatorLoaderProviderPassTest extends AbstractCompilerPassTestCas
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'sylius.theme.translation.loader_provider',
+            TranslatorLoaderProvider::class,
             0,
             ['yml' => new Reference('translation.loader.yml')]
         );
@@ -87,12 +88,12 @@ final class TranslatorLoaderProviderPassTest extends AbstractCompilerPassTestCas
      */
     public function it_does_not_force_the_existence_of_translation_loaders(): void
     {
-        $this->setDefinition('sylius.theme.translation.loader_provider', new Definition(null, [[]]));
+        $this->setDefinition(TranslatorLoaderProvider::class, new Definition(null, [[]]));
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'sylius.theme.translation.loader_provider',
+            TranslatorLoaderProvider::class,
             0,
             []
         );

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ThemeBundle\Translation\DependencyInjection\Compiler;
 
+use Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -24,7 +25,7 @@ final class TranslatorResourceProviderPass implements CompilerPassInterface
     {
         try {
             $symfonyTranslator = $container->findDefinition('translator.default');
-            $syliusResourceProvider = $container->findDefinition('sylius.theme.translation.resource_provider.default');
+            $syliusResourceProvider = $container->findDefinition(TranslatorResourceProvider::class);
         } catch (\InvalidArgumentException $exception) {
             return;
         }
