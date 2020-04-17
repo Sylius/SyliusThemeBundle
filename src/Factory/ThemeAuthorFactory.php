@@ -17,9 +17,6 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeAuthor;
 
 final class ThemeAuthorFactory implements ThemeAuthorFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createFromArray(array $data): ThemeAuthor
     {
         /** @var ThemeAuthor $author */

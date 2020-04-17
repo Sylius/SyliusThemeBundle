@@ -31,9 +31,6 @@ final class ResourceLocator implements ResourceLocatorInterface
         $this->bundleResourceLocator = $bundleResourceLocator;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function locateResource(string $template, ThemeInterface $theme): string
     {
         if (0 === strpos($template, '@')) {

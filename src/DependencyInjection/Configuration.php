@@ -31,9 +31,6 @@ final class Configuration implements ConfigurationInterface
         $this->configurationSourceFactories = $configurationSourceFactories;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('sylius_theme');

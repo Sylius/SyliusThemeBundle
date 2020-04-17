@@ -46,33 +46,21 @@ final class ThemeTranslationResource implements TranslationResourceInterface
         $this->format = $parts[2];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getLocale(): string
     {
         return $this->locale;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getFormat(): string
     {
         return $this->format;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDomain(): string
     {
         return $this->domain;

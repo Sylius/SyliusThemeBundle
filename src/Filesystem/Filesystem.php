@@ -17,9 +17,6 @@ use Symfony\Component\Filesystem\Filesystem as BaseFilesystem;
 
 final class Filesystem extends BaseFilesystem implements FilesystemInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getFileContents(string $file): string
     {
         return (string) file_get_contents($file);

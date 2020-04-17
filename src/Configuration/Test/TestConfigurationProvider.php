@@ -25,9 +25,6 @@ final class TestConfigurationProvider implements ConfigurationProviderInterface
         $this->testThemeConfigurationManager = $testThemeConfigurationManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigurations(): array
     {
         return $this->testThemeConfigurationManager->findAll();

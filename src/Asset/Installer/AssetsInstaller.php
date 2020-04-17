@@ -54,9 +54,6 @@ final class AssetsInstaller implements AssetsInstallerInterface
         $this->pathResolver = $pathResolver;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function installAssets(string $targetDir, int $symlinkMask): int
     {
         // Create the bundles directory otherwise symlink will fail.
@@ -75,9 +72,6 @@ final class AssetsInstaller implements AssetsInstallerInterface
         return $effectiveSymlinkMask;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function installBundleAssets(BundleInterface $bundle, string $targetDir, int $symlinkMask): int
     {
         $effectiveSymlinkMask = $symlinkMask;

@@ -33,9 +33,6 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getContainerExtensions(): array
     {
         $themeExtension = new SyliusThemeExtension();

@@ -76,9 +76,6 @@ final class ThemeCollector extends DataCollector
         return $this->data['themes'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
         $usedTheme = $this->themeContext->getTheme();
@@ -94,9 +91,6 @@ final class ThemeCollector extends DataCollector
         $this->data['themes'] = $themes;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function reset(): void
     {
         $this->data['used_theme'] = null;
@@ -104,9 +98,6 @@ final class ThemeCollector extends DataCollector
         $this->data['themes'] = [];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'sylius_theme';

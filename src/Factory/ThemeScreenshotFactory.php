@@ -17,9 +17,6 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeScreenshot;
 
 final class ThemeScreenshotFactory implements ThemeScreenshotFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function createFromArray(array $data): ThemeScreenshot
     {
         if (!array_key_exists('path', $data)) {

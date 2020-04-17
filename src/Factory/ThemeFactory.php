@@ -18,9 +18,6 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
 final class ThemeFactory implements ThemeFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function create(string $name, string $path): ThemeInterface
     {
         return new Theme($name, $path);

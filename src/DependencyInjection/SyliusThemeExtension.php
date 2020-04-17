@@ -29,8 +29,6 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
 
     /**
      * @internal
-     *
-     * {@inheritdoc}
      */
     public function load(array $config, ContainerBuilder $container): void
     {
@@ -58,8 +56,6 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
 
     /**
      * @internal
-     *
-     * {@inheritdoc}
      */
     public function prepend(ContainerBuilder $container): void
     {
@@ -73,9 +69,6 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
         $this->configurationSourceFactories[$configurationSourceFactory->getName()] = $configurationSourceFactory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfiguration(array $config, ContainerBuilder $container): Configuration
     {
         $configuration = new Configuration($this->configurationSourceFactories);

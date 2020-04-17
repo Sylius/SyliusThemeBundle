@@ -41,9 +41,6 @@ final class ThemeTranslatorResourceProvider implements TranslatorResourceProvide
         $this->themeHierarchyProvider = $themeHierarchyProvider;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResources(): array
     {
         /** @var ThemeInterface[] $themes */
@@ -57,9 +54,6 @@ final class ThemeTranslatorResourceProvider implements TranslatorResourceProvide
         return $resources;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResourcesLocales(): array
     {
         return array_values(array_unique(array_map(function (TranslationResourceInterface $translationResource): string {

@@ -29,9 +29,6 @@ final class ProcessingConfigurationLoader implements ConfigurationLoaderInterfac
         $this->configurationProcessor = $configurationProcessor;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function load(string $identifier): array
     {
         $rawConfiguration = $this->decoratedLoader->load($identifier);

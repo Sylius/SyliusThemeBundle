@@ -19,9 +19,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class TranslatorLoaderProviderPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         try {

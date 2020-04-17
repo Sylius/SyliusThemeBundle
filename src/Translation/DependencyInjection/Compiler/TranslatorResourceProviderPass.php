@@ -20,9 +20,6 @@ use Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
 
 final class TranslatorResourceProviderPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         try {

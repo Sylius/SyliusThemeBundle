@@ -17,9 +17,6 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
 final class NoopThemeHierarchyProvider implements ThemeHierarchyProviderInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getThemeHierarchy(ThemeInterface $theme): array
     {
         return [$theme];

@@ -32,9 +32,6 @@ final class ThemeScreenshotFactorySpec extends ObjectBehavior
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getMatchers(): array
     {
         return [

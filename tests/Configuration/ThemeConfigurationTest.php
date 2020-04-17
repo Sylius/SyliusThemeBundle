@@ -382,9 +382,6 @@ final class ThemeConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getConfiguration(): ConfigurationInterface
     {
         return new ThemeConfiguration();

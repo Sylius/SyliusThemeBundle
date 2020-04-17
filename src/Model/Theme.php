@@ -49,73 +49,46 @@ class Theme implements ThemeInterface
         return $this->title ?? $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getPath(): string
     {
         return $this->path;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getAuthors(): array
     {
         return $this->authors;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addAuthor(ThemeAuthor $author): void
     {
         $this->authors[] = $author;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function removeAuthor(ThemeAuthor $author): void
     {
         $this->authors = array_filter($this->authors, function ($currentAuthor) use ($author) {
@@ -123,25 +96,16 @@ class Theme implements ThemeInterface
         });
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getParents(): array
     {
         return $this->parents;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addParent(ThemeInterface $theme): void
     {
         $this->parents[] = $theme;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function removeParent(ThemeInterface $theme): void
     {
         $this->parents = array_filter($this->parents, function ($currentTheme) use ($theme) {
@@ -149,25 +113,16 @@ class Theme implements ThemeInterface
         });
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getScreenshots(): array
     {
         return $this->screenshots;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addScreenshot(ThemeScreenshot $screenshot): void
     {
         $this->screenshots[] = $screenshot;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function removeScreenshot(ThemeScreenshot $screenshot): void
     {
         $this->screenshots = array_filter($this->screenshots, function ($currentScreenshot) use ($screenshot) {

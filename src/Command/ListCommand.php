@@ -31,9 +31,6 @@ final class ListCommand extends Command
         $this->themeRepository = $themeRepository;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this
@@ -42,9 +39,6 @@ final class ListCommand extends Command
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
         $themes = $this->themeRepository->findAll();

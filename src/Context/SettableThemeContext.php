@@ -20,17 +20,11 @@ final class SettableThemeContext implements ThemeContextInterface
     /** @var ThemeInterface|null */
     private $theme;
 
-    /**
-     * {@inheritdoc}
-     */
     public function setTheme(ThemeInterface $theme): void
     {
         $this->theme = $theme;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTheme(): ?ThemeInterface
     {
         return $this->theme;

@@ -38,17 +38,11 @@ final class RecursiveFileLocator implements FileLocatorInterface
         $this->depth = $depth;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function locateFileNamed(string $name): string
     {
         return $this->doLocateFilesNamed($name)->current();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function locateFilesNamed(string $name): array
     {
         return iterator_to_array($this->doLocateFilesNamed($name));

@@ -22,17 +22,11 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class TestConfigurationSourceFactory implements ConfigurationSourceFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildConfiguration(ArrayNodeDefinition $node): void
     {
         // no configuration
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function initializeSource(ContainerBuilder $container, array $config): Definition
     {
         $container->setDefinition(
@@ -48,9 +42,6 @@ final class TestConfigurationSourceFactory implements ConfigurationSourceFactory
         ]))->setPublic(true);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'test';

@@ -41,9 +41,6 @@ final class AssetsInstallCommand extends Command
         $this->projectDir = $projectDir;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this
@@ -59,8 +56,6 @@ final class AssetsInstallCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \InvalidArgumentException When the target directory does not exist or symlink cannot be used
      */
     protected function execute(InputInterface $input, OutputInterface $output): ?int

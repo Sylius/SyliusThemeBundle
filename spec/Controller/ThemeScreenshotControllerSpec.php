@@ -97,9 +97,6 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getMatchers(): array
     {
         return [

@@ -22,9 +22,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class FilesystemConfigurationSourceFactory implements ConfigurationSourceFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildConfiguration(ArrayNodeDefinition $node): void
     {
         $filesystemNode = $node->fixXmlConfig('directory', 'directories')->children();
@@ -50,9 +47,6 @@ final class FilesystemConfigurationSourceFactory implements ConfigurationSourceF
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function initializeSource(ContainerBuilder $container, array $config): Definition
     {
         $recursiveFileLocator = new Definition(RecursiveFileLocator::class, [
@@ -77,9 +71,6 @@ final class FilesystemConfigurationSourceFactory implements ConfigurationSourceF
         return $configurationProvider;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'filesystem';

@@ -70,9 +70,6 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderNotHasService('sylius.theme.translation.translator');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getContainerExtensions(): array
     {
         return [

@@ -24,9 +24,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 final class SyliusThemeBundle extends Bundle
 {
-    /**
-     * {@inheritdoc}
-     */
     public function build(ContainerBuilder $container): void
     {
         /** @var SyliusThemeExtension $themeExtension */

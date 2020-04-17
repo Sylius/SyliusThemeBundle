@@ -32,9 +32,6 @@ final class TranslatorResourceProvider implements TranslatorResourceProviderInte
         $this->filepaths = $filepaths;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResources(): array
     {
         $this->initializeIfNeeded();
@@ -42,9 +39,6 @@ final class TranslatorResourceProvider implements TranslatorResourceProviderInte
         return $this->resources;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResourcesLocales(): array
     {
         $this->initializeIfNeeded();
