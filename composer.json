@@ -68,12 +68,12 @@
     },
     "scripts": {
         "analyse": [
-            "@php vendor/bin/ecs check src",
+            "@php vendor/bin/ecs check spec src tests",
             "@php vendor/bin/phpstan analyse --ansi -c phpstan.neon -l max spec src tests",
             "@php vendor/bin/psalm"
         ],
         "fix": [
-            "@php vendor/bin/ecs check src --fix"
+            "@php vendor/bin/ecs check spec src tests --fix"
         ]
     },
     "extra": {
