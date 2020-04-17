@@ -14,39 +14,39 @@
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="Sylius\Bundle\ThemeBundle\Command\AssetsInstallCommand">
-            <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstaller" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface" />
             <argument>%kernel.project_dir%</argument>
             <tag name="console.command" />
         </service>
 
-        <service id="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstaller">
+        <service id="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface" class="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstaller">
             <argument type="service" id="filesystem" />
             <argument type="service" id="kernel" />
-            <argument type="service" id="sylius.repository.theme" />
-            <argument type="service" id="sylius.theme.hierarchy_provider" />
-            <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\PathResolver" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Repository\ThemeRepositoryInterface" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\HierarchyProvider\ThemeHierarchyProviderInterface" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\PathResolverInterface" />
         </service>
 
-        <service id="Sylius\Bundle\ThemeBundle\Asset\Installer\OutputAwareAssetsInstaller" decorates="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstaller" decoration-priority="256">
+        <service id="Sylius\Bundle\ThemeBundle\Asset\Installer\OutputAwareAssetsInstaller" decorates="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface" decoration-priority="256">
             <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\Installer\OutputAwareAssetsInstaller.inner" />
         </service>
 
-        <service id="Sylius\Bundle\ThemeBundle\Asset\PathResolver" />
+        <service id="Sylius\Bundle\ThemeBundle\Asset\PathResolverInterface" class="Sylius\Bundle\ThemeBundle\Asset\PathResolver" />
 
         <!-- Overridden services -->
         <service id="assets.path_package" class="Sylius\Bundle\ThemeBundle\Asset\Package\PathPackage" abstract="true">
             <argument /> <!-- base path -->
             <argument /> <!-- version strategy -->
-            <argument type="service" id="sylius.context.theme" />
-            <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\PathResolver" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\PathResolverInterface" />
             <argument type="service" id="assets.context" />
         </service>
 
         <service id="assets.url_package" class="Sylius\Bundle\ThemeBundle\Asset\Package\UrlPackage" abstract="true">
             <argument /> <!-- base URLs -->
             <argument /> <!-- version strategy -->
-            <argument type="service" id="sylius.context.theme" />
-            <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\PathResolver" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\PathResolverInterface" />
             <argument type="service" id="assets.context" />
         </service>
     </services>

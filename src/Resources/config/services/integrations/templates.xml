@@ -29,20 +29,19 @@
             <tag name="sylius_theme.twig.template_locator" />
         </service>
 
-        <service id="sylius_theme.twig.template_locator" class="Sylius\Bundle\ThemeBundle\Twig\Locator\CompositeTemplateLocator">
+        <service id="Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateLocatorInterface" class="Sylius\Bundle\ThemeBundle\Twig\Locator\CompositeTemplateLocator">
             <argument type="tagged_iterator" tag="sylius_theme.twig.template_locator" />
         </service>
-        <service id="Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateLocatorInterface" alias="sylius_theme.twig.template_locator" />
 
-        <service id="Sylius\Bundle\ThemeBundle\Twig\Locator\HierarchicalTemplateLocator" decorates="sylius_theme.twig.template_locator">
+        <service id="Sylius\Bundle\ThemeBundle\Twig\Locator\HierarchicalTemplateLocator" decorates="Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateLocatorInterface">
             <argument type="service" id="Sylius\Bundle\ThemeBundle\Twig\Locator\HierarchicalTemplateLocator.inner" />
-            <argument type="service" id="sylius.theme.hierarchy_provider" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\HierarchyProvider\ThemeHierarchyProviderInterface" />
         </service>
 
         <service id="Sylius\Bundle\ThemeBundle\Twig\Loader\ThemedTemplateLoader" decorates="twig.loader" decoration-priority="256">
             <argument type="service" id="Sylius\Bundle\ThemeBundle\Twig\Loader\ThemedTemplateLoader.inner" />
-            <argument type="service" id="sylius_theme.twig.template_locator" />
-            <argument type="service" id="sylius.context.theme" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateLocatorInterface" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface" />
         </service>
     </services>
 </container>

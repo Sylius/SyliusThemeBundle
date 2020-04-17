@@ -14,7 +14,8 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstaller;
+use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface;
+use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Sylius\Bundle\ThemeBundle\DependencyInjection\SyliusThemeExtension;
 use Sylius\Bundle\ThemeBundle\Translation\Translator;
 use Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateLocatorInterface;
@@ -28,7 +29,7 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
     {
         $this->load(['context' => 'sylius.theme.context.custom']);
 
-        $this->assertContainerBuilderHasAlias('sylius.context.theme', 'sylius.theme.context.custom');
+        $this->assertContainerBuilderHasAlias(ThemeContextInterface::class, 'sylius.theme.context.custom');
     }
 
     /**
@@ -38,7 +39,7 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
     {
         $this->load([]);
 
-        $this->assertContainerBuilderHasService(AssetsInstaller::class);
+        $this->assertContainerBuilderHasService(AssetsInstallerInterface::class);
         $this->assertContainerBuilderHasService(TemplateLocatorInterface::class);
         $this->assertContainerBuilderHasService(Translator::class);
     }
@@ -50,7 +51,7 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
     {
         $this->load(['assets' => ['enabled' => false]]);
 
-        $this->assertContainerBuilderNotHasService('sylius.theme.asset.assets_installer');
+        $this->assertContainerBuilderNotHasService(AssetsInstallerInterface::class);
     }
 
     /**
@@ -60,7 +61,7 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
     {
         $this->load(['templating' => ['enabled' => false]]);
 
-        $this->assertContainerBuilderNotHasService('sylius.theme.templating.locator');
+        $this->assertContainerBuilderNotHasService(TemplateLocatorInterface::class);
     }
 
     /**
@@ -70,7 +71,7 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
     {
         $this->load(['translations' => ['enabled' => false]]);
 
-        $this->assertContainerBuilderNotHasService('sylius.theme.translation.translator');
+        $this->assertContainerBuilderNotHasService(Translator::class);
     }
 
     protected function getContainerExtensions(): array

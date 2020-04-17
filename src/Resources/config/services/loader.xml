@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+ This file is part of the Sylius package.
+
+ (c) Paweł Jędrzejewski
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="Sylius\Bundle\ThemeBundle\Factory\ThemeFactoryInterface" class="Sylius\Bundle\ThemeBundle\Factory\ThemeFactory" />
+        <service id="sylius.factory.theme" alias="Sylius\Bundle\ThemeBundle\Factory\ThemeFactoryInterface">
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+        </service>
+
+        <service id="Sylius\Bundle\ThemeBundle\Factory\ThemeAuthorFactoryInterface" class="Sylius\Bundle\ThemeBundle\Factory\ThemeAuthorFactory" />
+        <service id="sylius.factory.theme_author" alias="Sylius\Bundle\ThemeBundle\Factory\ThemeAuthorFactoryInterface">
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+        </service>
+
+        <service id="Sylius\Bundle\ThemeBundle\Factory\ThemeScreenshotFactoryInterface" class="Sylius\Bundle\ThemeBundle\Factory\ThemeScreenshotFactory" />
+        <service id="sylius.factory.theme_screenshot" alias="Sylius\Bundle\ThemeBundle\Factory\ThemeScreenshotFactoryInterface">
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+        </service>
+
+        <service id="Sylius\Bundle\ThemeBundle\Loader\CircularDependencyCheckerInterface" class="Sylius\Bundle\ThemeBundle\Loader\CircularDependencyChecker" />
+        <service id="sylius.theme.circular_dependency_checker" alias="Sylius\Bundle\ThemeBundle\Loader\CircularDependencyCheckerInterface">
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+        </service>
+
+        <service id="Sylius\Bundle\ThemeBundle\Loader\ThemeLoaderInterface" class="Sylius\Bundle\ThemeBundle\Loader\ThemeLoader">
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Configuration\ConfigurationProviderInterface" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Factory\ThemeFactoryInterface" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Factory\ThemeAuthorFactoryInterface" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Factory\ThemeScreenshotFactoryInterface" />
+            <argument type="service">
+                <service class="Zend\Hydrator\Reflection" />
+            </argument>
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Loader\CircularDependencyCheckerInterface" />
+        </service>
+        <service id="sylius.theme.loader" alias="Sylius\Bundle\ThemeBundle\Loader\ThemeLoaderInterface">
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+        </service>
+    </services>
+</container>

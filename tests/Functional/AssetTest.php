@@ -13,8 +13,6 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ThemeBundle\Tests\Functional;
 
-use Psr\Container\ContainerInterface;
-use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstaller;
 use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface;
 use Sylius\Bundle\ThemeBundle\Filesystem\Filesystem;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -133,10 +131,7 @@ final class AssetTest extends WebTestCase
 
     private function getThemeAssetsInstaller(KernelBrowser $client): AssetsInstallerInterface
     {
-        /** @var ContainerInterface $container */
-        $container = $client->getContainer()->get('test.service_container');
-
-        $themeAssetsInstaller = $container->get(AssetsInstaller::class);
+        $themeAssetsInstaller = static::$container->get(AssetsInstallerInterface::class);
 
         assert($themeAssetsInstaller instanceof AssetsInstallerInterface);
 

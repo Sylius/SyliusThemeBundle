@@ -30,8 +30,8 @@ final class SyliusThemeBundleTest extends KernelTestCase
         /** @var Container $container */
         $container = self::$kernel->getContainer();
 
-        $serviceIds = array_filter($container->getServiceIds(), function (string $serviceId): bool {
-            return 0 === strpos($serviceId, 'sylius.');
+        $serviceIds = array_filter($container->getServiceIds(), static function (string $serviceId): bool {
+            return 0 === strpos($serviceId, 'Sylius\\Bundle\\ThemeBundle');
         });
 
         foreach ($serviceIds as $id) {
