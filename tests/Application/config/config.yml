@@ -26,4 +26,3 @@ sylius_theme:
             scan_depth: 1
             directories:
                 - "%kernel.project_dir%/../Fixtures/themes"
-    legacy_mode: true

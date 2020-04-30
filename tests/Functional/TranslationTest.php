@@ -43,6 +43,7 @@ final class TranslationTest extends WebTestCase
 
     /**
      * @test
+     * @group legacy
      */
     public function it_respects_legacy_theming_logic_while_translating_messages(): void
     {

@@ -91,6 +91,7 @@ final class TemplatingTest extends WebTestCase
 
     /**
      * @test
+     * @group legacy
      * @dataProvider getLegacyTemplates
      */
     public function it_renders_legacy_templates(string $templateName, string $contents): void

@@ -87,6 +87,7 @@ final class AssetTest extends WebTestCase
 
     /**
      * @test
+     * @group legacy
      * @dataProvider getSymlinkMasks
      */
     public function it_dumps_legacy_assets(int $symlinkMask): void

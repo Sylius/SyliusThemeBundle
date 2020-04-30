@@ -18,4 +18,10 @@
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
+
+    <groups>
+        <exclude>
+            <group>legacy</group>
+        </exclude>
+    </groups>
 </phpunit>
