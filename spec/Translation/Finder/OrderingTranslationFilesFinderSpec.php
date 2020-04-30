@@ -23,7 +23,7 @@ final class OrderingTranslationFilesFinderSpec extends ObjectBehavior
         $this->beConstructedWith($translationFilesFinder);
     }
 
-    function it_implements_Translation_Files_Finder_interface(): void
+    function it_is_a_translation_files_finder(): void
     {
         $this->shouldImplement(TranslationFilesFinderInterface::class);
     }
@@ -32,9 +32,9 @@ final class OrderingTranslationFilesFinderSpec extends ObjectBehavior
         TranslationFilesFinderInterface $translationFilesFinder
     ): void {
         $translationFilesFinder->findTranslationFiles('/some/path/to/theme')->willReturn([
-            '/some/path/to/theme/AcmeBundle/messages.en.yml',
+            '/some/path/to/theme/AcmeBundle/translations/messages.en.yml',
             '/some/path/to/theme/translations/messages.en.yml',
-            '/some/path/to/theme/YcmeBundle/messages.en.yml',
+            '/some/path/to/theme/YcmeBundle/translations/messages.en.yml',
         ]);
 
         $this->findTranslationFiles('/some/path/to/theme')->shouldStartIteratingAs(['/some/path/to/theme/translations/messages.en.yml']);

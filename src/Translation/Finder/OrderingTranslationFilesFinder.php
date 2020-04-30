@@ -27,11 +27,11 @@ final class OrderingTranslationFilesFinder implements TranslationFilesFinderInte
     {
         $files = $this->translationFilesFinder->findTranslationFiles($path);
 
-        usort($files, function (string $firstFile, string $secondFile) use ($path): int {
+        usort($files, static function (string $firstFile, string $secondFile) use ($path): int {
             $firstFile = str_replace($path, '', $firstFile);
             $secondFile = str_replace($path, '', $secondFile);
 
-            return (int) strpos($secondFile, 'translations') - (int) strpos($firstFile, 'translations');
+            return (int) strpos($firstFile, 'translations') <=> (int) strpos($secondFile, 'translations');
         });
 
         return $files;

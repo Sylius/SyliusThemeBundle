@@ -16,13 +16,21 @@ namespace Sylius\Bundle\ThemeBundle\Translation\Finder;
 use Sylius\Bundle\ThemeBundle\Factory\FinderFactoryInterface;
 use Symfony\Component\Finder\SplFileInfo;
 
-final class TranslationFilesFinder implements TranslationFilesFinderInterface
+/**
+ * @deprecated Deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.
+ */
+final class LegacyTranslationFilesFinder implements TranslationFilesFinderInterface
 {
     /** @var FinderFactoryInterface */
     private $finderFactory;
 
     public function __construct(FinderFactoryInterface $finderFactory)
     {
+        @trigger_error(sprintf(
+            '"%s" is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.',
+            self::class
+        ), \E_USER_DEPRECATED);
+
         $this->finderFactory = $finderFactory;
     }
 
@@ -53,7 +61,7 @@ final class TranslationFilesFinder implements TranslationFilesFinderInterface
 
         $finder
             ->ignoreUnreadableDirs()
-            ->in($path . '/translations')
+            ->in($path)
         ;
 
         return $finder;
