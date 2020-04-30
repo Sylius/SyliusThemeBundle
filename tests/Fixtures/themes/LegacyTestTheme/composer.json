@@ -1,0 +1,14 @@
+{
+    "name": "sylius/legacy-test-theme",
+    "authors": [
+        {
+            "name": "Krzysztof Krawczyk",
+            "email": "krzysztof.krawczyk@example.com"
+        }
+    ],
+    "extra": {
+        "sylius-theme": {
+            "title": "Sylius Legacy Theme"
+        }
+    }
+}

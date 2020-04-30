@@ -10,7 +10,8 @@
         "sylius-theme": {
             "title": "Sylius First Theme",
             "parents": [
-                "sylius/second-test-theme"
+                "sylius/second-test-theme",
+                "sylius/legacy-test-theme"
             ]
         }
     }
