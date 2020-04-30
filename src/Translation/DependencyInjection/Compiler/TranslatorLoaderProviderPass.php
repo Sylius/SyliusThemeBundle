@@ -13,19 +13,17 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ThemeBundle\Translation\DependencyInjection\Compiler;
 
+use Sylius\Bundle\ThemeBundle\Translation\Provider\Loader\TranslatorLoaderProviderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 final class TranslatorLoaderProviderPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         try {
-            $loaderProvider = $container->findDefinition('sylius.theme.translation.loader_provider');
+            $loaderProvider = $container->findDefinition(TranslatorLoaderProviderInterface::class);
         } catch (\InvalidArgumentException $exception) {
             return;
         }

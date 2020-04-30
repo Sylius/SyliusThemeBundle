@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ThemeBundle\Tests\Functional;
 
-use Psr\Container\ContainerInterface;
 use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Sylius\Bundle\ThemeBundle\Filesystem\Filesystem;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 final class AssetTest extends WebTestCase
@@ -28,14 +28,14 @@ final class AssetTest extends WebTestCase
     {
         $client = self::createClient();
 
-        $webDirectory = $this->createWebDirectory();
+        $publicDirectory = $this->createPublicDirectory();
 
-        $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
+        $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, $symlinkMask);
 
-        $crawler = $client->request('GET', '/template/:Asset:assetsTest.txt.twig');
-        $lines = explode("\n", $crawler->text());
+        $crawler = $client->request('GET', '/template/Asset/assetsTest.txt.twig');
+        $lines = explode(', ', $crawler->text());
 
-        $this->assertFileContent($lines, $webDirectory);
+        $this->assertFileContent($lines, $publicDirectory);
     }
 
     /**
@@ -46,22 +46,22 @@ final class AssetTest extends WebTestCase
     {
         $client = self::createClient();
 
-        $webDirectory = $this->createWebDirectory();
+        $publicDirectory = $this->createPublicDirectory();
 
-        $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
+        $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, $symlinkMask);
 
-        $themeAssetPath = __DIR__ . '/../Fixtures/themes/FirstTestTheme/TestBundle/public/theme_asset.txt';
+        $themeAssetPath = __DIR__ . '/../Fixtures/themes/FirstTestTheme/public/test/theme_asset.txt';
         $themeAssetContent = file_get_contents($themeAssetPath);
 
         try {
             file_put_contents($themeAssetPath, 'Theme asset modified' . \PHP_EOL);
 
-            $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
+            $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, $symlinkMask);
 
-            $crawler = $client->request('GET', '/template/:Asset:modifiedAssetsTest.txt.twig');
-            $lines = explode("\n", $crawler->text());
+            $crawler = $client->request('GET', '/template/Asset/modifiedAssetsTest.txt.twig');
+            $lines = explode(', ', $crawler->text());
 
-            $this->assertFileContent($lines, $webDirectory);
+            $this->assertFileContent($lines, $publicDirectory);
         } finally {
             file_put_contents($themeAssetPath, $themeAssetContent);
         }
@@ -75,15 +75,15 @@ final class AssetTest extends WebTestCase
     {
         $client = self::createClient();
 
-        $webDirectory = $this->createWebDirectory();
+        $publicDirectory = $this->createPublicDirectory();
 
-        $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
-        $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
+        $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, $symlinkMask);
+        $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, $symlinkMask);
 
-        $crawler = $client->request('GET', '/template/:Asset:assetsTest.txt.twig');
-        $lines = explode("\n", $crawler->text());
+        $crawler = $client->request('GET', '/template/Asset/assetsTest.txt.twig');
+        $lines = explode(', ', $crawler->text());
 
-        $this->assertFileContent($lines, $webDirectory);
+        $this->assertFileContent($lines, $publicDirectory);
     }
 
     public function getSymlinkMasks(): array
@@ -95,19 +95,24 @@ final class AssetTest extends WebTestCase
         ];
     }
 
-    private function createWebDirectory(): string
+    private function createPublicDirectory(): string
     {
-        $webDirectory = self::$kernel->getCacheDir() . '/web';
-        if (!is_dir($webDirectory)) {
-            mkdir($webDirectory, 0777, true);
+        $publicDirectory = self::$kernel->getCacheDir() . '/public';
+
+        if (is_dir($publicDirectory)) {
+            (new Filesystem())->remove($publicDirectory);
         }
 
-        chdir($webDirectory);
+        if (!is_dir($publicDirectory)) {
+            mkdir($publicDirectory, 0777, true);
+        }
 
-        return $webDirectory;
+        chdir($publicDirectory);
+
+        return $publicDirectory;
     }
 
-    private function assertFileContent(array $lines, string $webDirectory): void
+    private function assertFileContent(array $lines, string $publicDirectory): void
     {
         foreach ($lines as $line) {
             if (empty($line)) {
@@ -118,18 +123,15 @@ final class AssetTest extends WebTestCase
 
             [$expectedText, $assetFile] = explode(': ', $line);
 
-            $contents = (string) file_get_contents($webDirectory . $assetFile);
+            $contents = (string) file_get_contents($publicDirectory . trim($assetFile));
 
             $this->assertEquals($expectedText, trim($contents));
         }
     }
 
-    private function getThemeAssetsInstaller(Client $client): AssetsInstallerInterface
+    private function getThemeAssetsInstaller(KernelBrowser $client): AssetsInstallerInterface
     {
-        /** @var ContainerInterface $container */
-        $container = $client->getContainer();
-
-        $themeAssetsInstaller = $container->get('sylius.theme.asset.assets_installer');
+        $themeAssetsInstaller = static::$container->get(AssetsInstallerInterface::class);
 
         assert($themeAssetsInstaller instanceof AssetsInstallerInterface);
 

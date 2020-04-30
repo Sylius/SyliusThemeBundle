@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 
+use Sylius\Bundle\ThemeBundle\Tests\Application\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 
@@ -9,5 +10,5 @@ set_time_limit(0);
 /** @var Composer\Autoload\ClassLoader $loader */
 $loader = require __DIR__.'/../../../vendor/autoload.php';
 
-$application = new Application(new AppKernel('test', false));
+$application = new Application(new Kernel('test', false));
 $application->run(new ArgvInput());

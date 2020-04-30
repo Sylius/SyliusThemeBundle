@@ -43,6 +43,9 @@ class PathPackage extends BasePathPackage
         $this->pathResolver = $pathResolver;
     }
 
+    /**
+     * @param string $path
+     */
     public function getUrl($path): string
     {
         if ($this->isAbsoluteUrl($path)) {

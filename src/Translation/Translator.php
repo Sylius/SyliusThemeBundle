@@ -29,10 +29,18 @@ final class Translator extends BaseTranslator implements WarmableInterface
         'debug' => false,
     ];
 
-    /** @var TranslatorLoaderProviderInterface */
+    /**
+     * @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though
+     *
+     * @var TranslatorLoaderProviderInterface
+     */
     private $loaderProvider;
 
-    /** @var TranslatorResourceProviderInterface */
+    /**
+     * @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though
+     *
+     * @var TranslatorResourceProviderInterface
+     */
     private $resourceProvider;
 
     /** @var bool */
@@ -61,6 +69,9 @@ final class Translator extends BaseTranslator implements WarmableInterface
         parent::__construct($locale, $this->provideMessageFormatter($messageFormatterOrSelector), $this->options['cache_dir'], $this->options['debug']);
     }
 
+    /**
+     * @param string $cacheDir
+     */
     public function warmUp($cacheDir): void
     {
         // skip warmUp when translator doesn't use cache
@@ -84,6 +95,9 @@ final class Translator extends BaseTranslator implements WarmableInterface
         }
     }
 
+    /**
+     * @param string $locale
+     */
     protected function initializeCatalogue($locale): void
     {
         $this->initialize();
@@ -176,7 +190,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
             @trigger_error(sprintf('Passing a "%s" instance into the "%s" as a third argument is deprecated since Sylius 1.2 and will be removed in 2.0. Inject a "%s" implementation instead.', MessageSelector::class, __METHOD__, MessageFormatterInterface::class), \E_USER_DEPRECATED);
 
             /** @psalm-suppress InvalidArgument */
-            return new MessageFormatter($messageFormatterOrSelector);
+            return new MessageFormatter($this, $messageFormatterOrSelector);
         }
 
         if ($messageFormatterOrSelector instanceof MessageFormatterInterface) {

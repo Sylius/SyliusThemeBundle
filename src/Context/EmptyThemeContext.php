@@ -17,9 +17,6 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
 final class EmptyThemeContext implements ThemeContextInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getTheme(): ?ThemeInterface
     {
         return null;

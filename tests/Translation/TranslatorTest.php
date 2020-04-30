@@ -16,11 +16,11 @@ namespace Sylius\Bundle\ThemeBundle\Tests\Translation;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Sylius\Bundle\ThemeBundle\Translation\Provider\Loader\TranslatorLoaderProvider;
-use Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProvider;
+use Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\SymfonyTranslatorResourceProvider;
 use Sylius\Bundle\ThemeBundle\Translation\Translator;
+use Symfony\Component\Translation\Formatter\MessageFormatter;
 use Symfony\Component\Translation\Loader\ArrayLoader;
 use Symfony\Component\Translation\MessageCatalogue;
-use Symfony\Component\Translation\MessageSelector;
 
 /**
  * @see \Symfony\Component\Translation\Tests\TranslatorTest
@@ -30,10 +30,11 @@ final class TranslatorTest extends TestCase
     /**
      * @test
      * @dataProvider getInvalidOptionsTests
-     * @expectedException \InvalidArgumentException
      */
     public function it_throws_exception_on_instantiating_with_invalid_options(array $options): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->createTranslator('en', $options);
     }
 
@@ -49,10 +50,11 @@ final class TranslatorTest extends TestCase
     /**
      * @test
      * @dataProvider getInvalidLocalesTests
-     * @expectedException \InvalidArgumentException
      */
     public function it_throws_exception_on_instantiating_with_invalid_locale(string $locale): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $this->createTranslator($locale);
     }
 
@@ -70,10 +72,11 @@ final class TranslatorTest extends TestCase
     /**
      * @test
      * @dataProvider getInvalidLocalesTests
-     * @expectedException \InvalidArgumentException
      */
     public function its_throws_exception_on_setting_invalid_fallback_locales(string $locale): void
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         $translator = $this->createTranslator('fr');
         $translator->setFallbackLocales(['fr', $locale]);
     }
@@ -343,9 +346,9 @@ final class TranslatorTest extends TestCase
     private function createTranslator(string $locale = 'en', array $options = []): Translator
     {
         $loaderProvider = new TranslatorLoaderProvider();
-        $resourceProvider = new TranslatorResourceProvider();
-        $messageSelector = $this->getMockBuilder(MessageSelector::class)->getMock();
+        $resourceProvider = new SymfonyTranslatorResourceProvider();
+        $messageFormatter = new MessageFormatter();
 
-        return new Translator($loaderProvider, $resourceProvider, $messageSelector, $locale, $options);
+        return new Translator($loaderProvider, $resourceProvider, $messageFormatter, $locale, $options);
     }
 }

@@ -32,9 +32,6 @@ final class InMemoryThemeRepository implements ThemeRepositoryInterface
         $this->themeLoader = $themeLoader;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAll(): array
     {
         $this->loadThemesIfNeeded();
@@ -42,9 +39,6 @@ final class InMemoryThemeRepository implements ThemeRepositoryInterface
         return $this->themes;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneByName(string $name): ?ThemeInterface
     {
         $this->loadThemesIfNeeded();
@@ -52,9 +46,6 @@ final class InMemoryThemeRepository implements ThemeRepositoryInterface
         return $this->themes[$name] ?? null;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findOneByTitle(string $title): ?ThemeInterface
     {
         $this->loadThemesIfNeeded();

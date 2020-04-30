@@ -25,9 +25,6 @@ final class JsonFileConfigurationLoader implements ConfigurationLoaderInterface
         $this->filesystem = $filesystem;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function load(string $identifier): array
     {
         $this->assertFileExists($identifier);

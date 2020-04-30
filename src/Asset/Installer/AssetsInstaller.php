@@ -54,9 +54,6 @@ final class AssetsInstaller implements AssetsInstallerInterface
         $this->pathResolver = $pathResolver;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function installAssets(string $targetDir, int $symlinkMask): int
     {
         // Create the bundles directory otherwise symlink will fail.
@@ -68,41 +65,58 @@ final class AssetsInstaller implements AssetsInstallerInterface
             $effectiveSymlinkMask = min($effectiveSymlinkMask, $this->installBundleAssets($bundle, $targetDir, $symlinkMask));
         }
 
+        foreach ($this->themeRepository->findAll() as $theme) {
+            $effectiveSymlinkMask = min($effectiveSymlinkMask, $this->installThemeAssets($theme, $targetDir, $symlinkMask));
+        }
+
         return $effectiveSymlinkMask;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function installBundleAssets(BundleInterface $bundle, string $targetDir, int $symlinkMask): int
     {
+        $effectiveSymlinkMask = $symlinkMask;
+
         $targetDir .= preg_replace('/bundle$/', '', strtolower($bundle->getName()));
 
         $this->filesystem->remove($targetDir);
 
-        $effectiveSymlinkMask = $symlinkMask;
-        foreach ($this->findAssetsPaths($bundle) as $originDir) {
-            $effectiveSymlinkMask = min(
-                $effectiveSymlinkMask,
-                $this->installVanillaBundleAssets($originDir, $targetDir, $symlinkMask)
-            );
-        }
+        $originDir = $bundle->getPath() . '/Resources/public';
 
-        foreach ($this->themeRepository->findAll() as $theme) {
-            $themes = $this->themeHierarchyProvider->getThemeHierarchy($theme);
-
-            foreach ($this->findAssetsPaths($bundle, $themes) as $originDir) {
-                $effectiveSymlinkMask = min(
-                    $effectiveSymlinkMask,
-                    $this->installThemedBundleAssets($theme, $originDir, $targetDir, $symlinkMask)
-                );
-            }
+        if (is_dir($originDir)) {
+            $effectiveSymlinkMask = min($effectiveSymlinkMask, $this->doInstallAssets($originDir, $targetDir, $symlinkMask));
         }
 
         return $effectiveSymlinkMask;
     }
 
-    private function installThemedBundleAssets(ThemeInterface $theme, string $originDir, string $targetDir, int $symlinkMask): int
+    public function installThemeAssets(ThemeInterface $theme, string $targetDir, int $symlinkMask): int
+    {
+        $effectiveSymlinkMask = $symlinkMask;
+
+        $targetDir = $this->pathResolver->resolve($targetDir, $theme);
+
+        $this->filesystem->mkdir($targetDir);
+
+        foreach ($this->kernel->getBundles() as $bundle) {
+            $effectiveSymlinkMask = min($effectiveSymlinkMask, $this->installBundleAssets($bundle, $targetDir, $symlinkMask));
+        }
+
+        $themes = array_reverse($this->themeHierarchyProvider->getThemeHierarchy($theme));
+
+        foreach ($themes as $theme) {
+            $originDir = $theme->getPath() . '/public';
+
+            if (!is_dir($originDir)) {
+                continue;
+            }
+
+            $effectiveSymlinkMask = min($effectiveSymlinkMask, $this->doInstallAssets($originDir, $targetDir, $symlinkMask));
+        }
+
+        return $effectiveSymlinkMask;
+    }
+
+    private function doInstallAssets(string $originDir, string $targetDir, int $symlinkMask): int
     {
         $effectiveSymlinkMask = $symlinkMask;
 
@@ -110,12 +124,7 @@ final class AssetsInstaller implements AssetsInstallerInterface
         $finder->sortByName()->ignoreDotFiles(false)->in($originDir);
 
         foreach ($finder as $originFile) {
-            $targetFile = $targetDir . '/' . $originFile->getRelativePathname();
-            $targetFile = $this->pathResolver->resolve($targetFile, $theme);
-
-            if (file_exists($targetFile) && AssetsInstallerInterface::HARD_COPY !== $symlinkMask) {
-                continue;
-            }
+            $targetFile = rtrim($targetDir, '/') . '/' . $originFile->getRelativePathname();
 
             $this->filesystem->mkdir(dirname($targetFile));
 
@@ -128,13 +137,12 @@ final class AssetsInstaller implements AssetsInstallerInterface
         return $effectiveSymlinkMask;
     }
 
-    private function installVanillaBundleAssets(string $originDir, string $targetDir, int $symlinkMask): int
-    {
-        return $this->installAsset($originDir, $targetDir, $symlinkMask);
-    }
-
     private function installAsset(string $origin, string $target, int $symlinkMask): int
     {
+        if (is_file($target)) {
+            $this->filesystem->remove($target);
+        }
+
         if (AssetsInstallerInterface::RELATIVE_SYMLINK === $symlinkMask) {
             try {
                 $targetDirname = (string) realpath(is_dir($target) ? $target : dirname($target));
@@ -175,28 +183,6 @@ final class AssetsInstaller implements AssetsInstallerInterface
         }
 
         $this->doCopyAsset($origin, $target);
-    }
-
-    /**
-     * @param array|ThemeInterface[] $themes
-     */
-    private function findAssetsPaths(BundleInterface $bundle, array $themes = []): array
-    {
-        $sources = [];
-
-        foreach ($themes as $theme) {
-            $sourceDir = $theme->getPath() . '/' . $bundle->getName() . '/public';
-            if (is_dir($sourceDir)) {
-                $sources[] = $sourceDir;
-            }
-        }
-
-        $sourceDir = $bundle->getPath() . '/Resources/public';
-        if (is_dir($sourceDir)) {
-            $sources[] = $sourceDir;
-        }
-
-        return $sources;
     }
 
     /**

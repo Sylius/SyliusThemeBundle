@@ -15,6 +15,7 @@ namespace Sylius\Bundle\ThemeBundle\Tests\Translation\DependencyInjection\Compil
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Sylius\Bundle\ThemeBundle\Translation\DependencyInjection\Compiler\TranslatorResourceProviderPass;
+use Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\SymfonyTranslatorResourceProvider;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
@@ -36,12 +37,12 @@ final class TranslatorResourceProviderPassTest extends AbstractCompilerPassTestC
         ]);
         $this->setDefinition('translator.default', $symfonyTranslatorDefinition);
 
-        $this->setDefinition('sylius.theme.translation.resource_provider.default', new Definition(null, [[]]));
+        $this->setDefinition(SymfonyTranslatorResourceProvider::class, new Definition(null, [[]]));
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'sylius.theme.translation.resource_provider.default',
+            SymfonyTranslatorResourceProvider::class,
             0,
             ['/resources/messages.en.yml', '/resources/alerts.en.yml', '/resources/messages.es.yml']
         );
@@ -60,14 +61,14 @@ final class TranslatorResourceProviderPassTest extends AbstractCompilerPassTestC
         ]);
         $this->setDefinition('translator.default', $symfonyTranslatorDefinition);
 
-        $this->setDefinition('sylius.theme.translation.resource_provider.default', new Definition(null, [
+        $this->setDefinition(SymfonyTranslatorResourceProvider::class, new Definition(null, [
             ['/resources/alerts.en.yml'],
         ]));
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'sylius.theme.translation.resource_provider.default',
+            SymfonyTranslatorResourceProvider::class,
             0,
             ['/resources/alerts.en.yml', '/resources/messages.en.yml']
         );
@@ -86,12 +87,12 @@ final class TranslatorResourceProviderPassTest extends AbstractCompilerPassTestC
         ]);
         $this->setDefinition('translator.default', $symfonyTranslatorDefinition);
 
-        $this->setDefinition('sylius.theme.translation.resource_provider.default', new Definition(null, [[]]));
+        $this->setDefinition(SymfonyTranslatorResourceProvider::class, new Definition(null, [[]]));
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'sylius.theme.translation.resource_provider.default',
+            SymfonyTranslatorResourceProvider::class,
             0,
             []
         );
@@ -114,12 +115,12 @@ final class TranslatorResourceProviderPassTest extends AbstractCompilerPassTestC
         ]);
         $this->setDefinition('translator.default', $symfonyTranslatorDefinition);
 
-        $this->setDefinition('sylius.theme.translation.resource_provider.default', new Definition(null, [[]]));
+        $this->setDefinition(SymfonyTranslatorResourceProvider::class, new Definition(null, [[]]));
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'sylius.theme.translation.resource_provider.default',
+            SymfonyTranslatorResourceProvider::class,
             0,
             ['/resources/messages.en.yml', '/resources/alerts.en.yml', '/resources/messages.es.yml']
         );
@@ -133,12 +134,12 @@ final class TranslatorResourceProviderPassTest extends AbstractCompilerPassTestC
         $symfonyTranslatorDefinition = new Definition(null, [null, null]);
         $this->setDefinition('translator.default', $symfonyTranslatorDefinition);
 
-        $this->setDefinition('sylius.theme.translation.resource_provider.default', new Definition(null, [[]]));
+        $this->setDefinition(SymfonyTranslatorResourceProvider::class, new Definition(null, [[]]));
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'sylius.theme.translation.resource_provider.default',
+            SymfonyTranslatorResourceProvider::class,
             0,
             []
         );

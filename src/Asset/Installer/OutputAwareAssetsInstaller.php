@@ -31,17 +31,11 @@ final class OutputAwareAssetsInstaller implements AssetsInstallerInterface, Outp
         $this->output = new NullOutput();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setOutput(OutputInterface $output): void
     {
         $this->output = $output;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function installAssets(string $targetDir, int $symlinkMask): int
     {
         $this->output->writeln($this->provideExpectationComment($symlinkMask));
@@ -49,9 +43,6 @@ final class OutputAwareAssetsInstaller implements AssetsInstallerInterface, Outp
         return $this->assetsInstaller->installAssets($targetDir, $symlinkMask);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function installBundleAssets(BundleInterface $bundle, string $targetDir, int $symlinkMask): int
     {
         $this->output->writeln(sprintf(

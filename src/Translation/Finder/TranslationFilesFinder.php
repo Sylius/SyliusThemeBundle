@@ -26,9 +26,6 @@ final class TranslationFilesFinder implements TranslationFilesFinderInterface
         $this->finderFactory = $finderFactory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findTranslationFiles(string $path): array
     {
         $themeFiles = $this->getFiles($path);

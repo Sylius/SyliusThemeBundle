@@ -1,6 +1,10 @@
 imports:
     - { resource: 'vendor/sylius-labs/coding-standard/easy-coding-standard.yml' }
 
+parameters:
+    exclude_files:
+        - '**/var/*'
+
 services:
     PhpCsFixer\Fixer\Comment\HeaderCommentFixer:
         header: |

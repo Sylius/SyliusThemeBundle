@@ -3,9 +3,13 @@ language: php
 php:
     - 7.2
     - 7.3
+    - 7.4
 
 env:
-    - SYMFONY_VERSION=4.4.*
+    - SYMFONY_VERSION=4.4.* TWIG_VERSION=2.*
+    - SYMFONY_VERSION=4.4.* TWIG_VERSION=3.*
+    - SYMFONY_VERSION=5.0.* TWIG_VERSION=2.*
+    - SYMFONY_VERSION=5.0.* TWIG_VERSION=3.*
 
 cache:
     directories:
@@ -29,7 +33,6 @@ install:
             symfony/http-foundation:${SYMFONY_VERSION} \
             symfony/http-kernel:${SYMFONY_VERSION} \
             symfony/options-resolver:${SYMFONY_VERSION} \
-            symfony/templating:${SYMFONY_VERSION} \
             symfony/translation:${SYMFONY_VERSION} \
             --no-update --no-scripts
     - |
@@ -37,6 +40,7 @@ install:
             symfony/browser-kit:${SYMFONY_VERSION} \
             symfony/security-csrf:${SYMFONY_VERSION} \
             symfony/twig-bundle:${SYMFONY_VERSION} \
+            twig/twig:${TWIG_VERSION} \
             --no-update --no-scripts
     - composer update --prefer-dist
 

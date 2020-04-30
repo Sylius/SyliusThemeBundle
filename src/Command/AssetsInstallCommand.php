@@ -15,7 +15,8 @@ namespace Sylius\Bundle\ThemeBundle\Command;
 
 use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface;
 use Sylius\Bundle\ThemeBundle\Asset\Installer\OutputAwareInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -24,11 +25,22 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Command that places themes web assets into a given directory.
  */
-final class AssetsInstallCommand extends ContainerAwareCommand
+final class AssetsInstallCommand extends Command
 {
-    /**
-     * {@inheritdoc}
-     */
+    /** @var AssetsInstallerInterface */
+    private $assetsInstaller;
+
+    /** @var string */
+    private $projectDir;
+
+    public function __construct(AssetsInstallerInterface $assetsInstaller, string $projectDir)
+    {
+        parent::__construct(null);
+
+        $this->assetsInstaller = $assetsInstaller;
+        $this->projectDir = $projectDir;
+    }
+
     protected function configure(): void
     {
         $this
@@ -44,16 +56,12 @@ final class AssetsInstallCommand extends ContainerAwareCommand
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws \InvalidArgumentException When the target directory does not exist or symlink cannot be used
      */
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
-        /** @var AssetsInstallerInterface $assetsInstaller */
-        $assetsInstaller = $this->getContainer()->get('sylius.theme.asset.assets_installer');
-        if ($assetsInstaller instanceof OutputAwareInterface) {
-            $assetsInstaller->setOutput($output);
+        if ($this->assetsInstaller instanceof OutputAwareInterface) {
+            $this->assetsInstaller->setOutput($output);
         }
 
         $symlinkMask = AssetsInstallerInterface::HARD_COPY;
@@ -66,21 +74,30 @@ final class AssetsInstallCommand extends ContainerAwareCommand
             $symlinkMask = max($symlinkMask, AssetsInstallerInterface::RELATIVE_SYMLINK);
         }
 
-        $assetsInstaller->installAssets($this->getTargetDir($input), $symlinkMask);
+        $this->assetsInstaller->installAssets($this->getTargetDir($input), $symlinkMask);
 
         return 0;
     }
 
     private function getTargetDir(InputInterface $input): string
     {
-        if ($input->getArgument('target') === null) {
-            return $this->getContainer()->getParameter('sylius_core.public_dir');
+        /** @var string|null $targetDirectory */
+        $targetDirectory = $input->getArgument('target');
+        $targetDirectory = rtrim((string) $targetDirectory, '/');
+
+        if (!$targetDirectory) {
+            $targetDirectory = $this->getPublicDirectory();
         }
 
-        /** @var string $target */
-        $target = $input->getArgument('target');
+        if (!is_dir($targetDirectory)) {
+            $targetDirectory = $this->projectDir . '/' . $targetDirectory;
 
-        return $target;
+            if (!is_dir($targetDirectory)) {
+                throw new InvalidArgumentException(sprintf('The target directory "%s" does not exist.', $targetDirectory));
+            }
+        }
+
+        return $targetDirectory;
     }
 
     private function getHelpMessage(): string
@@ -103,5 +120,27 @@ To make symlink relative, add the <info>--relative</info> option:
   <info>php %command.full_name% public --symlink --relative</info>
 
 EOT;
+    }
+
+    /**
+     * @see \Symfony\Bundle\FrameworkBundle\Command\AssetsInstallCommand::getPublicDirectory()
+     */
+    private function getPublicDirectory(): string
+    {
+        $defaultPublicDir = 'public';
+
+        $composerFilePath = $this->projectDir . '/composer.json';
+
+        if (!file_exists($composerFilePath)) {
+            return $defaultPublicDir;
+        }
+
+        $composerConfig = json_decode((string) file_get_contents($composerFilePath), true);
+
+        if (isset($composerConfig['extra']['public-dir'])) {
+            return $composerConfig['extra']['public-dir'];
+        }
+
+        return $defaultPublicDir;
     }
 }

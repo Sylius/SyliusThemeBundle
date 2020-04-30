@@ -13,24 +13,21 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ThemeBundle\DependencyInjection;
 
+use Sylius\Bundle\ThemeBundle\Configuration\ConfigurationProviderInterface;
 use Sylius\Bundle\ThemeBundle\Configuration\ConfigurationSourceFactoryInterface;
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-final class SyliusThemeExtension extends Extension implements PrependExtensionInterface
+final class SyliusThemeExtension extends Extension
 {
     /** @var ConfigurationSourceFactoryInterface[] */
     private $configurationSourceFactories = [];
 
     /**
      * @internal
-     *
-     * {@inheritdoc}
      */
     public function load(array $config, ContainerBuilder $container): void
     {
@@ -43,7 +40,7 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
         }
 
         if ($config['templating']['enabled']) {
-            $loader->load('services/integrations/templating.xml');
+            $loader->load('services/integrations/templates.xml');
         }
 
         if ($config['translations']['enabled']) {
@@ -52,20 +49,11 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
 
         $this->resolveConfigurationSources($container, $config);
 
-        $container->setAlias('sylius.context.theme', $config['context']);
-        $container->setAlias(ThemeContextInterface::class, 'sylius.context.theme');
-    }
-
-    /**
-     * @internal
-     *
-     * {@inheritdoc}
-     */
-    public function prepend(ContainerBuilder $container): void
-    {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-
-        $this->prependTwig($container, $loader);
+        $container->setAlias(ThemeContextInterface::class, $config['context']);
+        $container
+            ->setAlias('sylius.context.theme', ThemeContextInterface::class)
+            ->setDeprecated(true, '"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.')
+        ;
     }
 
     public function addConfigurationSourceFactory(ConfigurationSourceFactoryInterface $configurationSourceFactory): void
@@ -73,9 +61,6 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
         $this->configurationSourceFactories[$configurationSourceFactory->getName()] = $configurationSourceFactory;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfiguration(array $config, ContainerBuilder $container): Configuration
     {
         $configuration = new Configuration($this->configurationSourceFactories);
@@ -83,15 +68,6 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
         $container->addObjectResource($configuration);
 
         return $configuration;
-    }
-
-    private function prependTwig(ContainerBuilder $container, LoaderInterface $loader): void
-    {
-        if (!$container->hasExtension('twig')) {
-            return;
-        }
-
-        $loader->load('services/integrations/twig.xml');
     }
 
     private function resolveConfigurationSources(ContainerBuilder $container, array $config): void
@@ -106,7 +82,7 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
             }
         }
 
-        $compositeConfigurationProvider = $container->getDefinition('sylius.theme.configuration.provider');
+        $compositeConfigurationProvider = $container->getDefinition(ConfigurationProviderInterface::class);
         $compositeConfigurationProvider->replaceArgument(0, $configurationProviders);
 
         foreach ($this->configurationSourceFactories as $configurationSourceFactory) {

@@ -26,9 +26,6 @@ final class CompositeConfigurationProvider implements ConfigurationProviderInter
         $this->configurationProviders = $configurationProviders;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigurations(): array
     {
         $configurations = [];

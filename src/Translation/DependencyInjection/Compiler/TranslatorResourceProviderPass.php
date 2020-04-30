@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ThemeBundle\Translation\DependencyInjection\Compiler;
 
+use Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\SymfonyTranslatorResourceProvider;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -20,14 +21,11 @@ use Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
 
 final class TranslatorResourceProviderPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function process(ContainerBuilder $container): void
     {
         try {
             $symfonyTranslator = $container->findDefinition('translator.default');
-            $syliusResourceProvider = $container->findDefinition('sylius.theme.translation.resource_provider.default');
+            $syliusResourceProvider = $container->findDefinition(SymfonyTranslatorResourceProvider::class);
         } catch (\InvalidArgumentException $exception) {
             return;
         }

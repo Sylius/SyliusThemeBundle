@@ -7,7 +7,7 @@ To discover themes that are defined in the application, ThemeBundle uses configu
 **Filesystem** configuration source loads theme definitions from files placed under specified directories.
 
 By default it seeks for `composer.json` files that exists under `%kernel.project_dir%/themes` directory, which
-usually is resolved to `themes`.
+usually is resolved to `<Project>/themes`.
 
 #### Configuration reference
 
@@ -17,15 +17,10 @@ sylius_theme:
         filesystem:
             enabled: false
             filename: composer.json
-            scan_depth: null
+            scan_depth: 1
             directories:
                 - "%kernel.project_dir%/themes"
 ```
-
-Scanning for the configuration file inside themes directories is recursive with unlimited directory depth by default,
-which can result in slow performance when a lot of files are placed inside themes (e.g. a `node_modules` folder).
-Define the optional `scan_depth` (integer) setting to the configuration to restrict scanning for the theme configuration
-file to a specific depth.
     
 ### Test configuration source
 
@@ -44,8 +39,7 @@ This source does not have any configuration options. To enable it, use the follo
 
 #### Usage
 
-In order to use tests, have a look at `sylius.theme.test_theme_configuration_manager` service
-(implementing `TestThemeConfigurationManagerInterface`). You can:
+In order to use tests, have a look at `TestThemeConfigurationManager` class. You can:
 
  - add a theme: `add(array $configuration): void`
  - remove a theme: `remove(string $themeName): void`

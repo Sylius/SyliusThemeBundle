@@ -37,9 +37,6 @@ final class FilesystemConfigurationProvider implements ConfigurationProviderInte
         $this->configurationFilename = $configurationFilename;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getConfigurations(): array
     {
         try {

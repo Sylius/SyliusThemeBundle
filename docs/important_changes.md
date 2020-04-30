@@ -7,12 +7,12 @@ the same as they were.
 
 Changed loading order (priority descending):
 
-- App templates:
-    - `<Theme>/views` **(NEW!)**
-    - `app/Resources/views`
+- Application templates:
+    - `<Theme>/templates` **(NEW!)**
+    - `<Project>/templates`
 - Bundle templates:
-    - `<Theme>/<Bundle name>/views` **(NEW!)**
-    - `app/Resources/<Bundle name>/views`
+    - `<Theme>/templates/bundles/<Bundle name>` **(NEW!)**
+    - `<Project>/templates/bundles/<Bundle name>`
     - `<Bundle>/Resources/views`
 
 ### Translations
@@ -20,9 +20,7 @@ Changed loading order (priority descending):
 Changed loading order (priority descending):
 
 - `<Theme>/translations` **(NEW!)**
-- `<Theme>/<Bundle name>/translations` **(NEW!)**
-- `app/Resources/translations`
-- `app/Resources/<Bundle name>/translations`
+- `<Project>/translations`
 - `<Bundle>/Resources/translations`
 
 ### Assets

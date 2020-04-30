@@ -13,7 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ThemeBundle\Configuration\Filesystem;
 
+use Sylius\Bundle\ThemeBundle\Configuration\ConfigurationProcessorInterface;
 use Sylius\Bundle\ThemeBundle\Configuration\ConfigurationSourceFactoryInterface;
+use Sylius\Bundle\ThemeBundle\Factory\FinderFactoryInterface;
+use Sylius\Bundle\ThemeBundle\Filesystem\FilesystemInterface;
 use Sylius\Bundle\ThemeBundle\Locator\RecursiveFileLocator;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,9 +25,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class FilesystemConfigurationSourceFactory implements ConfigurationSourceFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildConfiguration(ArrayNodeDefinition $node): void
     {
         $filesystemNode = $node->fixXmlConfig('directory', 'directories')->children();
@@ -36,50 +36,42 @@ final class FilesystemConfigurationSourceFactory implements ConfigurationSourceF
         ;
 
         $filesystemNode
-            ->integerNode('scan_depth')
+            ->scalarNode('scan_depth')
                 ->info('Restrict depth to scan for configuration file inside theme folder')
-                ->defaultNull()
+                ->defaultValue(1)
         ;
 
         $filesystemNode
             ->arrayNode('directories')
-                ->defaultValue(['%kernel.project_dir%/app/themes'])
+                ->defaultValue(['%kernel.project_dir%/themes'])
                 ->requiresAtLeastOneElement()
                 ->performNoDeepMerging()
                 ->prototype('scalar')
         ;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function initializeSource(ContainerBuilder $container, array $config): Definition
     {
         $recursiveFileLocator = new Definition(RecursiveFileLocator::class, [
-            new Reference('sylius.theme.finder_factory'),
+            new Reference(FinderFactoryInterface::class),
             $config['directories'],
             $config['scan_depth'],
         ]);
 
         $configurationLoader = new Definition(ProcessingConfigurationLoader::class, [
             new Definition(JsonFileConfigurationLoader::class, [
-                new Reference('sylius.theme.filesystem'),
+                new Reference(FilesystemInterface::class),
             ]),
-            new Reference('sylius.theme.configuration.processor'),
+            new Reference(ConfigurationProcessorInterface::class),
         ]);
 
-        $configurationProvider = new Definition(FilesystemConfigurationProvider::class, [
+        return new Definition(FilesystemConfigurationProvider::class, [
             $recursiveFileLocator,
             $configurationLoader,
             $config['filename'],
         ]);
-
-        return $configurationProvider;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getName(): string
     {
         return 'filesystem';

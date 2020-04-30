@@ -17,9 +17,6 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
 final class CircularDependencyChecker implements CircularDependencyCheckerInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function check(ThemeInterface $theme, array $previousThemes = []): void
     {
         if (0 === count($theme->getParents())) {

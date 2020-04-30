@@ -13,21 +13,21 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
 
 final class TemplatingController
 {
-    /** @var EngineInterface */
-    private $templating;
+    /** @var Environment */
+    private $twig;
 
-    public function __construct(EngineInterface $templating)
+    public function __construct(Environment $twig)
     {
-        $this->templating = $templating;
+        $this->twig = $twig;
     }
 
     public function renderTemplateAction(string $templateName): Response
     {
-        return $this->templating->renderResponse($templateName);
+        return new Response($this->twig->render($templateName));
     }
 }

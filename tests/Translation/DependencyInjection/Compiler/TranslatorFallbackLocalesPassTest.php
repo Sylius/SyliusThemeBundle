@@ -15,6 +15,7 @@ namespace Sylius\Bundle\ThemeBundle\Tests\Translation\DependencyInjection\Compil
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Sylius\Bundle\ThemeBundle\Translation\DependencyInjection\Compiler\TranslatorFallbackLocalesPass;
+use Sylius\Bundle\ThemeBundle\Translation\Translator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
@@ -29,12 +30,12 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
         $symfonyTranslatorDefinition->addMethodCall('setFallbackLocales', ['pl_PL']);
         $this->setDefinition('translator.default', $symfonyTranslatorDefinition);
 
-        $this->setDefinition('sylius.theme.translation.translator', new Definition());
+        $this->setDefinition(Translator::class, new Definition());
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'sylius.theme.translation.translator',
+            Translator::class,
             'setFallbackLocales',
             ['pl_PL']
         );
@@ -51,12 +52,12 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
         $symfonyTranslatorDefinition->addMethodCall('doFoo', ['argument1']);
         $this->setDefinition('translator.default', $symfonyTranslatorDefinition);
 
-        $this->setDefinition('sylius.theme.translation.translator', new Definition());
+        $this->setDefinition(Translator::class, new Definition());
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'sylius.theme.translation.translator',
+            Translator::class,
             'setFallbackLocales',
             ['pl_PL']
         );
@@ -72,18 +73,18 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
         $symfonyTranslatorDefinition->addMethodCall('setFallbackLocales', ['en_US']);
         $this->setDefinition('translator.default', $symfonyTranslatorDefinition);
 
-        $this->setDefinition('sylius.theme.translation.translator', new Definition());
+        $this->setDefinition(Translator::class, new Definition());
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'sylius.theme.translation.translator',
+            Translator::class,
             'setFallbackLocales',
             ['pl_PL']
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'sylius.theme.translation.translator',
+            Translator::class,
             'setFallbackLocales',
             ['en_US']
         );
@@ -95,12 +96,12 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
     public function it_does_not_force_symfony_translator_to_have_any_method_calls(): void
     {
         $this->setDefinition('translator.default', new Definition());
-        $this->setDefinition('sylius.theme.translation.translator', new Definition());
+        $this->setDefinition(Translator::class, new Definition());
 
         $this->compile();
 
         $this->assertContainerBuilderHasService('translator.default');
-        $this->assertContainerBuilderHasService('sylius.theme.translation.translator');
+        $this->assertContainerBuilderHasService(Translator::class);
     }
 
     protected function registerCompilerPass(ContainerBuilder $container): void

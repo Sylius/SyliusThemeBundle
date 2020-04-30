@@ -20,7 +20,6 @@ parameters:
 
         # Symfony caveats
         - '/Parameter \#1 \$name of method Symfony\\Component\\Config\\FileLocatorInterface::locate\(\) expects string, Symfony\\Component\\Templating\\TemplateReferenceInterface given/'
-        - '/Parameter \#1 \$translator of class Symfony\\Component\\Translation\\Formatter\\MessageFormatter constructor expects Symfony\\Contracts\\Translation\\TranslatorInterface|null, Symfony\\Component\\Translation\\MessageSelector given/'
 
         # Symfony passes TemplateReference object instead of a string
         - "/Casting to string something that\\'s already string./"
@@ -30,3 +29,6 @@ parameters:
         - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::__call\(\) has no return typehint specified./'
         - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::trans\(\) has parameter \$[A-Za-z]+ with no typehint specified./'
         - '/Method Sylius\\Bundle\\ThemeBundle\\Templating\\Locator\\TemplateFileLocator::unserialize\(\) has parameter \$serialized with no typehint specified./'
+        - '/Method Sylius\\Bundle\\ThemeBundle\\Asset\\Package\\[A-Za-z]+::getUrl\(\) has parameter \$path with no typehint specified./'
+        - '/Symfony\\Component\\Translation\\MessageSelector/'
+        - '/Twig\\Loader\\ExistsLoaderInterface/'

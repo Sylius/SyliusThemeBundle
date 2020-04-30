@@ -59,9 +59,6 @@ final class ThemeLoader implements ThemeLoaderInterface
         $this->circularDependencyChecker = $circularDependencyChecker;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function load(): array
     {
         $configurations = $this->configurationProvider->getConfigurations();

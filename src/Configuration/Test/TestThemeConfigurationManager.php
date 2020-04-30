@@ -34,9 +34,6 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
         $this->configurationsFile = rtrim($cacheDir, '/') . '/_test_themes/data.serialized';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function findAll(): array
     {
         $this->initializeIfNeeded();
@@ -44,9 +41,6 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
         return $this->load();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function add(array $configuration): void
     {
         $this->initializeIfNeeded();
@@ -61,9 +55,6 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
         $this->save($configurations);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function remove(string $themeName): void
     {
         $this->initializeIfNeeded();
@@ -77,9 +68,6 @@ final class TestThemeConfigurationManager implements TestThemeConfigurationManag
         $this->save($configurations);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function clear(): void
     {
         $configurationsDirectory = dirname($this->configurationsFile);

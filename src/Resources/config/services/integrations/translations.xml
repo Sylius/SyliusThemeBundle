@@ -13,11 +13,9 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <defaults public="true" />
-
-        <service id="sylius.theme.translation.translator" class="Sylius\Bundle\ThemeBundle\Translation\Translator" decorates="translator.default" decoration-priority="256" public="false">
-            <argument type="service" id="sylius.theme.translation.loader_provider" />
-            <argument type="service" id="sylius.theme.translation.resource_provider" />
+        <service id="Sylius\Bundle\ThemeBundle\Translation\Translator" decorates="translator.default" decoration-priority="256">
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Translation\Provider\Loader\TranslatorLoaderProviderInterface" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProviderInterface" />
             <argument type="service" id="translator.formatter" />
             <argument>%kernel.default_locale%</argument>
             <argument type="collection">
@@ -26,41 +24,38 @@
             </argument>
         </service>
 
-        <service id="sylius.theme.translation.theme_aware_translator" class="Sylius\Bundle\ThemeBundle\Translation\ThemeAwareTranslator" decorates="sylius.theme.translation.translator" decoration-priority="256" public="false">
-            <argument type="service" id="sylius.theme.translation.theme_aware_translator.inner" />
-            <argument type="service" id="sylius.context.theme" />
+        <service id="Sylius\Bundle\ThemeBundle\Translation\ThemeAwareTranslator" decorates="Sylius\Bundle\ThemeBundle\Translation\Translator" decoration-priority="256">
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Translation\ThemeAwareTranslator.inner" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface" />
         </service>
 
-        <service id="sylius.theme.translation.loader_provider" class="Sylius\Bundle\ThemeBundle\Translation\Provider\Loader\TranslatorLoaderProvider" public="false">
+        <service id="Sylius\Bundle\ThemeBundle\Translation\Provider\Loader\TranslatorLoaderProviderInterface" class="Sylius\Bundle\ThemeBundle\Translation\Provider\Loader\TranslatorLoaderProvider">
             <argument type="collection" /> <!-- loaders -->
         </service>
-        <service id="Sylius\Bundle\ThemeBundle\Translation\Provider\Loader\TranslatorLoaderProviderInterface" alias="sylius.theme.translation.loader_provider" />
 
-        <service id="sylius.theme.translation.resource_provider" class="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\CompositeTranslatorResourceProvider" public="false">
-            <argument type="collection">
-                <argument type="service" id="sylius.theme.translation.resource_provider.default" />
-                <argument type="service" id="sylius.theme.translation.resource_provider.theme_aware" />
-            </argument>
-        </service>
-        <service id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProviderInterface" alias="sylius.theme.translation.resource_provider" />
-
-        <service id="sylius.theme.translation.resource_provider.default" class="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProvider" public="false">
+        <service id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\SymfonyTranslatorResourceProvider">
             <argument type="collection" /> <!-- resources filepaths -->
         </service>
 
-        <service id="sylius.theme.translation.resource_provider.theme_aware" class="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\ThemeTranslatorResourceProvider" public="false">
-            <argument type="service" id="sylius.theme.translation.files_finder" />
-            <argument type="service" id="sylius.repository.theme" />
-            <argument type="service" id="sylius.theme.hierarchy_provider" />
+        <service id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\ThemeTranslatorResourceProvider">
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Translation\Finder\TranslationFilesFinderInterface" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Repository\ThemeRepositoryInterface" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\HierarchyProvider\ThemeHierarchyProviderInterface" />
         </service>
 
-        <service id="sylius.theme.translation.files_finder" class="Sylius\Bundle\ThemeBundle\Translation\Finder\TranslationFilesFinder" public="false">
-            <argument type="service" id="sylius.theme.finder_factory" />
+        <service id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProviderInterface" class="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\CompositeTranslatorResourceProvider">
+            <argument type="collection">
+                <argument type="service" id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\SymfonyTranslatorResourceProvider" />
+                <argument type="service" id="Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\ThemeTranslatorResourceProvider" />
+            </argument>
         </service>
-        <service id="Sylius\Bundle\ThemeBundle\Translation\Finder\TranslationFilesFinderInterface" alias="sylius.theme.translation.files_finder" />
 
-        <service id="sylius.theme.translation.ordering_files_finder" class="Sylius\Bundle\ThemeBundle\Translation\Finder\OrderingTranslationFilesFinder" decorates="sylius.theme.translation.files_finder" decoration-priority="256" public="false">
-            <argument type="service" id="sylius.theme.translation.ordering_files_finder.inner" />
+        <service id="Sylius\Bundle\ThemeBundle\Translation\Finder\TranslationFilesFinderInterface" class="Sylius\Bundle\ThemeBundle\Translation\Finder\TranslationFilesFinder">
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Factory\FinderFactoryInterface" />
+        </service>
+
+        <service id="Sylius\Bundle\ThemeBundle\Translation\Finder\OrderingTranslationFilesFinder" decorates="Sylius\Bundle\ThemeBundle\Translation\Finder\TranslationFilesFinderInterface" decoration-priority="256">
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Translation\Finder\OrderingTranslationFilesFinder.inner" />
         </service>
     </services>
 </container>

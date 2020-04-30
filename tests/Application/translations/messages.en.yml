@@ -1,0 +1,4 @@
+test:
+  app: 'translations'
+  theme: 'translations'
+  parent_theme: 'translations'

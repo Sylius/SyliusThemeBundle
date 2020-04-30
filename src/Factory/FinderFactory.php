@@ -17,9 +17,6 @@ use Symfony\Component\Finder\Finder;
 
 final class FinderFactory implements FinderFactoryInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function create(): Finder
     {
         return Finder::create();

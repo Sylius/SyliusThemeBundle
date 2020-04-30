@@ -33,10 +33,10 @@ final class ConfigurationTest extends TestCase
                 ['sources' => ['filesystem' => null]],
             ],
             ['sources' => ['filesystem' => [
-                'directories' => ['%kernel.project_dir%/app/themes'],
+                'directories' => ['%kernel.project_dir%/themes'],
                 'filename' => 'composer.json',
                 'enabled' => true,
-                'scan_depth' => null,
+                'scan_depth' => 1,
             ]]],
             'sources'
         );
@@ -49,13 +49,13 @@ final class ConfigurationTest extends TestCase
     {
         $this->assertProcessedConfigurationEquals(
             [
-                ['sources' => ['filesystem' => ['scan_depth' => 1]]],
+                ['sources' => ['filesystem' => ['scan_depth' => null]]],
             ],
             ['sources' => ['filesystem' => [
-                'directories' => ['%kernel.project_dir%/app/themes'],
+                'directories' => ['%kernel.project_dir%/themes'],
                 'filename' => 'composer.json',
                 'enabled' => true,
-                'scan_depth' => 1,
+                'scan_depth' => null,
             ]]],
             'sources'
         );
@@ -74,7 +74,7 @@ final class ConfigurationTest extends TestCase
                 'directories' => ['/custom/path', '/custom/path2'],
                 'filename' => 'composer.json',
                 'enabled' => true,
-                'scan_depth' => null,
+                'scan_depth' => 1,
             ]]],
             'sources.filesystem'
         );
@@ -94,7 +94,7 @@ final class ConfigurationTest extends TestCase
                 'directories' => ['/last/custom/path'],
                 'filename' => 'composer.json',
                 'enabled' => true,
-                'scan_depth' => null,
+                'scan_depth' => 1,
             ]]],
             'sources.filesystem'
         );
@@ -116,19 +116,6 @@ final class ConfigurationTest extends TestCase
     /**
      * @test
      */
-    public function it_is_invalid_to_pass_a_string_as_scan_depth(): void
-    {
-        $this->assertPartialConfigurationIsInvalid(
-            [
-                ['sources' => ['filesystem' => ['directories' => ['/custom/path', '/custom/path2'], 'scan_depth' => 'test']]],
-            ],
-            'sources.filesystem'
-        );
-    }
-
-    /**
-     * @test
-     */
     public function it_throws_an_error_if_trying_to_set_theme_directories_to_an_empty_array(): void
     {
         $this->assertPartialConfigurationIsInvalid(
@@ -139,9 +126,6 @@ final class ConfigurationTest extends TestCase
         );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration([

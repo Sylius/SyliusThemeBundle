@@ -18,7 +18,7 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 interface ThemeHierarchyProviderInterface
 {
     /**
-     * @return array|ThemeInterface[]
+     * @return ThemeInterface[]
      *
      * @throws \InvalidArgumentException If dependencies could not be resolved.
      */
