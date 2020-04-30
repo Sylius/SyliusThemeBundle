@@ -17,8 +17,23 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
 final class PathResolver implements PathResolverInterface
 {
-    public function resolve(string $path, ThemeInterface $theme): string
+    public function resolve(string $path, string $basePath, ThemeInterface $theme): string
     {
-        return str_replace('bundles/', 'bundles/_themes/' . $theme->getName() . '/', $path);
+        $basePath = rtrim($basePath, '/');
+
+        if ($basePath === '' || strpos($path, $basePath) === false) {
+            $basePathPositionAtPath = 0;
+            $basePathLength = 0;
+        } else {
+            $basePathPositionAtPath = (int) strpos($path, $basePath);
+            $basePathLength = strlen($basePath);
+        }
+
+        return sprintf(
+            '%s/_themes/%s/%s',
+            rtrim(substr($path, $basePathPositionAtPath, $basePathLength), '/'),
+            $theme->getName(),
+            ltrim(substr($path, $basePathPositionAtPath + $basePathLength), '/')
+        );
     }
 }

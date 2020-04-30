@@ -59,7 +59,7 @@ final class PathPackageSpec extends ObjectBehavior
         $versionedThemedPath = 'bundles/theme/foo/bar/sample/asset.js?v=42';
 
         $themeContext->getTheme()->shouldBeCalled()->willReturn($theme);
-        $pathResolver->resolve($path, $theme)->shouldBeCalled()->willReturn($themedPath);
+        $pathResolver->resolve($path, '/', $theme)->shouldBeCalled()->willReturn($themedPath);
         $versionStrategy->applyVersion($themedPath)->shouldBeCalled()->willReturn($versionedThemedPath);
 
         $this->getUrl($path)->shouldReturn('/' . $versionedThemedPath);
@@ -82,7 +82,7 @@ final class PathPackageSpec extends ObjectBehavior
         $versionedThemedPath = '/bundles/theme/foo/bar/sample/asset.js?v=42';
 
         $themeContext->getTheme()->shouldBeCalled()->willReturn($theme);
-        $pathResolver->resolve($path, $theme)->shouldBeCalled()->willReturn($themedPath);
+        $pathResolver->resolve($path, '/', $theme)->shouldBeCalled()->willReturn($themedPath);
         $versionStrategy->applyVersion($themedPath)->shouldBeCalled()->willReturn($versionedThemedPath);
 
         $this->getUrl($path)->shouldReturn($versionedThemedPath);
@@ -99,7 +99,7 @@ final class PathPackageSpec extends ObjectBehavior
         $versionedThemedPath = 'https://bundles/theme/foo/bar/sample/asset.js?v=42';
 
         $themeContext->getTheme()->shouldBeCalled()->willReturn($theme);
-        $pathResolver->resolve($path, $theme)->shouldBeCalled()->willReturn($themedPath);
+        $pathResolver->resolve($path, '/', $theme)->shouldBeCalled()->willReturn($themedPath);
         $versionStrategy->applyVersion($themedPath)->shouldBeCalled()->willReturn($versionedThemedPath);
 
         $this->getUrl($path)->shouldReturn($versionedThemedPath);

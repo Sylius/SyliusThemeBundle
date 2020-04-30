@@ -54,7 +54,7 @@ class PathPackage extends BasePathPackage
 
         $theme = $this->themeContext->getTheme();
         if (null !== $theme) {
-            $path = $this->pathResolver->resolve($path, $theme);
+            $path = $this->pathResolver->resolve($path, $this->getBasePath(), $theme);
         }
 
         $versionedPath = $this->getVersionStrategy()->applyVersion($path);

@@ -40,23 +40,22 @@ final class AssetTest extends WebTestCase
 
     /**
      * @test
-     * @dataProvider getSymlinkMasks
      */
-    public function it_updates_dumped_assets_if_they_are_modified(int $symlinkMask): void
+    public function it_updates_dumped_assets_if_they_are_modified(): void
     {
         $client = self::createClient();
 
         $publicDirectory = $this->createPublicDirectory();
 
-        $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, $symlinkMask);
+        $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, AssetsInstallerInterface::HARD_COPY);
 
-        $themeAssetPath = __DIR__ . '/../Fixtures/themes/FirstTestTheme/public/test/theme_asset.txt';
+        $themeAssetPath = __DIR__ . '/../Fixtures/themes/FirstTestTheme/public/bundles/test/theme_asset.txt';
         $themeAssetContent = file_get_contents($themeAssetPath);
 
         try {
             file_put_contents($themeAssetPath, 'Theme asset modified' . \PHP_EOL);
 
-            $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, $symlinkMask);
+            $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, AssetsInstallerInterface::HARD_COPY);
 
             $crawler = $client->request('GET', '/template/Asset/modifiedAssetsTest.txt.twig');
             $lines = explode(', ', $crawler->text());
@@ -81,6 +80,24 @@ final class AssetTest extends WebTestCase
         $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, $symlinkMask);
 
         $crawler = $client->request('GET', '/template/Asset/assetsTest.txt.twig');
+        $lines = explode(', ', $crawler->text());
+
+        $this->assertFileContent($lines, $publicDirectory);
+    }
+
+    /**
+     * @test
+     * @dataProvider getSymlinkMasks
+     */
+    public function it_dumps_legacy_assets(int $symlinkMask): void
+    {
+        $client = self::createClient();
+
+        $publicDirectory = $this->createPublicDirectory();
+
+        $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, $symlinkMask);
+
+        $crawler = $client->request('GET', '/template/Asset/legacyAssetsTest.txt.twig');
         $lines = explode(', ', $crawler->text());
 
         $this->assertFileContent($lines, $publicDirectory);
