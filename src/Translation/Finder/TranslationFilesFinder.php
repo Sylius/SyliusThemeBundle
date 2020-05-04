@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\Translation\Finder;
 
 use Sylius\Bundle\ThemeBundle\Factory\FinderFactoryInterface;
+use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\SplFileInfo;
 
 final class TranslationFilesFinder implements TranslationFilesFinderInterface
@@ -49,14 +50,17 @@ final class TranslationFilesFinder implements TranslationFilesFinderInterface
      */
     private function getFiles(string $path): iterable
     {
-        $finder = $this->finderFactory->create();
+        try {
+            $finder = $this->finderFactory->create();
 
-        $finder
-            ->ignoreUnreadableDirs()
-            ->in($path . '/translations')
-        ;
+            $finder
+                ->ignoreUnreadableDirs()
+                ->in($path . '/translations');
 
-        return $finder;
+            return $finder;
+        } catch (DirectoryNotFoundException $exception) {
+            return [];
+        }
     }
 
     private function isTranslationFile(string $file): bool

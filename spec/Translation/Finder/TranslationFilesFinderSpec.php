@@ -16,6 +16,7 @@ namespace spec\Sylius\Bundle\ThemeBundle\Translation\Finder;
 use PhpSpec\ObjectBehavior;
 use Sylius\Bundle\ThemeBundle\Factory\FinderFactoryInterface;
 use Sylius\Bundle\ThemeBundle\Translation\Finder\TranslationFilesFinderInterface;
+use Symfony\Component\Finder\Exception\DirectoryNotFoundException;
 use Symfony\Component\Finder\Finder;
 
 final class TranslationFilesFinderSpec extends ObjectBehavior
@@ -36,8 +37,8 @@ final class TranslationFilesFinderSpec extends ObjectBehavior
     ): void {
         $finderFactory->create()->willReturn($finder);
 
-        $finder->in('/theme/translations')->shouldBeCalled()->willReturn($finder);
         $finder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($finder);
+        $finder->in('/theme/translations')->shouldBeCalled()->willReturn($finder);
 
         $finder->getIterator()->willReturn(new \ArrayIterator([
             '/theme/translations/messages.en.yml',
@@ -48,5 +49,17 @@ final class TranslationFilesFinderSpec extends ObjectBehavior
         $this->findTranslationFiles('/theme')->shouldReturn([
             '/theme/translations/messages.en.yml',
         ]);
+    }
+
+    function it_does_not_provide_any_translation_resources_paths_if_translation_directory_does_not_exist(
+        FinderFactoryInterface $finderFactory,
+        Finder $finder
+    ): void {
+        $finderFactory->create()->willReturn($finder);
+
+        $finder->ignoreUnreadableDirs()->willReturn($finder);
+        $finder->in('/theme/translations')->willThrow(DirectoryNotFoundException::class);
+
+        $this->findTranslationFiles('/theme')->shouldReturn([]);
     }
 }
