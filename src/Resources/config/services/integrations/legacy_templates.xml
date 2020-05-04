@@ -18,12 +18,6 @@
             <tag name="sylius_theme.twig.template_locator" priority="-64" />
         </service>
 
-        <service id="Sylius\Bundle\ThemeBundle\Twig\Locator\LegacyBundleTemplateLocator">
-            <argument type="service" id="filesystem" />
-            <argument type="service" id="kernel" />
-            <tag name="sylius_theme.twig.template_locator" priority="-64" />
-        </service>
-
         <service id="Sylius\Bundle\ThemeBundle\Twig\Locator\LegacyNamespacedTemplateLocator">
             <argument type="service" id="filesystem" />
             <tag name="sylius_theme.twig.template_locator" priority="-64" />
