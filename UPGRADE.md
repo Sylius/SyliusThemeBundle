@@ -1,5 +1,47 @@
 ## UPGRADE FROM `1.x` TO `2.0`
 
+### Theme structure
+
+* Theme structure has been modified to better imitate Symfony application structure:
+
+    * **Templates:**
+    
+        * `THEME/views/` replaced with `THEME/templates/`
+        * `THEME/AcmeBundle/views/` replaced with `THEME/templates/bundles/AcmeBundle/`
+        
+    * **Translations:**
+    
+        * `THEME/AcmeBundle/translations/` merged to `THEME/translations/`
+        * It is not possible now to define translations for a given bundle (and it has never been, they were merged behind the scenes)
+        
+    * **Assets:**
+    
+        * `THEME/AcmeBundle/public/` replaced with `THEME/public/bundles/acme/`
+        * It replicates the way in which assets are loaded (`{{ asset('bundles/acme/asset.jpg') }}`)
+
+* You can still use the old theme structure by enabling `sylius_theme.legacy_mode` setting:
+
+    ```yaml
+    sylius_theme:
+        legacy_mode: true
+    ```
+  
+    However, it is deprecated as of ThemeBundle 2.0 and will be removed in ThemeBundle 3.0.
+
+### Referencing templates
+
+* Removed support for bundle notation while referencing templates:
+   
+    * `::template.html.twig` replaced with `template.html.twig`
+    * `:Directory/Subdirectory:template.html.twig` replaced with `Directory/Subdirectory/template.html.twig`
+    * `AcmeBundle:Dir/Subdir:template.html.twig` replaced with `@Acme/Dir/Subdir/template.html.twig`
+
+* Removed support for resource-based notation while referencing templates:
+
+    * `@AcmeBundle/Resources/views/template.html.twig` replaced with `@Acme/template.html.twig`
+
+### Services
+
 * Renamed the following services:
 
     * `sylius.collector.theme` replaced with `Sylius\Bundle\ThemeBundle\Collector\ThemeCollector`
