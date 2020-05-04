@@ -32,3 +32,4 @@ parameters:
         - '/Method Sylius\\Bundle\\ThemeBundle\\Asset\\Package\\[A-Za-z]+::getUrl\(\) has parameter \$path with no typehint specified./'
         - '/Symfony\\Component\\Translation\\MessageSelector/'
         - '/Twig\\Loader\\ExistsLoaderInterface/'
+        - '/Symfony\\Component\\Templating\\TemplateReferenceInterface/'

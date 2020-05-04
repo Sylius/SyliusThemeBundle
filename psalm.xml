@@ -36,12 +36,20 @@
 
         <UndefinedClass>
             <errorLevel type="suppress">
+                <referencedClass name="Symfony\Component\Templating\TemplateReferenceInterface" />
                 <referencedClass name="Symfony\Component\Translation\MessageSelector" />
             </errorLevel>
         </UndefinedClass>
 
+        <UndefinedInterface>
+            <errorLevel type="suppress">
+                <referencedClass name="Symfony\Component\Templating\TemplateReferenceInterface" />
+            </errorLevel>
+        </UndefinedInterface>
+
         <UndefinedDocblockClass>
             <errorLevel type="suppress">
+                <referencedClass name="Symfony\Component\Templating\TemplateReferenceInterface" />
                 <referencedClass name="Symfony\Component\Translation\MessageSelector" />
             </errorLevel>
         </UndefinedDocblockClass>
