@@ -28,13 +28,29 @@ final class PathResolverSpec extends ObjectBehavior
     {
         $theme->getName()->willReturn('theme/name');
 
-        $this->resolve('bundles/asset.min.js', $theme)->shouldReturn('bundles/_themes/theme/name/asset.min.js');
+        $this->resolve('bundles/acme/asset.min.js', '/', $theme)->shouldReturn('/_themes/theme/name/bundles/acme/asset.min.js');
+        $this->resolve('bundles/acme/asset.min.js', '', $theme)->shouldReturn('/_themes/theme/name/bundles/acme/asset.min.js');
+
+        $this->resolve('/root/bundles/acme/asset.min.js', '/root', $theme)->shouldReturn('/root/_themes/theme/name/bundles/acme/asset.min.js');
+        $this->resolve('/root/bundles/acme/asset.min.js', '/root/', $theme)->shouldReturn('/root/_themes/theme/name/bundles/acme/asset.min.js');
     }
 
-    function it_does_not_change_path_if_its_not_referencing_bundle_asset(ThemeInterface $theme): void
+    function it_returns_modified_path_if_its_referencing_root_asset(ThemeInterface $theme): void
     {
         $theme->getName()->willReturn('theme/name');
 
-        $this->resolve('/long.path/asset.min.js', $theme)->shouldReturn('/long.path/asset.min.js');
+        $this->resolve('asset.min.js', '/', $theme)->shouldReturn('/_themes/theme/name/asset.min.js');
+        $this->resolve('asset.min.js', '', $theme)->shouldReturn('/_themes/theme/name/asset.min.js');
+
+        $this->resolve('/root/asset.min.js', '/root', $theme)->shouldReturn('/root/_themes/theme/name/asset.min.js');
+        $this->resolve('/root/asset.min.js', '/root/', $theme)->shouldReturn('/root/_themes/theme/name/asset.min.js');
+    }
+
+    function it_prepends_theme_path_if_the_base_path_is_not_found(ThemeInterface $theme): void
+    {
+        $theme->getName()->willReturn('theme/name');
+
+        $this->resolve('asset.min.js', '/lol', $theme)->shouldReturn('/_themes/theme/name/asset.min.js');
+        $this->resolve('bundles/acme/asset.min.js', '/lol', $theme)->shouldReturn('/_themes/theme/name/bundles/acme/asset.min.js');
     }
 }

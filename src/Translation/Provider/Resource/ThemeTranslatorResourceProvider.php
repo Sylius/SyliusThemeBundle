@@ -56,7 +56,7 @@ final class ThemeTranslatorResourceProvider implements TranslatorResourceProvide
 
     public function getResourcesLocales(): array
     {
-        return array_values(array_unique(array_map(function (TranslationResourceInterface $translationResource): string {
+        return array_values(array_unique(array_map(static function (TranslationResourceInterface $translationResource): string {
             return $translationResource->getLocale();
         }, $this->getResources())));
     }

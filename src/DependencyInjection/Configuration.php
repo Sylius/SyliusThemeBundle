@@ -43,6 +43,11 @@ final class Configuration implements ConfigurationInterface
         $rootNode->children()->arrayNode('templating')->canBeDisabled();
         $rootNode->children()->arrayNode('translations')->canBeDisabled();
         $rootNode->children()->scalarNode('context')->defaultValue('sylius.theme.context.settable')->cannotBeEmpty();
+        $rootNode->children()
+            ->booleanNode('legacy_mode')
+                ->defaultFalse()
+                ->setDeprecated('"%node%" at path "%path%" is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.')
+        ;
 
         return $treeBuilder;
     }

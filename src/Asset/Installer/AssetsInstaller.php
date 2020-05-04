@@ -14,7 +14,6 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\Asset\Installer;
 
 use Sylius\Bundle\ThemeBundle\Asset\PathResolverInterface;
-use Sylius\Bundle\ThemeBundle\HierarchyProvider\ThemeHierarchyProviderInterface;
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 use Sylius\Bundle\ThemeBundle\Repository\ThemeRepositoryInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
@@ -34,32 +33,28 @@ final class AssetsInstaller implements AssetsInstallerInterface
     /** @var ThemeRepositoryInterface */
     private $themeRepository;
 
-    /** @var ThemeHierarchyProviderInterface */
-    private $themeHierarchyProvider;
-
     /** @var PathResolverInterface */
     private $pathResolver;
+
+    /** @var AssetsProviderInterface */
+    private $assetsProvider;
 
     public function __construct(
         Filesystem $filesystem,
         KernelInterface $kernel,
         ThemeRepositoryInterface $themeRepository,
-        ThemeHierarchyProviderInterface $themeHierarchyProvider,
-        PathResolverInterface $pathResolver
+        PathResolverInterface $pathResolver,
+        AssetsProviderInterface $assetsProvider
     ) {
         $this->filesystem = $filesystem;
         $this->kernel = $kernel;
         $this->themeRepository = $themeRepository;
-        $this->themeHierarchyProvider = $themeHierarchyProvider;
         $this->pathResolver = $pathResolver;
+        $this->assetsProvider = $assetsProvider;
     }
 
     public function installAssets(string $targetDir, int $symlinkMask): int
     {
-        // Create the bundles directory otherwise symlink will fail.
-        $targetDir = rtrim($targetDir, '/') . '/bundles/';
-        $this->filesystem->mkdir($targetDir);
-
         $effectiveSymlinkMask = $symlinkMask;
         foreach ($this->kernel->getBundles() as $bundle) {
             $effectiveSymlinkMask = min($effectiveSymlinkMask, $this->installBundleAssets($bundle, $targetDir, $symlinkMask));
@@ -76,14 +71,8 @@ final class AssetsInstaller implements AssetsInstallerInterface
     {
         $effectiveSymlinkMask = $symlinkMask;
 
-        $targetDir .= preg_replace('/bundle$/', '', strtolower($bundle->getName()));
-
-        $this->filesystem->remove($targetDir);
-
-        $originDir = $bundle->getPath() . '/Resources/public';
-
-        if (is_dir($originDir)) {
-            $effectiveSymlinkMask = min($effectiveSymlinkMask, $this->doInstallAssets($originDir, $targetDir, $symlinkMask));
+        foreach ($this->assetsProvider->provideDirectoriesForBundle($bundle) as $originDir => $relativeTargetDir) {
+            $effectiveSymlinkMask = min($effectiveSymlinkMask, $this->doInstallAssets($originDir, $targetDir . $relativeTargetDir, $symlinkMask));
         }
 
         return $effectiveSymlinkMask;
@@ -93,24 +82,10 @@ final class AssetsInstaller implements AssetsInstallerInterface
     {
         $effectiveSymlinkMask = $symlinkMask;
 
-        $targetDir = $this->pathResolver->resolve($targetDir, $theme);
+        $targetDir = $this->pathResolver->resolve($targetDir, $targetDir, $theme);
 
-        $this->filesystem->mkdir($targetDir);
-
-        foreach ($this->kernel->getBundles() as $bundle) {
-            $effectiveSymlinkMask = min($effectiveSymlinkMask, $this->installBundleAssets($bundle, $targetDir, $symlinkMask));
-        }
-
-        $themes = array_reverse($this->themeHierarchyProvider->getThemeHierarchy($theme));
-
-        foreach ($themes as $theme) {
-            $originDir = $theme->getPath() . '/public';
-
-            if (!is_dir($originDir)) {
-                continue;
-            }
-
-            $effectiveSymlinkMask = min($effectiveSymlinkMask, $this->doInstallAssets($originDir, $targetDir, $symlinkMask));
+        foreach ($this->assetsProvider->provideDirectoriesForTheme($theme) as $originDir => $relativeTargetDir) {
+            $effectiveSymlinkMask = min($effectiveSymlinkMask, $this->doInstallAssets($originDir, $targetDir . $relativeTargetDir, $symlinkMask));
         }
 
         return $effectiveSymlinkMask;
@@ -118,6 +93,14 @@ final class AssetsInstaller implements AssetsInstallerInterface
 
     private function doInstallAssets(string $originDir, string $targetDir, int $symlinkMask): int
     {
+        if (!is_dir($originDir)) {
+            return $symlinkMask;
+        }
+
+        if (!is_dir($targetDir)) {
+            $this->filesystem->mkdir($targetDir);
+        }
+
         $effectiveSymlinkMask = $symlinkMask;
 
         $finder = new Finder();

@@ -1,0 +1,3 @@
+test:
+#    legacy_theme: 'THEME/TestPlugin/translations'
+    legacy_theme_plugin: 'THEME/TestPlugin/translations'

@@ -37,14 +37,26 @@ final class SyliusThemeExtension extends Extension
 
         if ($config['assets']['enabled']) {
             $loader->load('services/integrations/assets.xml');
+
+            if ($config['legacy_mode']) {
+                $loader->load('services/integrations/legacy_assets.xml');
+            }
         }
 
         if ($config['templating']['enabled']) {
             $loader->load('services/integrations/templates.xml');
+
+            if ($config['legacy_mode']) {
+                $loader->load('services/integrations/legacy_templates.xml');
+            }
         }
 
         if ($config['translations']['enabled']) {
             $loader->load('services/integrations/translations.xml');
+
+            if ($config['legacy_mode']) {
+                $loader->load('services/integrations/legacy_translations.xml');
+            }
         }
 
         $this->resolveConfigurationSources($container, $config);

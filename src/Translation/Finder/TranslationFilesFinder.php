@@ -53,7 +53,7 @@ final class TranslationFilesFinder implements TranslationFilesFinderInterface
 
         $finder
             ->ignoreUnreadableDirs()
-            ->in($path)
+            ->in($path . '/translations')
         ;
 
         return $finder;

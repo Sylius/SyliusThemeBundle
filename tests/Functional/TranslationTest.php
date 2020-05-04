@@ -40,4 +40,28 @@ final class TranslationTest extends WebTestCase
             'PARENT_THEME/translations: PARENT_THEME/translations',
         ];
     }
+
+    /**
+     * @test
+     * @group legacy
+     */
+    public function it_respects_legacy_theming_logic_while_translating_messages(): void
+    {
+        $client = self::createClient();
+
+        $crawler = $client->request('GET', '/template/Translation/legacyTranslationsTest.txt.twig');
+
+        foreach ($this->getLegacyTranslationsLines() as $expectedContent) {
+            $this->assertStringContainsString($expectedContent, $crawler->text());
+        }
+    }
+
+    private function getLegacyTranslationsLines(): array
+    {
+        return [
+            'THEME/translations: THEME/translations',
+            'THEME/TestBundle/translations: THEME/TestBundle/translations',
+            'THEME/TestPlugin/translations: THEME/TestPlugin/translations',
+        ];
+    }
 }

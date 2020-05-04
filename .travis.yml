@@ -49,5 +49,4 @@ script:
 
     - composer analyse
 
-    - vendor/bin/phpspec run
-    - vendor/bin/phpunit
+    - composer test

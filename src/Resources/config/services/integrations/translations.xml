@@ -54,7 +54,7 @@
             <argument type="service" id="Sylius\Bundle\ThemeBundle\Factory\FinderFactoryInterface" />
         </service>
 
-        <service id="Sylius\Bundle\ThemeBundle\Translation\Finder\OrderingTranslationFilesFinder" decorates="Sylius\Bundle\ThemeBundle\Translation\Finder\TranslationFilesFinderInterface" decoration-priority="256">
+        <service id="Sylius\Bundle\ThemeBundle\Translation\Finder\OrderingTranslationFilesFinder" decorates="Sylius\Bundle\ThemeBundle\Translation\Finder\TranslationFilesFinderInterface" decoration-priority="-128">
             <argument type="service" id="Sylius\Bundle\ThemeBundle\Translation\Finder\OrderingTranslationFilesFinder.inner" />
         </service>
     </services>

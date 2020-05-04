@@ -88,4 +88,26 @@ final class TemplatingTest extends WebTestCase
             ['Templating/twigNamespacedLastThemeTemplate.txt.twig', 'Templating/twigNamespacedLastThemeTemplate.txt.twig|sylius/second-test-theme'],
         ];
     }
+
+    /**
+     * @test
+     * @group legacy
+     * @dataProvider getLegacyTemplates
+     */
+    public function it_renders_legacy_templates(string $templateName, string $contents): void
+    {
+        $client = self::createClient();
+
+        $crawler = $client->request('GET', '/template/' . $templateName);
+        $this->assertEquals($contents, trim($crawler->text()));
+    }
+
+    public function getLegacyTemplates(): array
+    {
+        return [
+            ['Templating/legacyTemplate.txt.twig', 'Templating/legacyTemplate.txt.twig|sylius/legacy-test-theme'],
+            ['@Test/Templating/legacyTemplate.txt.twig', '@Test/Templating/legacyTemplate.txt.twig|sylius/legacy-test-theme'],
+            ['@TestPlugin/Templating/legacyTemplate.txt.twig', '@TestPlugin/Templating/legacyTemplate.txt.twig|sylius/legacy-test-theme'],
+        ];
+    }
 }

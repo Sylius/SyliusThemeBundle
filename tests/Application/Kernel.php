@@ -31,5 +31,9 @@ final class Kernel extends HttpKernel
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/config/config.yml');
+
+        if ($this->environment === 'test_legacy') {
+            $loader->load(__DIR__ . '/config/config_test_legacy.yml');
+        }
     }
 }
