@@ -15,6 +15,8 @@ namespace Sylius\Bundle\ThemeBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sylius\Bundle\ThemeBundle\DependencyInjection\SyliusThemeExtension;
+use Symfony\Bundle\TwigBundle\DependencyInjection\TwigExtension;
+use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 
 final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
 {
@@ -71,6 +73,30 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
     }
 
     /**
+     * @test
+     */
+    public function it_loads_twig_if_templating_is_enabled_and_twig_bundle_is_registered(): void
+    {
+        $this->container->registerExtension(new TwigExtension());
+
+        $this->load(['templating' => ['enabled' => true]]);
+
+        $this->assertContainerBuilderHasService('sylius.theme.twig.loader');
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_load_twig_if_templating_support_is_disabled_even_if_twig_bundle_is_registered(): void
+    {
+        $this->container->registerExtension(new TwigExtension());
+
+        $this->load(['templating' => ['enabled' => false]]);
+
+        $this->assertContainerBuilderNotHasService('sylius.theme.twig.loader');
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function getContainerExtensions(): array
@@ -78,5 +104,30 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
         return [
             new SyliusThemeExtension(),
         ];
+    }
+
+    /**
+     * More realistic loading of extensions.
+     * Load only SyliusThemeBundleExtension.
+     *
+     * {@inheritdoc}
+     */
+    protected function load(array $configurationValues = []): void
+    {
+        $configs = [$this->getMinimalConfiguration(), $configurationValues];
+
+        foreach ($configs as $config) {
+            $this->container->prependExtensionConfig('sylius_theme', $config);
+        }
+
+        foreach ($this->container->getExtensions() as $extension) {
+            if ($extension instanceof PrependExtensionInterface) {
+                $extension->prepend($this->container);
+            }
+
+            if ($extension instanceof SyliusThemeExtension) {
+                $extension->load($configs, $this->container);
+            }
+        }
     }
 }
