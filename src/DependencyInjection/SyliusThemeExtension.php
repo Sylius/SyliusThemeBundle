@@ -63,6 +63,13 @@ final class SyliusThemeExtension extends Extension implements PrependExtensionIn
      */
     public function prepend(ContainerBuilder $container): void
     {
+        $config = $container->getExtensionConfig($this->getAlias());
+        $config = $this->processConfiguration($this->getConfiguration([], $container), $config);
+
+        if ($config['templating']['enabled'] === false) {
+            return;
+        }
+
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         $this->prependTwig($container, $loader);
