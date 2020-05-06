@@ -1,5 +1,9 @@
 ## CHANGELOG FOR `1.5.x`
 
+### v1.5.1 (2020-05-05)
+
+- [#50](https://github.com/Sylius/SyliusThemeBundle/issues/50) Disable Twig services if templating is disabled ([@pamil](https://github.com/pamil))
+
 ### v1.5.0 (2019-10-10)
 
 - [#29](https://github.com/Sylius/SyliusThemeBundle/issues/29) Ambiguous class resolution for symfony/contracts ([@Prometee](https://github.com/Prometee))
