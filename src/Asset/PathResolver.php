@@ -14,19 +14,21 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\Asset;
 
 use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsProviderInterface;
+use Sylius\Bundle\ThemeBundle\Filesystem\FilesystemInterface;
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
-/**
- * @todo Simplify/extract and improve its performance
- */
 final class PathResolver implements PathResolverInterface
 {
     /** @var AssetsProviderInterface */
     private $assetsProvider;
 
-    public function __construct(AssetsProviderInterface $assetsProvider)
+    /** @var FilesystemInterface */
+    private $filesystem;
+
+    public function __construct(AssetsProviderInterface $assetsProvider, FilesystemInterface $filesystem)
     {
         $this->assetsProvider = $assetsProvider;
+        $this->filesystem = $filesystem;
     }
 
     public function resolve(string $path, string $basePath, ThemeInterface $theme): string
@@ -41,9 +43,19 @@ final class PathResolver implements PathResolverInterface
             $basePathLength = strlen($basePath);
         }
 
-        $prefixPath = rtrim(substr($path, $basePathPositionAtPath, $basePathLength), '/');
         $relativePath = trim(substr($path, $basePathPositionAtPath + $basePathLength), '/');
 
+        if ($this->shouldPathBeModified($relativePath, $theme)) {
+            $prefixPath = rtrim(substr($path, $basePathPositionAtPath, $basePathLength), '/');
+
+            return sprintf('%s/_themes/%s/%s', $prefixPath, $theme->getName(), $relativePath);
+        }
+
+        return $path;
+    }
+
+    private function shouldPathBeModified(string $relativePath, ThemeInterface $theme): bool
+    {
         foreach ($this->assetsProvider->provideDirectoriesForTheme($theme) as $originDir => $targetDir) {
             $targetDir = trim($targetDir, '/');
 
@@ -51,13 +63,13 @@ final class PathResolver implements PathResolverInterface
                 continue;
             }
 
-            if (!file_exists($originDir . '/' . str_replace($targetDir, '', $relativePath))) {
+            if (!$this->filesystem->exists($originDir . '/' . ltrim(str_replace($targetDir, '', $relativePath), '/'))) {
                 continue;
             }
 
-            return sprintf('%s/_themes/%s/%s', $prefixPath, $theme->getName(), $relativePath);
+            return true;
         }
 
-        return $path;
+        return false;
     }
 }

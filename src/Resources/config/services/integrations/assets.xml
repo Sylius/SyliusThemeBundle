@@ -33,6 +33,7 @@
 
         <service id="Sylius\Bundle\ThemeBundle\Asset\PathResolverInterface" class="Sylius\Bundle\ThemeBundle\Asset\PathResolver">
             <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsProviderInterface" />
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Filesystem\FilesystemInterface" />
         </service>
 
         <service id="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsProviderInterface" class="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsProvider">
