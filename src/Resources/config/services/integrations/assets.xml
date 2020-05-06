@@ -31,7 +31,9 @@
             <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\Installer\OutputAwareAssetsInstaller.inner" />
         </service>
 
-        <service id="Sylius\Bundle\ThemeBundle\Asset\PathResolverInterface" class="Sylius\Bundle\ThemeBundle\Asset\PathResolver" />
+        <service id="Sylius\Bundle\ThemeBundle\Asset\PathResolverInterface" class="Sylius\Bundle\ThemeBundle\Asset\PathResolver">
+            <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsProviderInterface" />
+        </service>
 
         <service id="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsProviderInterface" class="Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsProvider">
             <argument type="service" id="kernel" />

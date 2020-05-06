@@ -87,6 +87,25 @@ final class AssetTest extends WebTestCase
 
     /**
      * @test
+     * @dataProvider getSymlinkMasks
+     */
+    public function it_falls_back_to_regular_assets_if_themed_not_found(int $symlinkMask): void
+    {
+        $client = self::createClient();
+
+        $publicDirectory = $this->createPublicDirectory();
+        file_put_contents($publicDirectory . 'public_asset.txt', 'Public asset');
+
+        $this->getThemeAssetsInstaller($client)->installAssets($publicDirectory, $symlinkMask);
+
+        $crawler = $client->request('GET', '/template/Asset/publicAssetsTest.txt.twig');
+        $lines = explode(', ', $crawler->text());
+
+        $this->assertFileContent($lines, $publicDirectory);
+    }
+
+    /**
+     * @test
      * @group legacy
      * @dataProvider getSymlinkMasks
      */
@@ -115,7 +134,7 @@ final class AssetTest extends WebTestCase
 
     private function createPublicDirectory(): string
     {
-        $publicDirectory = self::$kernel->getCacheDir() . '/public';
+        $publicDirectory = self::$kernel->getCacheDir() . '/public/';
 
         if (is_dir($publicDirectory)) {
             (new Filesystem())->remove($publicDirectory);
