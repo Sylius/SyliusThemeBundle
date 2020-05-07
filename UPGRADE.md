@@ -40,6 +40,10 @@
 
     * `@AcmeBundle/Resources/views/template.html.twig` replaced with `@Acme/template.html.twig`
 
+### Theming assets
+
+* In ThemeBundle v1, only the bundle assets could be customised with a theme. In ThemeBundle v2, all assets can be themed.
+
 ### Services
 
 * Renamed the following services:

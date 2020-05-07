@@ -1,3 +1,31 @@
+## CHANGELOG FOR `2.0.x`
+
+### v2.0.0-alpha.1 (2020-05-07)
+
+#### TL;DR
+
+For actionable information about the upgrade, please refer to [UPGRADE.md](UPGRADE.md) file.
+
+- Added support for Symfony 5
+- Added support for PHP 7.4
+- Added support for theming all the assets
+- Completely refactored template loaders
+- Modified theme structure to stay closer to Symfony standards
+- Introduced `legacy_mode` to be compatible with themes using the old structure 
+- Removed support for `symfony/templating`
+
+#### Details
+
+- [#35](https://github.com/Sylius/SyliusThemeBundle/issues/35) Update Symfony to 4.4 ([@GSadee](https://github.com/GSadee), [@Tomanhez](https://github.com/Tomanhez))
+- [#38](https://github.com/Sylius/SyliusThemeBundle/issues/38) Theme Bundle v2.0 - Symfony 5 support and internal refactoring ([@GSadee](https://github.com/GSadee), [@pamil](https://github.com/pamil))
+- [#45](https://github.com/Sylius/SyliusThemeBundle/issues/45) Provide optional, backwards-compatible legacy loaders ([@pamil](https://github.com/pamil))
+- [#46](https://github.com/Sylius/SyliusThemeBundle/issues/46) TemplateReferenceInterface "support", cleanup and UPGRADE.md entries ([@pamil](https://github.com/pamil))
+- [#47](https://github.com/Sylius/SyliusThemeBundle/issues/47) Require PHP ^7.3 ([@pamil](https://github.com/pamil))
+- [#48](https://github.com/Sylius/SyliusThemeBundle/issues/48) Remove obsolete doctrine/common dependency ([@pamil](https://github.com/pamil))
+- [#49](https://github.com/Sylius/SyliusThemeBundle/issues/49) Remove obsolete symfony/dom-crawler dependency ([@pamil](https://github.com/pamil))
+- [#51](https://github.com/Sylius/SyliusThemeBundle/issues/51) Fallback to default asset paths if themed assets not found ([@pamil](https://github.com/pamil))
+- [#52](https://github.com/Sylius/SyliusThemeBundle/issues/52) Refactor PathResolver ([@pamil](https://github.com/pamil))
+
 ## CHANGELOG FOR `1.5.x`
 
 ### v1.5.1 (2020-05-05)
