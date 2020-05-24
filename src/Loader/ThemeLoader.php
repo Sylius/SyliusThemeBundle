@@ -20,8 +20,6 @@ use Sylius\Bundle\ThemeBundle\Factory\ThemeScreenshotFactoryInterface;
 use Sylius\Bundle\ThemeBundle\Model\ThemeAuthor;
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 use Sylius\Bundle\ThemeBundle\Model\ThemeScreenshot;
-use Webmozart\Assert\Assert;
-use Zend\Hydrator\HydrationInterface;
 
 final class ThemeLoader implements ThemeLoaderInterface
 {
@@ -37,9 +35,6 @@ final class ThemeLoader implements ThemeLoaderInterface
     /** @var ThemeScreenshotFactoryInterface */
     private $themeScreenshotFactory;
 
-    /** @var HydrationInterface */
-    private $themeHydrator;
-
     /** @var CircularDependencyCheckerInterface */
     private $circularDependencyChecker;
 
@@ -48,14 +43,12 @@ final class ThemeLoader implements ThemeLoaderInterface
         ThemeFactoryInterface $themeFactory,
         ThemeAuthorFactoryInterface $themeAuthorFactory,
         ThemeScreenshotFactoryInterface $themeScreenshotFactory,
-        HydrationInterface $themeHydrator,
         CircularDependencyCheckerInterface $circularDependencyChecker
     ) {
         $this->configurationProvider = $configurationProvider;
         $this->themeFactory = $themeFactory;
         $this->themeAuthorFactory = $themeAuthorFactory;
         $this->themeScreenshotFactory = $themeScreenshotFactory;
-        $this->themeHydrator = $themeHydrator;
         $this->circularDependencyChecker = $circularDependencyChecker;
     }
 
@@ -63,8 +56,7 @@ final class ThemeLoader implements ThemeLoaderInterface
     {
         $configurations = $this->configurationProvider->getConfigurations();
 
-        $themes = $this->initializeThemes($configurations);
-        $themes = $this->hydrateThemes($configurations, $themes);
+        $themes = $this->hydrateThemes($configurations);
 
         $this->checkForCircularDependencies($themes);
 
@@ -72,37 +64,36 @@ final class ThemeLoader implements ThemeLoaderInterface
     }
 
     /**
-     * @return array|ThemeInterface[]
+     * @return ThemeInterface[]
      */
-    private function initializeThemes(array $configurations): array
+    private function hydrateThemes(array $configurations): array
     {
         $themes = [];
+
         foreach ($configurations as $configuration) {
             $themes[$configuration['name']] = $this->themeFactory->create($configuration['name'], $configuration['path']);
         }
 
-        return $themes;
-    }
-
-    /**
-     * @param array|ThemeInterface[] $themes
-     *
-     * @return array|ThemeInterface[]
-     */
-    private function hydrateThemes(array $configurations, array $themes): array
-    {
         foreach ($configurations as $configuration) {
-            $themeName = $configuration['name'];
+            $theme = $themes[$configuration['name']];
 
-            $configuration['parents'] = $this->convertParentsNamesToParentsObjects($themeName, $configuration['parents'], $themes);
-            $configuration['authors'] = $this->convertAuthorsArraysToAuthorsObjects($configuration['authors']);
-            $configuration['screenshots'] = $this->convertScreenshotsArraysToScreenshotsObjects($configuration['screenshots']);
+            $theme->setTitle($configuration['title'] ?? null);
+            $theme->setDescription($configuration['description'] ?? null);
 
-            $theme = $this->themeHydrator->hydrate($configuration, $themes[$themeName]);
-            /** @var ThemeInterface $theme */
-            Assert::isInstanceOf($theme, ThemeInterface::class);
+            $parentThemes = $this->convertParentsNamesToParentsObjects($configuration['name'], $configuration['parents'], $themes);
+            foreach ($parentThemes as $parentTheme) {
+                $theme->addParent($parentTheme);
+            }
 
-            $themes[$themeName] = $theme;
+            $themeAuthors = $this->convertAuthorsArraysToAuthorsObjects($configuration['authors']);
+            foreach ($themeAuthors as $themeAuthor) {
+                $theme->addAuthor($themeAuthor);
+            }
+
+            $themeScreenshots = $this->convertScreenshotsArraysToScreenshotsObjects($configuration['screenshots']);
+            foreach ($themeScreenshots as $themeScreenshot) {
+                $theme->addScreenshot($themeScreenshot);
+            }
         }
 
         return $themes;

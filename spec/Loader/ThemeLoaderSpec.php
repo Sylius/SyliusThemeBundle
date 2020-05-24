@@ -23,10 +23,9 @@ use Sylius\Bundle\ThemeBundle\Loader\CircularDependencyCheckerInterface;
 use Sylius\Bundle\ThemeBundle\Loader\CircularDependencyFoundException;
 use Sylius\Bundle\ThemeBundle\Loader\ThemeLoaderInterface;
 use Sylius\Bundle\ThemeBundle\Loader\ThemeLoadingFailedException;
+use Sylius\Bundle\ThemeBundle\Model\Theme;
 use Sylius\Bundle\ThemeBundle\Model\ThemeAuthor;
-use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 use Sylius\Bundle\ThemeBundle\Model\ThemeScreenshot;
-use Zend\Hydrator\HydrationInterface;
 
 final class ThemeLoaderSpec extends ObjectBehavior
 {
@@ -35,7 +34,6 @@ final class ThemeLoaderSpec extends ObjectBehavior
         ThemeFactoryInterface $themeFactory,
         ThemeAuthorFactoryInterface $themeAuthorFactory,
         ThemeScreenshotFactoryInterface $themeScreenshotFactory,
-        HydrationInterface $themeHydrator,
         CircularDependencyCheckerInterface $circularDependencyChecker
     ): void {
         $this->beConstructedWith(
@@ -43,7 +41,6 @@ final class ThemeLoaderSpec extends ObjectBehavior
             $themeFactory,
             $themeAuthorFactory,
             $themeScreenshotFactory,
-            $themeHydrator,
             $circularDependencyChecker
         );
     }
@@ -56,10 +53,10 @@ final class ThemeLoaderSpec extends ObjectBehavior
     function it_loads_a_single_theme(
         ConfigurationProviderInterface $configurationProvider,
         ThemeFactoryInterface $themeFactory,
-        HydrationInterface $themeHydrator,
-        CircularDependencyCheckerInterface $circularDependencyChecker,
-        ThemeInterface $theme
+        CircularDependencyCheckerInterface $circularDependencyChecker
     ): void {
+        $theme = new Theme('first/theme', '/theme/path');
+
         $configurationProvider->getConfigurations()->willReturn([
             [
                 'name' => 'first/theme',
@@ -72,28 +69,22 @@ final class ThemeLoaderSpec extends ObjectBehavior
 
         $themeFactory->create('first/theme', '/theme/path')->willReturn($theme);
 
-        $themeHydrator->hydrate([
-            'name' => 'first/theme',
-            'path' => '/theme/path',
-            'parents' => [],
-            'authors' => [],
-            'screenshots' => [],
-        ], $theme)->willReturn($theme);
-
         $circularDependencyChecker->check($theme)->shouldBeCalled();
 
-        $this->load()->shouldReturn([$theme]);
+        $expectedTheme = new Theme('first/theme', '/theme/path');
+        $this->load()->shouldBeLike([$expectedTheme]);
     }
 
     function it_loads_a_theme_with_author(
         ConfigurationProviderInterface $configurationProvider,
         ThemeFactoryInterface $themeFactory,
         ThemeAuthorFactoryInterface $themeAuthorFactory,
-        HydrationInterface $themeHydrator,
-        CircularDependencyCheckerInterface $circularDependencyChecker,
-        ThemeInterface $theme
+        CircularDependencyCheckerInterface $circularDependencyChecker
     ): void {
+        $theme = new Theme('first/theme', '/theme/path');
+
         $themeAuthor = new ThemeAuthor();
+        $themeAuthor->setName('Richard Rynkowsky');
 
         $configurationProvider->getConfigurations()->willReturn([
             [
@@ -108,28 +99,24 @@ final class ThemeLoaderSpec extends ObjectBehavior
         $themeFactory->create('first/theme', '/theme/path')->willReturn($theme);
         $themeAuthorFactory->createFromArray(['name' => 'Richard Rynkowsky'])->willReturn($themeAuthor);
 
-        $themeHydrator->hydrate([
-            'name' => 'first/theme',
-            'path' => '/theme/path',
-            'parents' => [],
-            'authors' => [$themeAuthor],
-            'screenshots' => [],
-        ], $theme)->willReturn($theme);
-
         $circularDependencyChecker->check($theme)->shouldBeCalled();
 
-        $this->load()->shouldReturn([$theme]);
+        $expectedTheme = new Theme('first/theme', '/theme/path');
+        $expectedTheme->addAuthor($themeAuthor);
+
+        $this->load()->shouldBeLike([$expectedTheme]);
     }
 
     function it_loads_a_theme_with_screenshot(
         ConfigurationProviderInterface $configurationProvider,
         ThemeFactoryInterface $themeFactory,
         ThemeScreenshotFactoryInterface $themeScreenshotFactory,
-        HydrationInterface $themeHydrator,
-        CircularDependencyCheckerInterface $circularDependencyChecker,
-        ThemeInterface $theme
+        CircularDependencyCheckerInterface $circularDependencyChecker
     ): void {
+        $theme = new Theme('first/theme', '/theme/path');
+
         $themeScreenshot = new ThemeScreenshot('screenshot/omg.jpg');
+        $themeScreenshot->setTitle('Title');
 
         $configurationProvider->getConfigurations()->willReturn([
             [
@@ -146,27 +133,22 @@ final class ThemeLoaderSpec extends ObjectBehavior
         $themeFactory->create('first/theme', '/theme/path')->willReturn($theme);
         $themeScreenshotFactory->createFromArray(['path' => 'screenshot/omg.jpg', 'title' => 'Title'])->willReturn($themeScreenshot);
 
-        $themeHydrator->hydrate([
-            'name' => 'first/theme',
-            'path' => '/theme/path',
-            'parents' => [],
-            'authors' => [],
-            'screenshots' => [$themeScreenshot],
-        ], $theme)->willReturn($theme);
-
         $circularDependencyChecker->check($theme)->shouldBeCalled();
 
-        $this->load()->shouldReturn([$theme]);
+        $expectedTheme = new Theme('first/theme', '/theme/path');
+        $expectedTheme->addScreenshot($themeScreenshot);
+
+        $this->load()->shouldBeLike([$expectedTheme]);
     }
 
     function it_loads_a_theme_with_its_dependency(
         ConfigurationProviderInterface $configurationProvider,
         ThemeFactoryInterface $themeFactory,
-        HydrationInterface $themeHydrator,
-        CircularDependencyCheckerInterface $circularDependencyChecker,
-        ThemeInterface $firstTheme,
-        ThemeInterface $secondTheme
+        CircularDependencyCheckerInterface $circularDependencyChecker
     ): void {
+        $firstTheme = new Theme('first/theme', '/first/theme/path');
+        $secondTheme = new Theme('second/theme', '/second/theme/path');
+
         $configurationProvider->getConfigurations()->willReturn([
             [
                 'name' => 'first/theme',
@@ -187,32 +169,23 @@ final class ThemeLoaderSpec extends ObjectBehavior
         $themeFactory->create('first/theme', '/first/theme/path')->willReturn($firstTheme);
         $themeFactory->create('second/theme', '/second/theme/path')->willReturn($secondTheme);
 
-        $themeHydrator->hydrate([
-            'name' => 'first/theme',
-            'path' => '/first/theme/path',
-            'parents' => [$secondTheme],
-            'authors' => [],
-            'screenshots' => [],
-        ], $firstTheme)->willReturn($firstTheme);
-        $themeHydrator->hydrate([
-            'name' => 'second/theme',
-            'path' => '/second/theme/path',
-            'parents' => [],
-            'authors' => [],
-            'screenshots' => [],
-        ], $secondTheme)->willReturn($secondTheme);
-
         $circularDependencyChecker->check($firstTheme)->shouldBeCalled();
         $circularDependencyChecker->check($secondTheme)->shouldBeCalled();
 
-        $this->load()->shouldReturn([$firstTheme, $secondTheme]);
+        $expectedFirstTheme = new Theme('first/theme', '/first/theme/path');
+        $expectedSecondTheme = new Theme('second/theme', '/second/theme/path');
+
+        $expectedFirstTheme->addParent($expectedSecondTheme);
+
+        $this->load()->shouldBeLike([$expectedFirstTheme, $expectedSecondTheme]);
     }
 
     function it_throws_an_exception_if_requires_not_existing_dependency(
         ConfigurationProviderInterface $configurationProvider,
-        ThemeFactoryInterface $themeFactory,
-        ThemeInterface $firstTheme
+        ThemeFactoryInterface $themeFactory
     ): void {
+        $firstTheme = new Theme('first/theme', '/theme/path');
+
         $configurationProvider->getConfigurations()->willReturn([
             [
                 'name' => 'first/theme',
@@ -234,11 +207,11 @@ final class ThemeLoaderSpec extends ObjectBehavior
     function it_throws_an_exception_if_there_is_a_circular_dependency_found(
         ConfigurationProviderInterface $configurationProvider,
         ThemeFactoryInterface $themeFactory,
-        HydrationInterface $themeHydrator,
-        CircularDependencyCheckerInterface $circularDependencyChecker,
-        ThemeInterface $firstTheme,
-        ThemeInterface $secondTheme
+        CircularDependencyCheckerInterface $circularDependencyChecker
     ): void {
+        $firstTheme = new Theme('first/theme', '/first/theme/path');
+        $secondTheme = new Theme('second/theme', '/second/theme/path');
+
         $configurationProvider->getConfigurations()->willReturn([
             [
                 'name' => 'first/theme',
@@ -258,21 +231,6 @@ final class ThemeLoaderSpec extends ObjectBehavior
 
         $themeFactory->create('first/theme', '/first/theme/path')->willReturn($firstTheme);
         $themeFactory->create('second/theme', '/second/theme/path')->willReturn($secondTheme);
-
-        $themeHydrator->hydrate([
-            'name' => 'first/theme',
-            'path' => '/first/theme/path',
-            'parents' => [$secondTheme],
-            'authors' => [],
-            'screenshots' => [],
-        ], $firstTheme)->willReturn($firstTheme);
-        $themeHydrator->hydrate([
-            'name' => 'second/theme',
-            'path' => '/second/theme/path',
-            'parents' => [$firstTheme],
-            'authors' => [],
-            'screenshots' => [],
-        ], $secondTheme)->willReturn($secondTheme);
 
         $circularDependencyChecker->check(Argument::cetera())->willThrow(CircularDependencyFoundException::class);
 

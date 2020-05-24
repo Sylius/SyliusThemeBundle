@@ -38,9 +38,6 @@
             <argument type="service" id="Sylius\Bundle\ThemeBundle\Factory\ThemeFactoryInterface" />
             <argument type="service" id="Sylius\Bundle\ThemeBundle\Factory\ThemeAuthorFactoryInterface" />
             <argument type="service" id="Sylius\Bundle\ThemeBundle\Factory\ThemeScreenshotFactoryInterface" />
-            <argument type="service">
-                <service class="Zend\Hydrator\Reflection" />
-            </argument>
             <argument type="service" id="Sylius\Bundle\ThemeBundle\Loader\CircularDependencyCheckerInterface" />
         </service>
         <service id="sylius.theme.loader" alias="Sylius\Bundle\ThemeBundle\Loader\ThemeLoaderInterface">
