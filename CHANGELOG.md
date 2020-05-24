@@ -1,5 +1,11 @@
 ## CHANGELOG FOR `2.0.x`
 
+### v2.0.0-alpha.2 (2020-05-24)
+
+#### Details
+
+- [#56](https://github.com/Sylius/SyliusThemeBundle/issues/56) Remove Zend/Hydrator dependency ([@pamil](https://github.com/pamil))
+
 ### v2.0.0-alpha.1 (2020-05-07)
 
 #### TL;DR
