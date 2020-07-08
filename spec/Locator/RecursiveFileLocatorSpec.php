@@ -39,6 +39,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         $finder->in('/search/path/')->shouldBeCalled()->willReturn($finder);
         $finder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($finder);
         $finder->files()->shouldBeCalled()->willReturn($finder);
+        $finder->followLinks()->shouldBeCalled()->willReturn($finder);
 
         $finder->getIterator()->willReturn(new \ArrayIterator([
             $splFileInfo->getWrappedObject(),
@@ -61,6 +62,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         $finder->in('/search/path/')->shouldBeCalled()->willReturn($finder);
         $finder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($finder);
         $finder->files()->shouldBeCalled()->willReturn($finder);
+        $finder->followLinks()->shouldBeCalled()->willReturn($finder);
 
         $finder->getIterator()->willReturn(new \ArrayIterator([
             $firstSplFileInfo->getWrappedObject(),
@@ -90,6 +92,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         $finder->in('/search/path/')->shouldBeCalled()->willReturn($finder);
         $finder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($finder);
         $finder->files()->shouldBeCalled()->willReturn($finder);
+        $finder->followLinks()->shouldBeCalled()->willReturn($finder);
 
         $finder->getIterator()->willReturn(new \ArrayIterator([
             $secondSplFileInfo->getWrappedObject(),
@@ -123,6 +126,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         $finder->in('/search/path/')->shouldBeCalled()->willReturn($finder);
         $finder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($finder);
         $finder->files()->shouldBeCalled()->willReturn($finder);
+        $finder->followLinks()->shouldBeCalled()->willReturn($finder);
 
         $finder->getIterator()->willReturn(new \ArrayIterator());
 
@@ -139,6 +143,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         $finder->in('/search/path/')->shouldBeCalled()->willReturn($finder);
         $finder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($finder);
         $finder->files()->shouldBeCalled()->willReturn($finder);
+        $finder->followLinks()->shouldBeCalled()->willReturn($finder);
 
         $finder->getIterator()->willReturn(new \ArrayIterator());
 
@@ -159,11 +164,13 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         $firstFinder->in('/search/path/first/')->shouldBeCalled()->willReturn($firstFinder);
         $firstFinder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($firstFinder);
         $firstFinder->files()->shouldBeCalled()->willReturn($firstFinder);
+        $firstFinder->followLinks()->shouldBeCalled()->willReturn($firstFinder);
 
         $secondFinder->name('readme.md')->shouldBeCalled()->willReturn($secondFinder);
         $secondFinder->in('/search/path/second/')->shouldBeCalled()->willReturn($secondFinder);
         $secondFinder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($secondFinder);
         $secondFinder->files()->shouldBeCalled()->willReturn($secondFinder);
+        $secondFinder->followLinks()->shouldBeCalled()->willReturn($secondFinder);
 
         $firstFinder->getIterator()->willReturn(new \ArrayIterator([$splFileInfo->getWrappedObject()]));
         $secondFinder->getIterator()->willReturn(new \ArrayIterator());
@@ -189,11 +196,13 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         $firstFinder->in('/search/path/first/')->shouldBeCalled()->willReturn($firstFinder);
         $firstFinder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($firstFinder);
         $firstFinder->files()->shouldBeCalled()->willReturn($firstFinder);
+        $firstFinder->followLinks()->shouldBeCalled()->willReturn($firstFinder);
 
         $secondFinder->name('readme.md')->shouldBeCalled()->willReturn($secondFinder);
         $secondFinder->in('/search/path/second/')->shouldBeCalled()->willReturn($secondFinder);
         $secondFinder->ignoreUnreadableDirs()->shouldBeCalled()->willReturn($secondFinder);
         $secondFinder->files()->shouldBeCalled()->willReturn($secondFinder);
+        $secondFinder->followLinks()->shouldBeCalled()->willReturn($secondFinder);
 
         $firstFinder->getIterator()->willReturn(new \ArrayIterator([$splFileInfo->getWrappedObject()]));
         $secondFinder->getIterator()->willThrow(\InvalidArgumentException::class);
