@@ -63,6 +63,7 @@ final class RecursiveFileLocator implements FileLocatorInterface
 
                 $finder
                     ->files()
+                    ->followLinks()
                     ->name($name)
                     ->ignoreUnreadableDirs()
                     ->in($path);
