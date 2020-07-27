@@ -1,3 +1,7 @@
+## UPGRADE FROM `2.0.0` TO `2.0.1`
+
+* Renamed `Sylius\Bundle\ThemeBundle\Configuration\Test\TestThemeConfigurationManager` service to `Sylius\Bundle\ThemeBundle\Configuration\Test\TestThemeConfigurationManagerInterface`
+
 ## UPGRADE FROM `1.x` TO `2.0`
 
 ### Theme structure
