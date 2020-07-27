@@ -31,7 +31,7 @@ final class TestConfigurationSourceFactory implements ConfigurationSourceFactory
     public function initializeSource(ContainerBuilder $container, array $config): Definition
     {
         $container->setDefinition(
-            TestThemeConfigurationManager::class,
+            TestThemeConfigurationManagerInterface::class,
             new Definition(TestThemeConfigurationManager::class, [
                 new Reference(ConfigurationProcessorInterface::class),
                 new Parameter('kernel.cache_dir'),
@@ -39,7 +39,7 @@ final class TestConfigurationSourceFactory implements ConfigurationSourceFactory
         )->setPublic(true);
 
         return (new Definition(TestConfigurationProvider::class, [
-            new Reference(TestThemeConfigurationManager::class),
+            new Reference(TestThemeConfigurationManagerInterface::class),
         ]))->setPublic(true);
     }
 
