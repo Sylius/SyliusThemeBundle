@@ -1,5 +1,11 @@
 ## CHANGELOG FOR `2.0.x`
 
+### v2.0.1 (2020-07-27)
+
+#### Details
+
+- [#61](https://github.com/Sylius/SyliusThemeBundle/issues/61) Rename `Sylius\Bundle\ThemeBundle\Configuration\Test\TestThemeConfigurationManager` service to `Sylius\Bundle\ThemeBundle\Configuration\Test\TestThemeConfigurationManagerInterface` ([@pamil](https://github.com/pamil))
+
 ### v2.0.0 (2020-07-23)
 
 #### TL;DR
