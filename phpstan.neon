@@ -33,3 +33,7 @@ parameters:
         - '/Symfony\\Component\\Translation\\MessageSelector/'
         - '/Twig\\Loader\\ExistsLoaderInterface/'
         - '/Symfony\\Component\\Templating\\TemplateReferenceInterface/'
+        - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::trans\(\) has no return typehint specified./'
+        - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::setLocale\(\) has no return typehint specified./'
+        - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::getCatalogue\(\) has no return typehint specified./'
+        - '/Method Sylius\\Bundle\\ThemeBundle\\Translation\\ThemeAwareTranslator::warmUp\(\) has no return typehint specified./'
