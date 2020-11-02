@@ -15,7 +15,6 @@ namespace Sylius\Bundle\ThemeBundle\Translation;
 
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
-use Symfony\Component\Translation\MessageCatalogueInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
