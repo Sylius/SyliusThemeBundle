@@ -5,10 +5,12 @@ php:
     - 7.4
 
 env:
-    - SYMFONY_VERSION=4.4.* TWIG_VERSION=2.*
-    - SYMFONY_VERSION=4.4.* TWIG_VERSION=3.*
-    - SYMFONY_VERSION=5.0.* TWIG_VERSION=2.*
-    - SYMFONY_VERSION=5.0.* TWIG_VERSION=3.*
+    - SYMFONY_VERSION=4.4.* SYMFONY_CONTRACTS=^2.0 TWIG_VERSION=2.*
+    - SYMFONY_VERSION=4.4.* SYMFONY_CONTRACTS=^2.0 TWIG_VERSION=3.*
+    - SYMFONY_VERSION=4.4.* SYMFONY_CONTRACTS=^1.1 TWIG_VERSION=2.*
+    - SYMFONY_VERSION=4.4.* SYMFONY_CONTRACTS=^1.1 TWIG_VERSION=3.*
+    - SYMFONY_VERSION=5.0.* SYMFONY_CONTRACTS=^2.0 TWIG_VERSION=2.*
+    - SYMFONY_VERSION=5.0.* SYMFONY_CONTRACTS=^2.0 TWIG_VERSION=3.*
 
 cache:
     directories:
@@ -33,6 +35,8 @@ install:
             symfony/http-kernel:${SYMFONY_VERSION} \
             symfony/options-resolver:${SYMFONY_VERSION} \
             symfony/translation:${SYMFONY_VERSION} \
+            symfony/service-contracts:${SYMFONY_CONTRACTS} \
+            symfony/translation-contracts:${SYMFONY_CONTRACTS} \
             --no-update --no-scripts
     - |
         composer require \

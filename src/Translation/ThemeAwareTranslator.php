@@ -62,7 +62,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /**
      * @psalm-suppress MissingParamType Two interfaces defining the same method
      */
-    public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
         return $this->translator->trans($id, $parameters, $domain, $this->transformLocale($locale));
     }
@@ -76,12 +76,12 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         return $this->translator->transChoice($id, $number, $parameters, $domain, $this->transformLocale($locale));
     }
 
-    public function getLocale(): string
+    public function getLocale()
     {
         return $this->translator->getLocale();
     }
 
-    public function setLocale(string $locale): void
+    public function setLocale($locale)
     {
         /** @var string $locale */
         $locale = $this->transformLocale($locale);
@@ -92,7 +92,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /**
      * @param string|null $locale
      */
-    public function getCatalogue($locale = null): MessageCatalogueInterface
+    public function getCatalogue($locale = null)
     {
         return $this->translator->getCatalogue($locale);
     }
@@ -100,7 +100,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /**
      * @param string $cacheDir
      */
-    public function warmUp($cacheDir): void
+    public function warmUp($cacheDir)
     {
         if ($this->translator instanceof WarmableInterface) {
             $this->translator->warmUp($cacheDir);
