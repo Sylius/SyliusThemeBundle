@@ -97,7 +97,7 @@ jobs:
             -
                 name: Update Symfony Contracts version
                 if: matrix.symfony-contracts-version != ''
-                run: composer require "symfony/translation-contracts:${{ matrix.symfony-contracts-version }}" --no-update --no-scripts
+                run: composer require "symfony/translation-contracts:${{ matrix.symfony-contracts-version }}" "symfony/service-contracts:${{ matrix.symfony-contracts-version }}" --no-update --no-scripts
 
             -
                 name: Update Twig version
