@@ -2,7 +2,10 @@
     "name": "sylius/theme-bundle",
     "type": "symfony-bundle",
     "description": "Themes management for Symfony projects.",
-    "keywords": ["themes", "theming"],
+    "keywords": [
+        "themes",
+        "theming"
+    ],
     "homepage": "https://sylius.com",
     "license": "MIT",
     "authors": [
@@ -21,21 +24,20 @@
     ],
     "require": {
         "php": "^7.3",
-
-        "symfony/asset": "^4.4|^5.1",
-        "symfony/config": "^4.4|^5.1",
-        "symfony/console": "^4.4|^5.1",
-        "symfony/service-contracts": "^1.1|^2.0",
-        "symfony/translation-contracts": "^1.1|^2.0",
-        "symfony/dependency-injection": "^4.4|^5.1",
-        "symfony/filesystem": "^4.4|^5.1",
-        "symfony/finder": "^4.4|^5.1",
-        "symfony/form": "^4.4|^5.1",
-        "symfony/framework-bundle": "^4.4|^5.1",
-        "symfony/http-foundation": "^4.4|^5.1",
-        "symfony/http-kernel": "^4.4|^5.1",
-        "symfony/options-resolver": "^4.4|^5.1",
-        "symfony/translation": "^4.4|^5.1"
+        "symfony/asset": "^4.4 || ^5.1",
+        "symfony/config": "^4.4 || ^5.1",
+        "symfony/console": "^4.4 || ^5.1",
+        "symfony/dependency-injection": "^4.4 || ^5.1",
+        "symfony/filesystem": "^4.4 || ^5.1",
+        "symfony/finder": "^4.4 || ^5.1",
+        "symfony/form": "^4.4 || ^5.1",
+        "symfony/framework-bundle": "^4.4 || ^5.1",
+        "symfony/http-foundation": "^4.4 || ^5.1",
+        "symfony/http-kernel": "^4.4 || ^5.1",
+        "symfony/options-resolver": "^4.4 || ^5.1",
+        "symfony/service-contracts": "^1.1 || ^2.0",
+        "symfony/translation": "^4.4 || ^5.1",
+        "symfony/translation-contracts": "^1.1 || ^2.0"
     },
     "require-dev": {
         "matthiasnoback/symfony-config-test": "^4.2",
@@ -44,11 +46,16 @@
         "phpspec/phpspec": "^7.0",
         "phpunit/phpunit": "^9.4",
         "sylius-labs/coding-standard": "^3.2",
-        "symfony/browser-kit": "^4.4|^5.1",
-        "symfony/security-csrf": "^4.4|^5.1",
-        "symfony/twig-bundle": "^4.4|^5.1",
-        "twig/twig": "^2.0|^3.0",
+        "symfony/browser-kit": "^4.4 || ^5.1",
+        "symfony/security-csrf": "^4.4 || ^5.1",
+        "symfony/twig-bundle": "^4.4 || ^5.1",
+        "twig/twig": "^2.0 || ^3.0",
         "vimeo/psalm": "4.1.1"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -75,10 +82,5 @@
             "vendor/bin/phpunit --colors=always",
             "APP_ENV=test_legacy vendor/bin/phpunit --colors=always --exclude-group=none"
         ]
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.0-dev"
-        }
     }
 }
