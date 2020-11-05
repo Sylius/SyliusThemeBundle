@@ -32,18 +32,18 @@ final class HierarchicalTemplateLocator implements TemplateLocatorInterface
         $this->themeHierarchyProvider = $themeHierarchyProvider;
     }
 
-    public function locate(string $template, ThemeInterface $rootTheme): string
+    public function locate(string $template, ThemeInterface $theme): string
     {
-        $themes = $this->themeHierarchyProvider->getThemeHierarchy($rootTheme);
-        foreach ($themes as $theme) {
+        $providedThemes = $this->themeHierarchyProvider->getThemeHierarchy($theme);
+        foreach ($providedThemes as $providedTheme) {
             try {
-                return $this->templateLocator->locate($template, $theme);
+                return $this->templateLocator->locate($template, $providedTheme);
             } catch (TemplateNotFoundException $exception) {
                 // Ignore if resource cannot be found in given theme.
             }
         }
 
-        throw new TemplateNotFoundException($template, $themes);
+        throw new TemplateNotFoundException($template, $providedThemes);
     }
 
     public function supports(string $template): bool
