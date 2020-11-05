@@ -70,13 +70,14 @@ final class Translator extends BaseTranslator implements WarmableInterface
     }
 
     /**
-     * @param string $cacheDir
+     * @psalm-suppress MissingParamType
+     * @psalm-suppress MissingReturnType
      */
-    public function warmUp($cacheDir): void
+    public function warmUp($cacheDir)
     {
         // skip warmUp when translator doesn't use cache
         if (null === $this->options['cache_dir']) {
-            return;
+            return [];
         }
 
         /** @psalm-suppress InternalMethod */
@@ -93,6 +94,8 @@ final class Translator extends BaseTranslator implements WarmableInterface
 
             $this->loadCatalogue($locale);
         }
+
+        return [];
     }
 
     /**

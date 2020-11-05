@@ -98,13 +98,16 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     }
 
     /**
-     * @param string $cacheDir
+     * @psalm-suppress MissingParamType
+     * @psalm-suppress MissingReturnType
      */
-    public function warmUp($cacheDir): void
+    public function warmUp($cacheDir)
     {
         if ($this->translator instanceof WarmableInterface) {
-            $this->translator->warmUp($cacheDir);
+            return $this->translator->warmUp($cacheDir);
         }
+
+        return [];
     }
 
     private function transformLocale(?string $locale): ?string
