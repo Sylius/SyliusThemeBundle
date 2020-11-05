@@ -65,6 +65,7 @@
     },
     "scripts": {
         "analyse": [
+            "@composer validate --strict",
             "vendor/bin/ecs check spec src tests",
             "vendor/bin/phpstan analyse --ansi -c phpstan.neon -l max spec src tests",
             "vendor/bin/psalm"
