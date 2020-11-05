@@ -15,7 +15,6 @@ namespace Sylius\Bundle\ThemeBundle\Translation;
 
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
-use Symfony\Component\Translation\MessageCatalogueInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -62,7 +61,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /**
      * @psalm-suppress MissingParamType Two interfaces defining the same method
      */
-    public function trans(string $id, array $parameters = [], ?string $domain = null, ?string $locale = null): string
+    public function trans($id, array $parameters = [], $domain = null, $locale = null)
     {
         return $this->translator->trans($id, $parameters, $domain, $this->transformLocale($locale));
     }
@@ -76,12 +75,15 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         return $this->translator->transChoice($id, $number, $parameters, $domain, $this->transformLocale($locale));
     }
 
-    public function getLocale(): string
+    public function getLocale()
     {
         return $this->translator->getLocale();
     }
 
-    public function setLocale(string $locale): void
+    /**
+     * @param string $locale
+     */
+    public function setLocale($locale): void
     {
         /** @var string $locale */
         $locale = $this->transformLocale($locale);
@@ -92,7 +94,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /**
      * @param string|null $locale
      */
-    public function getCatalogue($locale = null): MessageCatalogueInterface
+    public function getCatalogue($locale = null)
     {
         return $this->translator->getCatalogue($locale);
     }
