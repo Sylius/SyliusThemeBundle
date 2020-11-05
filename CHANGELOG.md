@@ -1,5 +1,16 @@
 ## CHANGELOG FOR `2.0.x`
 
+### v2.1.0 (2020-11-05)
+
+#### Details
+
+- [#64](https://github.com/Sylius/SyliusThemeBundle/issues/64) Switch from Travis to GitHub Actions ([@pamil](https://github.com/pamil))
+- [#65](https://github.com/Sylius/SyliusThemeBundle/issues/65) Remove PHPStan ([@pamil](https://github.com/pamil))
+- [#66](https://github.com/Sylius/SyliusThemeBundle/issues/66) Upgrade to Psalm 4 ([@pamil](https://github.com/pamil))
+- [#67](https://github.com/Sylius/SyliusThemeBundle/issues/67) Update dependencies ([@pamil](https://github.com/pamil))
+- [#68](https://github.com/Sylius/SyliusThemeBundle/issues/68) Add tests for symfony/translation-contracts ^1.1 and ^2.0 ([@pamil](https://github.com/pamil), [@dpfaffenbauer](https://github.com/dpfaffenbauer))
+- [#69](https://github.com/Sylius/SyliusThemeBundle/issues/69) Normalise composer.json ([@pamil](https://github.com/pamil))
+
 ### v2.0.1 (2020-07-27)
 
 #### Details
