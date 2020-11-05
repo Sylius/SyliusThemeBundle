@@ -48,18 +48,8 @@ jobs:
                     -
                         php: 7.4
                         symfony-version: 5.1.*
-                        symfony-contracts-version: ^1.1
-                        twig-version: 2.*
-                    -
-                        php: 7.4
-                        symfony-version: 5.1.*
                         symfony-contracts-version: ^2.0
                         twig-version: 2.*
-                    -
-                        php: 7.4
-                        symfony-version: 5.1.*
-                        symfony-contracts-version: ^1.1
-                        twig-version: 3.*
                     -
                         php: 7.4
                         symfony-version: 5.1.*
