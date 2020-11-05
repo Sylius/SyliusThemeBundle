@@ -24,45 +24,51 @@ jobs:
                     -
                         php: 7.3
                         symfony-version: 5.1.*
-                        twig-version: 2.*
-                    -
-                        php: 7.3
-                        symfony-version: 4.4.*
-                        twig-version: 3.*
-                    -
-                        php: 7.3
-                        symfony-version: 5.1.*
                         twig-version: 3.*
                     -
                         php: 7.4
                         symfony-version: 4.4.*
-                        twig-version: 2.*
-                    -
-                        php: 7.4
-                        symfony-version: 5.1.*
+                        symfony-contracts-version: ^1.1
                         twig-version: 2.*
                     -
                         php: 7.4
                         symfony-version: 4.4.*
+                        symfony-contracts-version: ^2.0
+                        twig-version: 2.*
+                    -
+                        php: 7.4
+                        symfony-version: 4.4.*
+                        symfony-contracts-version: ^1.1
+                        twig-version: 3.*
+                    -
+                        php: 7.4
+                        symfony-version: 4.4.*
+                        symfony-contracts-version: ^2.0
                         twig-version: 3.*
                     -
                         php: 7.4
                         symfony-version: 5.1.*
+                        symfony-contracts-version: ^1.1
+                        twig-version: 2.*
+                    -
+                        php: 7.4
+                        symfony-version: 5.1.*
+                        symfony-contracts-version: ^2.0
+                        twig-version: 2.*
+                    -
+                        php: 7.4
+                        symfony-version: 5.1.*
+                        symfony-contracts-version: ^1.1
+                        twig-version: 3.*
+                    -
+                        php: 7.4
+                        symfony-version: 5.1.*
+                        symfony-contracts-version: ^2.0
                         twig-version: 3.*
 #                    -
 #                        php: 8.0
 #                        symfony-version: 4.4.*
 #                        twig-version: 2.*
-#                        composer-flags: "--ignore-platform-req=php"
-#                    -
-#                        php: 8.0
-#                        symfony-version: 5.1.*
-#                        twig-version: 2.*
-#                        composer-flags: "--ignore-platform-req=php"
-#                    -
-#                        php: 8.0
-#                        symfony-version: 4.4.*
-#                        twig-version: 3.*
 #                        composer-flags: "--ignore-platform-req=php"
 #                    -
 #                        php: 8.0
@@ -87,6 +93,11 @@ jobs:
                 run: |
                     composer require "symfony/asset:${{ matrix.symfony-version }}" "symfony/config:${{ matrix.symfony-version }}" "symfony/console:${{ matrix.symfony-version }}" "symfony/dom-crawler:${{ matrix.symfony-version }}" "symfony/dependency-injection:${{ matrix.symfony-version }}" "symfony/filesystem:${{ matrix.symfony-version }}" "symfony/finder:${{ matrix.symfony-version }}" "symfony/form:${{ matrix.symfony-version }}" "symfony/framework-bundle:${{ matrix.symfony-version }}" "symfony/http-foundation:${{ matrix.symfony-version }}" "symfony/http-kernel:${{ matrix.symfony-version }}" "symfony/options-resolver:${{ matrix.symfony-version }}" "symfony/translation:${{ matrix.symfony-version }}" --no-update --no-scripts
                     composer require --dev "symfony/browser-kit:${{ matrix.symfony-version }}" "symfony/security-csrf:${{ matrix.symfony-version }}" "symfony/twig-bundle:${{ matrix.symfony-version }}" --no-update --no-scripts
+
+            -
+                name: Update Symfony Contracts version
+                if: matrix.symfony-contracts-version != ''
+                run: composer require "symfony/translation-contracts:${{ matrix.symfony-contracts-version }}" --no-update --no-scripts
 
             -
                 name: Update Twig version
