@@ -33,7 +33,7 @@ final class AssetTest extends WebTestCase
         $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
 
         $crawler = $client->request('GET', '/template/:Asset:assetsTest.txt.twig');
-        $lines = explode("\n", $crawler->text());
+        $lines = explode("\n", $crawler->text(null, false));
 
         $this->assertFileContent($lines, $webDirectory);
     }
@@ -59,7 +59,7 @@ final class AssetTest extends WebTestCase
             $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
 
             $crawler = $client->request('GET', '/template/:Asset:modifiedAssetsTest.txt.twig');
-            $lines = explode("\n", $crawler->text());
+            $lines = explode("\n", $crawler->text(null, false));
 
             $this->assertFileContent($lines, $webDirectory);
         } finally {
@@ -81,7 +81,7 @@ final class AssetTest extends WebTestCase
         $this->getThemeAssetsInstaller($client)->installAssets($webDirectory, $symlinkMask);
 
         $crawler = $client->request('GET', '/template/:Asset:assetsTest.txt.twig');
-        $lines = explode("\n", $crawler->text());
+        $lines = explode("\n", $crawler->text(null, false));
 
         $this->assertFileContent($lines, $webDirectory);
     }
