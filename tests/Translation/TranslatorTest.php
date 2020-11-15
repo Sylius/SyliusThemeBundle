@@ -310,9 +310,9 @@ final class TranslatorTest extends TestCase
             ['francais@heron'],
             ['FR@heron'],
             ['frFR@heron'],
-            ['fr-FR@heron'],
+            // ['fr-FR@heron'], // no longer simple locale as Translator::computeFallbackLocales detects a fallback now
             ['fr.FR@heron'],
-            ['fr-FR.UTF8@heron'],
+            // ['fr-FR.UTF8@heron'], // no longer simple locale as Translator::computeFallbackLocales detects a fallback now
         ];
     }
 
@@ -327,9 +327,9 @@ final class TranslatorTest extends TestCase
             ['francais'],
             ['FR'],
             ['frFR'],
-            ['fr-FR'],
+            // ['fr-FR'], // no longer simple locale as Translator::computeFallbackLocales detects a fallback now
             ['fr.FR'],
-            ['fr-FR.UTF8'],
+            // ['fr-FR.UTF8'], // no longer simple locale as Translator::computeFallbackLocales detects a fallback now
         ];
     }
 

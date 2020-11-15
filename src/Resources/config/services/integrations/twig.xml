@@ -15,8 +15,14 @@
     <services>
         <defaults public="true" />
 
-        <service id="sylius.theme.twig.loader" class="Sylius\Bundle\ThemeBundle\Twig\ThemeFilesystemLoader" decorates="twig.loader" decoration-priority="256" public="false">
-            <argument type="service" id="sylius.theme.twig.loader.inner" />
+        <service id="sylius.theme.twig.loader" class="Twig\Loader\ChainLoader" decorates="twig.loader" decoration-priority="256" public="false">
+            <argument type="collection">
+                <argument type="service" id="sylius.theme.twig.theme_loader" />
+                <argument type="service" id="sylius.theme.twig.loader.inner" />
+            </argument>
+        </service>
+
+        <service id="sylius.theme.twig.theme_loader" class="Sylius\Bundle\ThemeBundle\Twig\ThemeFilesystemLoader" public="false">
             <argument type="service" id="templating.locator" />
             <argument type="service" id="templating.name_parser" />
         </service>

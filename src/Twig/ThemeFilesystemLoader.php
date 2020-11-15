@@ -16,15 +16,13 @@ namespace Sylius\Bundle\ThemeBundle\Twig;
 use Symfony\Component\Config\FileLocatorInterface;
 use Symfony\Component\Templating\TemplateNameParserInterface;
 use Symfony\Component\Templating\TemplateReference;
+use Twig\Error\LoaderError;
 use Twig\Loader\ExistsLoaderInterface;
 use Twig\Loader\LoaderInterface;
 use Twig\Source;
 
 final class ThemeFilesystemLoader implements LoaderInterface, ExistsLoaderInterface
 {
-    /** @var LoaderInterface */
-    private $decoratedLoader;
-
     /** @var FileLocatorInterface */
     private $templateLocator;
 
@@ -34,12 +32,13 @@ final class ThemeFilesystemLoader implements LoaderInterface, ExistsLoaderInterf
     /** @var string[] */
     private $cache = [];
 
+    /** @var string[] */
+    private $errorCache = [];
+
     public function __construct(
-        LoaderInterface $decoratedLoader,
         FileLocatorInterface $templateLocator,
         TemplateNameParserInterface $templateNameParser
     ) {
-        $this->decoratedLoader = $decoratedLoader;
         $this->templateLocator = $templateLocator;
         $this->templateNameParser = $templateNameParser;
     }
@@ -49,14 +48,9 @@ final class ThemeFilesystemLoader implements LoaderInterface, ExistsLoaderInterf
      */
     public function getSourceContext($name): Source
     {
-        try {
-            $path = $this->findTemplate($name);
+        $path = $this->findTemplate($name);
 
-            return new Source((string) file_get_contents($path), (string) $name, $path);
-        } catch (\Exception $exception) {
-            /** @psalm-suppress ImplicitToStringCast */
-            return $this->decoratedLoader->getSourceContext($name);
-        }
+        return new Source((string) file_get_contents($path), (string) $name, $path);
     }
 
     /**
@@ -64,25 +58,21 @@ final class ThemeFilesystemLoader implements LoaderInterface, ExistsLoaderInterf
      */
     public function getCacheKey($name): string
     {
-        try {
-            return $this->findTemplate($name);
-        } catch (\Exception $exception) {
-            /** @psalm-suppress ImplicitToStringCast */
-            return $this->decoratedLoader->getCacheKey($name);
-        }
+        return $this->findTemplate($name);
     }
 
     /**
      * @param string|TemplateReference $name
+     *
+     * @throws LoaderError
      */
     public function isFresh($name, $time): bool
     {
-        try {
-            return filemtime($this->findTemplate($name)) <= $time;
-        } catch (\Exception $exception) {
-            /** @psalm-suppress ImplicitToStringCast */
-            return $this->decoratedLoader->isFresh($name, $time);
+        if (!$path = $this->findTemplate($name)) {
+            return false;
         }
+
+        return filemtime($path) < $time;
     }
 
     /**
@@ -92,14 +82,15 @@ final class ThemeFilesystemLoader implements LoaderInterface, ExistsLoaderInterf
     {
         try {
             return stat($this->findTemplate($name)) !== false;
-        } catch (\Exception $exception) {
-            /** @psalm-suppress ImplicitToStringCast */
-            return $this->decoratedLoader->exists($name);
+        } catch (LoaderError $e) {
+            return false;
         }
     }
 
     /**
      * @param string|TemplateReference $logicalName
+     *
+     * @throws LoaderError
      */
     private function findTemplate($logicalName): string
     {
@@ -109,14 +100,24 @@ final class ThemeFilesystemLoader implements LoaderInterface, ExistsLoaderInterf
             return $this->cache[$logicalName];
         }
 
-        $template = $this->templateNameParser->parse($logicalName);
+        if (isset($this->errorCache[$logicalName])) {
+            throw new LoaderError($this->errorCache[$logicalName]);
+        }
 
-        /**
-         * @var string
-         * @psalm-suppress ImplicitToStringCast
-         */
-        $file = $this->templateLocator->locate($template);
+        try {
+            $template = $this->templateNameParser->parse($logicalName);
 
-        return $this->cache[$logicalName] = $file;
+            /**
+             * @var string
+             * @psalm-suppress ImplicitToStringCast
+             */
+            $file = $this->templateLocator->locate($template);
+
+            return $this->cache[$logicalName] = $file;
+        } catch (\Exception $e) {
+            $this->errorCache[$logicalName] = $e->getMessage();
+
+            throw new LoaderError($e->getMessage());
+        }
     }
 }
