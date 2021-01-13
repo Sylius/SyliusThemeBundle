@@ -1,5 +1,12 @@
 ## CHANGELOG FOR `2.0.x`
 
+### v2.1.1 (2021-01-13)
+
+#### Details
+
+- [#73](https://github.com/Sylius/SyliusThemeBundle/issues/73) Update vimeo/psalm requirement from 4.1.1 to 4.2.1 ([@dependabot-preview](https://github.com/dependabot-preview)[[@bot](https://github.com/bot)])
+- [#78](https://github.com/Sylius/SyliusThemeBundle/issues/78) Fix deprecated array_key_exists in TranslatorResourceProviderPass ([@alexander-schranz](https://github.com/alexander-schranz))
+
 ### v2.1.0 (2020-11-05)
 
 #### Details
