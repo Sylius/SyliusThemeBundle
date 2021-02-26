@@ -43,6 +43,11 @@ final class LegacyAssetsProviderSpec extends ObjectBehavior
         $this->beConstructedWith($assetsProvider, $kernel, $themeHierarchyProvider);
     }
 
+    function it_should_trigger_deprecated_warning_during_instantiation(): void
+    {
+        $this->shouldTrigger(\E_USER_DEPRECATED)->duringInstantiation();
+    }
+
     function it_is_an_assets_provider(): void
     {
         $this->shouldImplement(AssetsProviderInterface::class);

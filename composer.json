@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "php": "^7.3",
+        "php": "^7.3 || ^8.0",
         "symfony/asset": "^4.4 || ^5.1",
         "symfony/config": "^4.4 || ^5.1",
         "symfony/console": "^4.4 || ^5.1",
