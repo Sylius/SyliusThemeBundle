@@ -48,6 +48,7 @@ final class AssetsProvider implements AssetsProviderInterface
     public function provideDirectoriesForBundle(BundleInterface $bundle): iterable
     {
         yield $bundle->getPath() . '/Resources/public' => '/bundles/' . $this->getPublicBundleName($bundle);
+        yield $bundle->getPath() . '/public' => '/bundles/' . $this->getPublicBundleName($bundle);
     }
 
     private function getPublicBundleName(BundleInterface $bundle): string
