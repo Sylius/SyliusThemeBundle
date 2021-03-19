@@ -43,6 +43,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
             }
         }
 
+        /** @psalm-suppress InvalidPropertyAssignmentValue */
         $this->translator = $translator;
         $this->themeContext = $themeContext;
     }

@@ -36,6 +36,8 @@ final class ThemeCollector extends DataCollector
      * @var array
      *
      * @psalm-var array{used_theme: ?ThemeInterface, used_themes: ThemeInterface[], themes: ThemeInterface[]}
+     *
+     * @psalm-suppress NonInvariantDocblockPropertyType
      */
     protected $data;
 

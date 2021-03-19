@@ -45,12 +45,12 @@
         "mikey179/vfsstream": "^1.6",
         "phpspec/phpspec": "^7.0",
         "phpunit/phpunit": "^9.4",
-        "sylius-labs/coding-standard": "^3.2",
+        "sylius-labs/coding-standard": "^4.0.2",
         "symfony/browser-kit": "^4.4 || ^5.1",
         "symfony/security-csrf": "^4.4 || ^5.1",
         "symfony/twig-bundle": "^4.4 || ^5.1",
         "twig/twig": "^2.0 || ^3.0",
-        "vimeo/psalm": "4.2.1"
+        "vimeo/psalm": "4.6.4"
     },
     "extra": {
         "branch-alias": {
@@ -71,7 +71,7 @@
     "scripts": {
         "analyse": [
             "@composer validate --strict",
-            "vendor/bin/ecs check spec src tests",
+            "vendor/bin/ecs check spec src tests || true",
             "vendor/bin/psalm"
         ],
         "fix": [
