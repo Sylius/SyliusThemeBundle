@@ -18,50 +18,42 @@ jobs:
             matrix:
                 include:
                     -
-                        php: 7.3
-                        symfony: 4.4.*
-                        twig: 2.*
-                    -
-                        php: 7.3
-                        symfony: 5.1.*
-                        twig: 3.*
-                    -
                         php: 7.4
-                        symfony: 4.4.*
+                        symfony: ^4.4
                         symfony-contracts: ^1.1
                         twig: 2.*
                     -
                         php: 7.4
-                        symfony: 4.4.*
+                        symfony: ^4.4
                         symfony-contracts: ^2.0
                         twig: 2.*
                     -
                         php: 7.4
-                        symfony: 4.4.*
+                        symfony: ^4.4
                         symfony-contracts: ^1.1
                         twig: 3.*
                     -
                         php: 7.4
-                        symfony: 4.4.*
+                        symfony: ^4.4
                         symfony-contracts: ^2.0
                         twig: 3.*
                     -
                         php: 7.4
-                        symfony: 5.1.*
+                        symfony: ^5.2
                         symfony-contracts: ^2.0
                         twig: 2.*
                     -
                         php: 7.4
-                        symfony: 5.1.*
+                        symfony: ^5.2
                         symfony-contracts: ^2.0
                         twig: 3.*
                     -
                         php: 8.0
-                        symfony: 4.4.*
+                        symfony: ^4.4
                         twig: 2.*
                     -
                         php: 8.0
-                        symfony: 5.1.*
+                        symfony: ^5.2
                         twig: 3.*
 
         steps:
@@ -76,11 +68,11 @@ jobs:
                     coverage: none
 
             -
-                name: Update Symfony version
+                name: Restrict Symfony version
                 if: matrix.symfony != ''
                 run: |
-                    composer require "symfony/asset:${{ matrix.symfony }}" "symfony/config:${{ matrix.symfony }}" "symfony/console:${{ matrix.symfony }}" "symfony/dom-crawler:${{ matrix.symfony }}" "symfony/dependency-injection:${{ matrix.symfony }}" "symfony/filesystem:${{ matrix.symfony }}" "symfony/finder:${{ matrix.symfony }}" "symfony/form:${{ matrix.symfony }}" "symfony/framework-bundle:${{ matrix.symfony }}" "symfony/http-foundation:${{ matrix.symfony }}" "symfony/http-kernel:${{ matrix.symfony }}" "symfony/options-resolver:${{ matrix.symfony }}" "symfony/translation:${{ matrix.symfony }}" --no-update --no-scripts
-                    composer require --dev "symfony/browser-kit:${{ matrix.symfony }}" "symfony/security-csrf:${{ matrix.symfony }}" "symfony/twig-bundle:${{ matrix.symfony }}" --no-update --no-scripts
+                    composer global require --no-progress --no-scripts --no-plugins "symfony/flex:^1.10"
+                    composer config extra.symfony.require "${{ matrix.symfony }}"
 
             -
                 name: Update Symfony Contracts version
