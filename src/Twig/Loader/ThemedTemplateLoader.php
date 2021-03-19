@@ -49,6 +49,7 @@ final class ThemedTemplateLoader implements LoaderInterface
         try {
             $path = $this->locateTemplate($name);
 
+            /** @psalm-suppress RedundantCastGivenDocblockType */
             return new Source((string) file_get_contents($path), (string) $name, $path);
         } catch (TemplateNotFoundException | \InvalidArgumentException $exception) {
             /** @psalm-suppress PossiblyInvalidArgument */

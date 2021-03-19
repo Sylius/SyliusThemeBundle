@@ -12,58 +12,58 @@ on:
 jobs:
     tests:
         runs-on: ubuntu-latest
-        name: Build and test
+        name: "PHP ${{ matrix.php }}${{ matrix.symfony != '' && format(', Symfony {0}', matrix.symfony) || '' }}${{ matrix.symfony-contracts != '' && format(', Contracts {0}', matrix.symfony-contracts) || '' }}${{ matrix.twig != '' && format(', Twig {0}', matrix.twig) || '' }}"
         strategy:
             fail-fast: false
             matrix:
                 include:
                     -
                         php: 7.3
-                        symfony-version: 4.4.*
-                        twig-version: 2.*
+                        symfony: 4.4.*
+                        twig: 2.*
                     -
                         php: 7.3
-                        symfony-version: 5.1.*
-                        twig-version: 3.*
+                        symfony: 5.1.*
+                        twig: 3.*
                     -
                         php: 7.4
-                        symfony-version: 4.4.*
-                        symfony-contracts-version: ^1.1
-                        twig-version: 2.*
+                        symfony: 4.4.*
+                        symfony-contracts: ^1.1
+                        twig: 2.*
                     -
                         php: 7.4
-                        symfony-version: 4.4.*
-                        symfony-contracts-version: ^2.0
-                        twig-version: 2.*
+                        symfony: 4.4.*
+                        symfony-contracts: ^2.0
+                        twig: 2.*
                     -
                         php: 7.4
-                        symfony-version: 4.4.*
-                        symfony-contracts-version: ^1.1
-                        twig-version: 3.*
+                        symfony: 4.4.*
+                        symfony-contracts: ^1.1
+                        twig: 3.*
                     -
                         php: 7.4
-                        symfony-version: 4.4.*
-                        symfony-contracts-version: ^2.0
-                        twig-version: 3.*
+                        symfony: 4.4.*
+                        symfony-contracts: ^2.0
+                        twig: 3.*
                     -
                         php: 7.4
-                        symfony-version: 5.1.*
-                        symfony-contracts-version: ^2.0
-                        twig-version: 2.*
+                        symfony: 5.1.*
+                        symfony-contracts: ^2.0
+                        twig: 2.*
                     -
                         php: 7.4
-                        symfony-version: 5.1.*
-                        symfony-contracts-version: ^2.0
-                        twig-version: 3.*
+                        symfony: 5.1.*
+                        symfony-contracts: ^2.0
+                        twig: 3.*
 #                    -
 #                        php: 8.0
-#                        symfony-version: 4.4.*
-#                        twig-version: 2.*
+#                        symfony: 4.4.*
+#                        twig: 2.*
 #                        composer-flags: "--ignore-platform-req=php"
 #                    -
 #                        php: 8.0
-#                        symfony-version: 5.1.*
-#                        twig-version: 3.*
+#                        symfony: 5.1.*
+#                        twig: 3.*
 #                        composer-flags: "--ignore-platform-req=php"
 
         steps:
@@ -79,20 +79,20 @@ jobs:
 
             -
                 name: Update Symfony version
-                if: matrix.symfony-version != ''
+                if: matrix.symfony != ''
                 run: |
-                    composer require "symfony/asset:${{ matrix.symfony-version }}" "symfony/config:${{ matrix.symfony-version }}" "symfony/console:${{ matrix.symfony-version }}" "symfony/dom-crawler:${{ matrix.symfony-version }}" "symfony/dependency-injection:${{ matrix.symfony-version }}" "symfony/filesystem:${{ matrix.symfony-version }}" "symfony/finder:${{ matrix.symfony-version }}" "symfony/form:${{ matrix.symfony-version }}" "symfony/framework-bundle:${{ matrix.symfony-version }}" "symfony/http-foundation:${{ matrix.symfony-version }}" "symfony/http-kernel:${{ matrix.symfony-version }}" "symfony/options-resolver:${{ matrix.symfony-version }}" "symfony/translation:${{ matrix.symfony-version }}" --no-update --no-scripts
-                    composer require --dev "symfony/browser-kit:${{ matrix.symfony-version }}" "symfony/security-csrf:${{ matrix.symfony-version }}" "symfony/twig-bundle:${{ matrix.symfony-version }}" --no-update --no-scripts
+                    composer require "symfony/asset:${{ matrix.symfony }}" "symfony/config:${{ matrix.symfony }}" "symfony/console:${{ matrix.symfony }}" "symfony/dom-crawler:${{ matrix.symfony }}" "symfony/dependency-injection:${{ matrix.symfony }}" "symfony/filesystem:${{ matrix.symfony }}" "symfony/finder:${{ matrix.symfony }}" "symfony/form:${{ matrix.symfony }}" "symfony/framework-bundle:${{ matrix.symfony }}" "symfony/http-foundation:${{ matrix.symfony }}" "symfony/http-kernel:${{ matrix.symfony }}" "symfony/options-resolver:${{ matrix.symfony }}" "symfony/translation:${{ matrix.symfony }}" --no-update --no-scripts
+                    composer require --dev "symfony/browser-kit:${{ matrix.symfony }}" "symfony/security-csrf:${{ matrix.symfony }}" "symfony/twig-bundle:${{ matrix.symfony }}" --no-update --no-scripts
 
             -
                 name: Update Symfony Contracts version
-                if: matrix.symfony-contracts-version != ''
-                run: composer require "symfony/translation-contracts:${{ matrix.symfony-contracts-version }}" "symfony/service-contracts:${{ matrix.symfony-contracts-version }}" --no-update --no-scripts
+                if: matrix.symfony-contracts != ''
+                run: composer require "symfony/translation-contracts:${{ matrix.symfony-contracts }}" "symfony/service-contracts:${{ matrix.symfony-contracts }}" --no-update --no-scripts
 
             -
                 name: Update Twig version
-                if: matrix.twig-version != ''
-                run: composer require --dev "twig/twig:${{ matrix.twig-version }}" --no-update --no-scripts
+                if: matrix.twig != ''
+                run: composer require --dev "twig/twig:${{ matrix.twig }}" --no-update --no-scripts
 
             -
                 name: Install dependencies
