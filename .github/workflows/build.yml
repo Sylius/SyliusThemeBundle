@@ -55,16 +55,14 @@ jobs:
                         symfony: 5.1.*
                         symfony-contracts: ^2.0
                         twig: 3.*
-#                    -
-#                        php: 8.0
-#                        symfony: 4.4.*
-#                        twig: 2.*
-#                        composer-flags: "--ignore-platform-req=php"
-#                    -
-#                        php: 8.0
-#                        symfony: 5.1.*
-#                        twig: 3.*
-#                        composer-flags: "--ignore-platform-req=php"
+                    -
+                        php: 8.0
+                        symfony: 4.4.*
+                        twig: 2.*
+                    -
+                        php: 8.0
+                        symfony: 5.1.*
+                        twig: 3.*
 
         steps:
             -
@@ -96,7 +94,7 @@ jobs:
 
             -
                 name: Install dependencies
-                run: composer update ${{ matrix.composer-flags }}
+                run: composer update
 
             -
                 name: Run analysis

@@ -26,6 +26,11 @@ final class LegacyNamespacedTemplateLocatorSpec extends ObjectBehavior
         $this->beConstructedWith($filesystem);
     }
 
+    function it_should_trigger_deprecated_warning_during_instantiation(): void
+    {
+        $this->shouldTrigger(\E_USER_DEPRECATED)->duringInstantiation();
+    }
+
     function it_implements_resource_locator_interface(): void
     {
         $this->shouldImplement(TemplateLocatorInterface::class);
