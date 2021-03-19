@@ -51,6 +51,7 @@ final class AssetsProviderSpec extends ObjectBehavior
     {
         $this->provideDirectoriesForBundle($acmeBundle)->shouldYield([
             '/src/bundle/AcmeBundle/Resources/public' => '/bundles/acme',
+            '/src/bundle/AcmeBundle/public' => '/bundles/acme',
         ]);
     }
 
@@ -58,6 +59,7 @@ final class AssetsProviderSpec extends ObjectBehavior
     {
         $this->provideDirectoriesForTheme($childTheme)->shouldYield([
             '/src/bundle/AcmeBundle/Resources/public' => '/bundles/acme',
+            '/src/bundle/AcmeBundle/public' => '/bundles/acme',
             '/src/theme/parent/public' => '/',
             '/src/theme/child/public' => '/',
         ]);

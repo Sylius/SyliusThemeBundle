@@ -39,15 +39,22 @@ final class PathResolverSpec extends ObjectBehavior
     ): void {
         $theme->getName()->willReturn('theme/name');
 
-        $assetsProvider->provideDirectoriesForTheme($theme)->willYield(['/src/acme-bundle/Resources/public' => '/bundles/acme']);
+        $assetsProvider->provideDirectoriesForTheme($theme)->willYield(['/src/acme-bundle/Resources/public' => '/bundles/acme', '/src/acme-bundle/public' => '/bundles/acme', '/src/easy-bundle/Resources/public' => '/bundles/easy', '/src/easy-bundle/public' => '/bundles/easy']);
 
         $filesystem->exists('/src/acme-bundle/Resources/public/asset.min.js')->willReturn(true);
+        $filesystem->exists('/src/acme-bundle/public/asset.min.js')->willReturn(false);
+        $filesystem->exists('/src/easy-bundle/Resources/public/asset.min.js')->willReturn(false);
+        $filesystem->exists('/src/easy-bundle/public/asset.min.js')->willReturn(true);
 
         $this->resolve('bundles/acme/asset.min.js', '/', $theme)->shouldReturn('/_themes/theme/name/bundles/acme/asset.min.js');
         $this->resolve('bundles/acme/asset.min.js', '', $theme)->shouldReturn('/_themes/theme/name/bundles/acme/asset.min.js');
+        $this->resolve('bundles/easy/asset.min.js', '/', $theme)->shouldReturn('/_themes/theme/name/bundles/easy/asset.min.js');
+        $this->resolve('bundles/easy/asset.min.js', '', $theme)->shouldReturn('/_themes/theme/name/bundles/easy/asset.min.js');
 
         $this->resolve('/root/bundles/acme/asset.min.js', '/root', $theme)->shouldReturn('/root/_themes/theme/name/bundles/acme/asset.min.js');
         $this->resolve('/root/bundles/acme/asset.min.js', '/root/', $theme)->shouldReturn('/root/_themes/theme/name/bundles/acme/asset.min.js');
+        $this->resolve('/root/bundles/easy/asset.min.js', '/root', $theme)->shouldReturn('/root/_themes/theme/name/bundles/easy/asset.min.js');
+        $this->resolve('/root/bundles/easy/asset.min.js', '/root/', $theme)->shouldReturn('/root/_themes/theme/name/bundles/easy/asset.min.js');
     }
 
     function it_returns_modified_path_if_its_referencing_root_asset(
@@ -77,17 +84,27 @@ final class PathResolverSpec extends ObjectBehavior
 
         $assetsProvider->provideDirectoriesForTheme($theme)->willYield([
             '/src/acme-bundle/Resources/public' => '/bundles/acme',
+            '/src/acme-bundle/public' => '/bundles/acme',
+            '/src/easy-bundle/Resources/public' => '/bundles/easy',
+            '/src/easy-bundle/public' => '/bundles/easy',
             '/src/theme/public' => '/',
         ]);
 
         $filesystem->exists('/src/acme-bundle/Resources/public/asset.min.js')->willReturn(false);
+        $filesystem->exists('/src/acme-bundle/public/asset.min.js')->willReturn(false);
+        $filesystem->exists('/src/easy-bundle/Resources/public/asset.min.js')->willReturn(false);
+        $filesystem->exists('/src/easy-bundle/public/asset.min.js')->willReturn(false);
         $filesystem->exists('/src/theme/public/asset.min.js')->willReturn(true);
 
         $filesystem->exists('/src/acme-bundle/Resources/public/asset.min.js')->willReturn(true);
+        $filesystem->exists('/src/acme-bundle/public/asset.min.js')->willReturn(false);
+        $filesystem->exists('/src/easy-bundle/Resources/public/asset.min.js')->willReturn(false);
+        $filesystem->exists('/src/easy-bundle/public/asset.min.js')->willReturn(true);
         $filesystem->exists('/src/theme/public/bundles/acme/asset.min.js')->willReturn(false);
 
         $this->resolve('asset.min.js', '/lol', $theme)->shouldReturn('/_themes/theme/name/asset.min.js');
         $this->resolve('bundles/acme/asset.min.js', '/lol', $theme)->shouldReturn('/_themes/theme/name/bundles/acme/asset.min.js');
+        $this->resolve('bundles/easy/asset.min.js', '/lol', $theme)->shouldReturn('/_themes/theme/name/bundles/easy/asset.min.js');
     }
 
     function it_fallbacks_to_default_path_if_could_not_find_themed_asset(
@@ -99,6 +116,7 @@ final class PathResolverSpec extends ObjectBehavior
 
         $assetsProvider->provideDirectoriesForTheme($theme)->willYield([
             '/src/acme-bundle/Resources/public' => '/bundles/acme',
+            '/src/acme-bundle/public' => '/bundles/acme',
             '/src/theme/public' => '/',
         ]);
 
