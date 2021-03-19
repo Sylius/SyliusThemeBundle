@@ -1,4 +1,21 @@
-## CHANGELOG FOR `2.0.x`
+## CHANGELOG FOR `2.2.x`
+
+### v2.2.0 (2021-03-19)
+
+#### TL;DR
+
+- Added support for PHP 8, while dropping support for PHP 7.3
+- Added support for Symfony 5.2
+- Added support for using the updated bunlde directory structure (`FooBundle/public` instead of `FooBundle/Resources/public`)
+
+#### Details
+
+- [#89](https://github.com/Sylius/SyliusThemeBundle/issues/89) Allow PHP8 ([@plozmun](https://github.com/plozmun))
+- [#95](https://github.com/Sylius/SyliusThemeBundle/issues/95) Add support for bundles using the updated bundle directory structure ([@mbabker](https://github.com/mbabker))
+- [#96](https://github.com/Sylius/SyliusThemeBundle/issues/96) Fix the build by requiring new version of ECS ([@pamil](https://github.com/pamil))
+- [#97](https://github.com/Sylius/SyliusThemeBundle/issues/97) Drop support for PHP 7.3 and Symfony 5.1 ([@pamil](https://github.com/pamil))
+
+## CHANGELOG FOR `2.1.x`
 
 ### v2.1.1 (2021-01-13)
 
@@ -17,6 +34,8 @@
 - [#67](https://github.com/Sylius/SyliusThemeBundle/issues/67) Update dependencies ([@pamil](https://github.com/pamil))
 - [#68](https://github.com/Sylius/SyliusThemeBundle/issues/68) Add tests for symfony/translation-contracts ^1.1 and ^2.0 ([@pamil](https://github.com/pamil), [@dpfaffenbauer](https://github.com/dpfaffenbauer))
 - [#69](https://github.com/Sylius/SyliusThemeBundle/issues/69) Normalise composer.json ([@pamil](https://github.com/pamil))
+
+## CHANGELOG FOR `2.0.x`
 
 ### v2.0.1 (2020-07-27)
 
