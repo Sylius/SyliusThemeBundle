@@ -38,6 +38,10 @@ final class AssetsProvider implements AssetsProviderInterface
             yield from $this->provideDirectoriesForBundle($bundle);
         }
 
+        foreach ($this->kernel->getBundles() as $bundle) {
+            yield from $this->provideDirectoriesForThemeBundle($bundle);
+        }
+
         $themes = array_reverse($this->themeHierarchyProvider->getThemeHierarchy($rootTheme));
 
         foreach ($themes as $theme) {
@@ -48,7 +52,11 @@ final class AssetsProvider implements AssetsProviderInterface
     public function provideDirectoriesForBundle(BundleInterface $bundle): iterable
     {
         yield $bundle->getPath() . '/Resources/public' => '/bundles/' . $this->getPublicBundleName($bundle);
-        yield $bundle->getPath() . '/public' => '/bundles/' . $this->getPublicBundleName($bundle);
+    }
+
+    public function provideDirectoriesForThemeBundle(BundleInterface $bundle): iterable
+    {
+        yield $bundle->getPath() . '/Resources/public' => '/bundles/_theme/' . $this->getPublicBundleName($bundle);
     }
 
     private function getPublicBundleName(BundleInterface $bundle): string

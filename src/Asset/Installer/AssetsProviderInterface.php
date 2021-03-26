@@ -27,4 +27,9 @@ interface AssetsProviderInterface
      * @psalm-return iterable<string, string> Maps origin dir to relative target dir
      */
     public function provideDirectoriesForBundle(BundleInterface $bundle): iterable;
+
+    /**
+     * @psalm-return iterable<string, string> Maps origin dir to relative target dir
+     */
+    public function provideDirectoriesForThemeBundle(BundleInterface $bundle): iterable;
 }
