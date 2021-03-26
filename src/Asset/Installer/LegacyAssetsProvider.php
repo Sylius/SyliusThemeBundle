@@ -62,6 +62,11 @@ final class LegacyAssetsProvider implements AssetsProviderInterface
         yield from $this->assetsProvider->provideDirectoriesForBundle($bundle);
     }
 
+    public function provideDirectoriesForThemeBundle(BundleInterface $bundle): iterable
+    {
+        yield from $this->assetsProvider->provideDirectoriesForThemeBundle($bundle);
+    }
+
     private function getPublicBundleName(BundleInterface $bundle): string
     {
         return (string) preg_replace('/bundle$/', '', strtolower($bundle->getName()));
