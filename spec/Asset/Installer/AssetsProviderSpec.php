@@ -51,17 +51,26 @@ final class AssetsProviderSpec extends ObjectBehavior
     {
         $this->provideDirectoriesForBundle($acmeBundle)->shouldYield([
             '/src/bundle/AcmeBundle/Resources/public' => '/bundles/acme',
-            '/src/bundle/AcmeBundle/public' => '/bundles/acme',
+        ]);
+    }
+
+    function it_returns_map_for_theme_bundle(BundleInterface $acmeBundle): void
+    {
+        $this->provideDirectoriesForThemeBundle($acmeBundle)->shouldYield([
+            '/src/bundle/AcmeBundle/Resources/public' => '/bundles/_theme/acme',
         ]);
     }
 
     function it_returns_map_for_theme(ThemeInterface $childTheme): void
     {
-        $this->provideDirectoriesForTheme($childTheme)->shouldYield([
-            '/src/bundle/AcmeBundle/Resources/public' => '/bundles/acme',
-            '/src/bundle/AcmeBundle/public' => '/bundles/acme',
-            '/src/theme/parent/public' => '/',
-            '/src/theme/child/public' => '/',
-        ]);
+        $this->provideDirectoriesForTheme($childTheme)->shouldYield($this->map_generator());
+    }
+
+    function map_generator(): iterable
+    {
+        yield '/src/bundle/AcmeBundle/Resources/public' => '/bundles/acme';
+        yield '/src/bundle/AcmeBundle/Resources/public' => '/bundles/_theme/acme';
+        yield '/src/theme/parent/public' => '/';
+        yield '/src/theme/child/public' => '/';
     }
 }
