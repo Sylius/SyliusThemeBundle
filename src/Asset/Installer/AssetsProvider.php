@@ -56,7 +56,7 @@ final class AssetsProvider implements AssetsProviderInterface
 
     public function provideDirectoriesForThemeBundle(BundleInterface $bundle): iterable
     {
-        yield $bundle->getPath() . '/Resources/public' => '/bundles/_theme/' . $this->getPublicBundleName($bundle);
+        yield $bundle->getPath() . '/Resources/public' => '/bundles/_themes/' . $this->getPublicBundleName($bundle);
     }
 
     private function getPublicBundleName(BundleInterface $bundle): string
