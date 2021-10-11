@@ -23,8 +23,7 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 final class LegacyApplicationTemplateLocator implements TemplateLocatorInterface
 {
-    /** @var Filesystem */
-    private $filesystem;
+    private Filesystem $filesystem;
 
     public function __construct(Filesystem $filesystem)
     {

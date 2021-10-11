@@ -17,8 +17,7 @@ use Sylius\Bundle\ThemeBundle\Filesystem\FilesystemInterface;
 
 final class JsonFileConfigurationLoader implements ConfigurationLoaderInterface
 {
-    /** @var FilesystemInterface */
-    private $filesystem;
+    private FilesystemInterface $filesystem;
 
     public function __construct(FilesystemInterface $filesystem)
     {

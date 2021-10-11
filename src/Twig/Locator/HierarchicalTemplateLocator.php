@@ -18,11 +18,9 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
 final class HierarchicalTemplateLocator implements TemplateLocatorInterface
 {
-    /** @var TemplateLocatorInterface */
-    private $templateLocator;
+    private TemplateLocatorInterface $templateLocator;
 
-    /** @var ThemeHierarchyProviderInterface */
-    private $themeHierarchyProvider;
+    private ThemeHierarchyProviderInterface $themeHierarchyProvider;
 
     public function __construct(
         TemplateLocatorInterface $templateLocator,

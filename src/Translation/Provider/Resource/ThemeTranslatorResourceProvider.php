@@ -22,14 +22,11 @@ use Sylius\Bundle\ThemeBundle\Translation\Resource\TranslationResourceInterface;
 
 final class ThemeTranslatorResourceProvider implements TranslatorResourceProviderInterface
 {
-    /** @var TranslationFilesFinderInterface */
-    private $translationFilesFinder;
+    private TranslationFilesFinderInterface $translationFilesFinder;
 
-    /** @var ThemeRepositoryInterface */
-    private $themeRepository;
+    private ThemeRepositoryInterface $themeRepository;
 
-    /** @var ThemeHierarchyProviderInterface */
-    private $themeHierarchyProvider;
+    private ThemeHierarchyProviderInterface $themeHierarchyProvider;
 
     public function __construct(
         TranslationFilesFinderInterface $translationFilesFinder,

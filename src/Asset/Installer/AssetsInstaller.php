@@ -24,20 +24,15 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 final class AssetsInstaller implements AssetsInstallerInterface
 {
-    /** @var Filesystem */
-    private $filesystem;
+    private Filesystem $filesystem;
 
-    /** @var KernelInterface */
-    private $kernel;
+    private KernelInterface $kernel;
 
-    /** @var ThemeRepositoryInterface */
-    private $themeRepository;
+    private ThemeRepositoryInterface $themeRepository;
 
-    /** @var PathResolverInterface */
-    private $pathResolver;
+    private PathResolverInterface $pathResolver;
 
-    /** @var AssetsProviderInterface */
-    private $assetsProvider;
+    private AssetsProviderInterface $assetsProvider;
 
     public function __construct(
         Filesystem $filesystem,

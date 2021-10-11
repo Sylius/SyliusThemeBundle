@@ -18,14 +18,11 @@ use Symfony\Component\Finder\SplFileInfo;
 
 final class RecursiveFileLocator implements FileLocatorInterface
 {
-    /** @var FinderFactoryInterface */
-    private $finderFactory;
+    private FinderFactoryInterface $finderFactory;
 
-    /** @var array */
-    private $paths;
+    private array $paths;
 
-    /** @var int|null */
-    private $depth;
+    private ?int $depth;
 
     /**
      * @param array|string[] $paths An array of paths where to look for resources

@@ -19,8 +19,7 @@ use Symfony\Component\Finder\SplFileInfo;
 
 final class TranslationFilesFinder implements TranslationFilesFinderInterface
 {
-    /** @var FinderFactoryInterface */
-    private $finderFactory;
+    private FinderFactoryInterface $finderFactory;
 
     public function __construct(FinderFactoryInterface $finderFactory)
     {

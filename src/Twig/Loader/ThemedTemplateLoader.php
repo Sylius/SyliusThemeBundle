@@ -22,14 +22,11 @@ use Twig\Source;
 
 final class ThemedTemplateLoader implements LoaderInterface
 {
-    /** @var TwigLoaderInterface */
-    private $decoratedLoader;
+    private TwigLoaderInterface $decoratedLoader;
 
-    /** @var TemplateLocatorInterface */
-    private $templateLocator;
+    private TemplateLocatorInterface $templateLocator;
 
-    /** @var ThemeContextInterface */
-    private $themeContext;
+    private ThemeContextInterface $themeContext;
 
     public function __construct(
         TwigLoaderInterface $decoratedLoader,

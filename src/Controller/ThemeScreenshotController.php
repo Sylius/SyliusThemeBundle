@@ -22,8 +22,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ThemeScreenshotController
 {
-    /** @var ThemeRepositoryInterface */
-    private $themeRepository;
+    private ThemeRepositoryInterface $themeRepository;
 
     public function __construct(ThemeRepositoryInterface $themeRepository)
     {

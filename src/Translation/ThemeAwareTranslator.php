@@ -24,8 +24,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /** @var TranslatorInterface&LocaleAwareInterface&TranslatorBagInterface */
     private $translator;
 
-    /** @var ThemeContextInterface */
-    private $themeContext;
+    private ThemeContextInterface $themeContext;
 
     /**
      * @param TranslatorInterface&LocaleAwareInterface&TranslatorBagInterface $translator

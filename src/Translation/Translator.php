@@ -23,28 +23,22 @@ use Symfony\Component\Translation\Translator as BaseTranslator;
 
 final class Translator extends BaseTranslator implements WarmableInterface
 {
-    /** @var array */
-    protected $options = [
+    protected array $options = [
         'cache_dir' => null,
         'debug' => false,
     ];
 
     /**
      * @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though
-     *
-     * @var TranslatorLoaderProviderInterface
      */
-    private $loaderProvider;
+    private TranslatorLoaderProviderInterface $loaderProvider;
 
     /**
      * @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though
-     *
-     * @var TranslatorResourceProviderInterface
      */
-    private $resourceProvider;
+    private TranslatorResourceProviderInterface $resourceProvider;
 
-    /** @var bool */
-    private $resourcesLoaded = false;
+    private bool $resourcesLoaded = false;
 
     /**
      * @param MessageSelector|MessageFormatterInterface $messageFormatterOrSelector

@@ -23,14 +23,11 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 final class LegacyAssetsProvider implements AssetsProviderInterface
 {
-    /** @var AssetsProviderInterface */
-    private $assetsProvider;
+    private AssetsProviderInterface $assetsProvider;
 
-    /** @var KernelInterface */
-    private $kernel;
+    private KernelInterface $kernel;
 
-    /** @var ThemeHierarchyProviderInterface */
-    private $themeHierarchyProvider;
+    private ThemeHierarchyProviderInterface $themeHierarchyProvider;
 
     public function __construct(AssetsProviderInterface $assetsProvider, KernelInterface $kernel, ThemeHierarchyProviderInterface $themeHierarchyProvider)
     {

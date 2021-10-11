@@ -21,11 +21,9 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 final class RequestListener
 {
-    /** @var ThemeRepositoryInterface */
-    private $themeRepository;
+    private ThemeRepositoryInterface $themeRepository;
 
-    /** @var SettableThemeContext */
-    private $themeContext;
+    private SettableThemeContext $themeContext;
 
     public function __construct(ThemeRepositoryInterface $themeRepository, SettableThemeContext $themeContext)
     {
