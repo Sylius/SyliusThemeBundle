@@ -311,7 +311,6 @@ final class TranslatorTest extends TestCase
     public function getThemelessLocalesTests(): array
     {
         return [
-            [''],
             ['fr'],
             ['francais'],
             ['FR'],
