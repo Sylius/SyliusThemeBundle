@@ -23,14 +23,11 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 final class ThemeCollector extends DataCollector
 {
-    /** @var ThemeRepositoryInterface */
-    private $themeRepository;
+    private ThemeRepositoryInterface $themeRepository;
 
-    /** @var ThemeContextInterface */
-    private $themeContext;
+    private ThemeContextInterface $themeContext;
 
-    /** @var ThemeHierarchyProviderInterface */
-    private $themeHierarchyProvider;
+    private ThemeHierarchyProviderInterface $themeHierarchyProvider;
 
     /**
      * @var array

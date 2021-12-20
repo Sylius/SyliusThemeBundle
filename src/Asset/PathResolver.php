@@ -19,11 +19,9 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
 final class PathResolver implements PathResolverInterface
 {
-    /** @var AssetsProviderInterface */
-    private $assetsProvider;
+    private AssetsProviderInterface $assetsProvider;
 
-    /** @var FilesystemInterface */
-    private $filesystem;
+    private FilesystemInterface $filesystem;
 
     public function __construct(AssetsProviderInterface $assetsProvider, FilesystemInterface $filesystem)
     {

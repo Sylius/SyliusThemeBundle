@@ -21,8 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class ListCommand extends Command
 {
-    /** @var ThemeRepositoryInterface */
-    private $themeRepository;
+    private ThemeRepositoryInterface $themeRepository;
 
     public function __construct(ThemeRepositoryInterface $themeRepository)
     {

@@ -22,7 +22,7 @@ final class CompositeTemplateLocator implements TemplateLocatorInterface
      *
      * @var iterable|TemplateLocatorInterface[]
      */
-    private $themedTemplateLocators;
+    private iterable $themedTemplateLocators;
 
     /**
      * @psalm-param iterable<TemplateLocatorInterface> $themedTemplateLocators

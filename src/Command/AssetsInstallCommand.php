@@ -27,11 +27,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class AssetsInstallCommand extends Command
 {
-    /** @var AssetsInstallerInterface */
-    private $assetsInstaller;
+    private AssetsInstallerInterface $assetsInstaller;
 
-    /** @var string */
-    private $projectDir;
+    private string $projectDir;
 
     public function __construct(AssetsInstallerInterface $assetsInstaller, string $projectDir)
     {

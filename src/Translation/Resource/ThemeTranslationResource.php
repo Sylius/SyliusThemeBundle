@@ -17,17 +17,13 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 
 final class ThemeTranslationResource implements TranslationResourceInterface
 {
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var string */
-    private $locale;
+    private string $locale;
 
-    /** @var string */
-    private $format;
+    private string $format;
 
-    /** @var string */
-    private $domain;
+    private string $domain;
 
     public function __construct(ThemeInterface $theme, string $filepath)
     {

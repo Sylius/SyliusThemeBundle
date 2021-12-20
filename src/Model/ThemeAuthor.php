@@ -15,17 +15,13 @@ namespace Sylius\Bundle\ThemeBundle\Model;
 
 final class ThemeAuthor
 {
-    /** @var string|null */
-    private $name;
+    private ?string $name = null;
 
-    /** @var string|null */
-    private $email;
+    private ?string $email = null;
 
-    /** @var string|null */
-    private $homepage;
+    private ?string $homepage = null;
 
-    /** @var string|null */
-    private $role;
+    private ?string $role = null;
 
     public function getName(): ?string
     {

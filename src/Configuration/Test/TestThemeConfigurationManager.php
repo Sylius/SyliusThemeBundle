@@ -18,14 +18,11 @@ use Symfony\Component\Filesystem\Filesystem;
 
 final class TestThemeConfigurationManager implements TestThemeConfigurationManagerInterface
 {
-    /** @var ConfigurationProcessorInterface */
-    private $configurationProcessor;
+    private ConfigurationProcessorInterface $configurationProcessor;
 
-    /** @var Filesystem */
-    private $filesystem;
+    private Filesystem $filesystem;
 
-    /** @var string */
-    private $configurationsFile;
+    private string $configurationsFile;
 
     public function __construct(ConfigurationProcessorInterface $configurationProcessor, string $cacheDir)
     {

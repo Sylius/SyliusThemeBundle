@@ -24,7 +24,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 final class SyliusThemeExtension extends Extension
 {
     /** @var ConfigurationSourceFactoryInterface[] */
-    private $configurationSourceFactories = [];
+    private array $configurationSourceFactories = [];
 
     /**
      * @internal

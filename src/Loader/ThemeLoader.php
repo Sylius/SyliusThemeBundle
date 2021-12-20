@@ -23,20 +23,15 @@ use Sylius\Bundle\ThemeBundle\Model\ThemeScreenshot;
 
 final class ThemeLoader implements ThemeLoaderInterface
 {
-    /** @var ConfigurationProviderInterface */
-    private $configurationProvider;
+    private ConfigurationProviderInterface $configurationProvider;
 
-    /** @var ThemeFactoryInterface */
-    private $themeFactory;
+    private ThemeFactoryInterface $themeFactory;
 
-    /** @var ThemeAuthorFactoryInterface */
-    private $themeAuthorFactory;
+    private ThemeAuthorFactoryInterface $themeAuthorFactory;
 
-    /** @var ThemeScreenshotFactoryInterface */
-    private $themeScreenshotFactory;
+    private ThemeScreenshotFactoryInterface $themeScreenshotFactory;
 
-    /** @var CircularDependencyCheckerInterface */
-    private $circularDependencyChecker;
+    private CircularDependencyCheckerInterface $circularDependencyChecker;
 
     public function __construct(
         ConfigurationProviderInterface $configurationProvider,

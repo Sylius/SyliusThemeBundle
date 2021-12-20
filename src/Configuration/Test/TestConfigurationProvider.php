@@ -17,8 +17,7 @@ use Sylius\Bundle\ThemeBundle\Configuration\ConfigurationProviderInterface;
 
 final class TestConfigurationProvider implements ConfigurationProviderInterface
 {
-    /** @var TestThemeConfigurationManagerInterface */
-    private $testThemeConfigurationManager;
+    private TestThemeConfigurationManagerInterface $testThemeConfigurationManager;
 
     public function __construct(TestThemeConfigurationManagerInterface $testThemeConfigurationManager)
     {

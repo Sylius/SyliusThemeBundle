@@ -19,13 +19,11 @@ use Sylius\Bundle\ThemeBundle\Translation\Resource\TranslationResourceInterface;
 final class SymfonyTranslatorResourceProvider implements TranslatorResourceProviderInterface
 {
     /** @var TranslationResourceInterface[] */
-    private $resources = [];
+    private array $resources = [];
 
-    /** @var array */
-    private $resourcesLocales = [];
+    private array $resourcesLocales = [];
 
-    /** @var array */
-    private $filepaths;
+    private array $filepaths;
 
     public function __construct(array $filepaths = [])
     {

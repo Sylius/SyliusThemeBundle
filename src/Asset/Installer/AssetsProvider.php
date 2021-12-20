@@ -20,11 +20,9 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 final class AssetsProvider implements AssetsProviderInterface
 {
-    /** @var KernelInterface */
-    private $kernel;
+    private KernelInterface $kernel;
 
-    /** @var ThemeHierarchyProviderInterface */
-    private $themeHierarchyProvider;
+    private ThemeHierarchyProviderInterface $themeHierarchyProvider;
 
     public function __construct(KernelInterface $kernel, ThemeHierarchyProviderInterface $themeHierarchyProvider)
     {
