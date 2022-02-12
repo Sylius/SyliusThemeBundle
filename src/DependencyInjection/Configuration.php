@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\DependencyInjection;
 
 use Sylius\Bundle\ThemeBundle\Configuration\ConfigurationSourceFactoryInterface;
+use Symfony\Component\Config\Definition\BaseNode;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -46,7 +47,7 @@ final class Configuration implements ConfigurationInterface
         $rootNode->children()
             ->booleanNode('legacy_mode')
                 ->defaultFalse()
-                ->setDeprecated('"%node%" at path "%path%" is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.')
+                ->setDeprecated(...$this->getDeprecationParams('"%node%" at path "%path%" is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.'))
         ;
 
         return $treeBuilder;
@@ -58,7 +59,7 @@ final class Configuration implements ConfigurationInterface
             ->fixXmlConfig('source')
                 ->children()
                     ->arrayNode('sources')
-                            ->children()
+                         ->children()
         ;
 
         foreach ($this->configurationSourceFactories as $sourceFactory) {
@@ -69,5 +70,28 @@ final class Configuration implements ConfigurationInterface
 
             $sourceFactory->buildConfiguration($sourceNode);
         }
+    }
+
+    /**
+     * Returns the correct deprecation params as an array for setDeprecated().
+     *
+     * symfony/config v5.1 introduces a deprecation notice when calling
+     * setDeprecated() with less than 3 args and the getDeprecation() method was
+     * introduced at the same time. By checking if getDeprecation() exists,
+     * we can determine the correct param count to use when calling setDeprecated().
+     *
+     * @return string[]
+     */
+    private function getDeprecationParams(string $message) : array
+    {
+        if (method_exists(BaseNode::class, 'getDeprecation')) {
+            return [
+                'sylius/theme-bundle',
+                '2.0',
+                $message,
+            ];
+        }
+
+        return [$message];
     }
 }
