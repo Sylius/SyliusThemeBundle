@@ -44,24 +44,22 @@ final class SymfonyTranslatorResourceProvider implements TranslatorResourceProvi
         return $this->resourcesLocales;
     }
 
-    /**
-     * 1. The function does not initialize if needed. It initializes everytime it is executed.
-     * 2. The function appends resources and locales each time it is executed, meaning that if I have 100 translation
-     * files and execute it
-     */
     private function initializeIfNeeded(): void
     {
-        $this->resources = [];
-        $this->resourcesLocales = [];
-
-        foreach ($this->filepaths as $key => $filepath) {
-            $resource = new TranslationResource($filepath);
+        if (empty($this->resources) || empty($this->resourcesLocales)) {
+            $resource = $this->createTranslationResource()->getReturn();
 
             $this->resources[] = $resource;
             $this->resourcesLocales[] = $resource->getLocale();
+            $this->resourcesLocales = array_unique($this->resourcesLocales);
+            $this->filepaths = [];
         }
+    }
 
-        $this->resourcesLocales = array_unique($this->resourcesLocales);
-        $this->filepaths = [];
+    private function createTranslationResource(): \Generator
+    {
+        foreach ($this->filepaths as $filepath) {
+            yield new TranslationResource($filepath);
+        }
     }
 }
