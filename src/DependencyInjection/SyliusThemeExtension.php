@@ -59,6 +59,10 @@ final class SyliusThemeExtension extends Extension
             }
         }
 
+        if ($container->getParameter('kernel.debug')) {
+            $loader->load('services/integrations/debug.xml');
+        }
+
         $this->resolveConfigurationSources($container, $config);
 
         $container->setAlias(ThemeContextInterface::class, $config['context']);

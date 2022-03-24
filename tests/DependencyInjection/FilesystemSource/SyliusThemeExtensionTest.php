@@ -25,6 +25,7 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
      */
     public function it_does_not_register_a_provider_while_it_is_disabled(): void
     {
+        $this->container->setParameter('kernel.debug', false);
         $this->load(['sources' => ['filesystem' => false]]);
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(

@@ -19,9 +19,16 @@
                 <b>Used themes</b>
                 <span class="sf-toolbar-status">{{ collector.usedThemes|length }}</span>
             </div>
+
+            {% for theme in collector.themes %}
+                <div class="sf-toolbar-info-piece">
+                    <b>{{ theme }}</b>
+                    <span>(<a href="?{{ constant('Sylius\\Bundle\\ThemeBundle\\Context\\FakeTheme\\FakeThemeNameProviderInterface::PARAMETER_NAME') }}={{ theme.name }}">change</a>)</span>
+                </div>
+            {% endfor %}
         {% endset %}
 
-        {{ include('@WebProfiler/Profiler/toolbar_item.html.twig') }}
+        {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with {'link': profiler_url} %}
     {% endif %}
 {% endblock %}
 
