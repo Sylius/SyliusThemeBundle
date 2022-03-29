@@ -28,21 +28,15 @@ final class Translator extends BaseTranslator implements WarmableInterface
         'debug' => false,
     ];
 
-    /**
-     * @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though
-     */
+    /** @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though */
     private TranslatorLoaderProviderInterface $loaderProvider;
 
-    /**
-     * @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though
-     */
+    /** @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though */
     private TranslatorResourceProviderInterface $resourceProvider;
 
     private bool $resourcesLoaded = false;
 
-    /**
-     * @param MessageSelector|MessageFormatterInterface $messageFormatterOrSelector
-     */
+    /** @param MessageSelector|MessageFormatterInterface $messageFormatterOrSelector */
     public function __construct(
         TranslatorLoaderProviderInterface $loaderProvider,
         TranslatorResourceProviderInterface $resourceProvider,

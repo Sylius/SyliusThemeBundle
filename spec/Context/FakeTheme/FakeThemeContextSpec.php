@@ -49,7 +49,11 @@ final class FakeThemeContextSpec extends ObjectBehavior
         RequestStack $requestStack,
     ): void {
         $request = new Request();
-        $requestStack->getMainRequest()->willReturn($request);
+        if (method_exists(RequestStack::class, 'getMainRequest')) {
+            $requestStack->getMainRequest()->willReturn($request);
+        } else {
+            $requestStack->getMasterRequest()->willReturn($request);
+        }
 
         $this->getTheme();
 
@@ -61,7 +65,11 @@ final class FakeThemeContextSpec extends ObjectBehavior
         FakeThemeNameProviderInterface $fakeThemeNameProvider
     ): void {
         $request = new Request();
-        $requestStack->getMainRequest()->willReturn($request);
+        if (method_exists(RequestStack::class, 'getMainRequest')) {
+            $requestStack->getMainRequest()->willReturn($request);
+        } else {
+            $requestStack->getMasterRequest()->willReturn($request);
+        }
         $fakeThemeNameProvider->getName($request)->willReturn('fake/theme');
 
         $this->getTheme()->shouldBeNull();
@@ -74,7 +82,11 @@ final class FakeThemeContextSpec extends ObjectBehavior
     ): void {
         $theme = new Theme('fake/theme', 'fake/path');
         $request = new Request();
-        $requestStack->getMainRequest()->willReturn($request);
+        if (method_exists(RequestStack::class, 'getMainRequest')) {
+            $requestStack->getMainRequest()->willReturn($request);
+        } else {
+            $requestStack->getMasterRequest()->willReturn($request);
+        }
         $fakeThemeNameProvider->getName($request)->willReturn('fake/theme');
         $themeRepository->findOneByName('fake/theme')->willReturn($theme);
 

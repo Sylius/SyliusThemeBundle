@@ -49,6 +49,7 @@ final class FakeThemeContext implements ThemeContextInterface
             return $this->requestStack->getMainRequest();
         }
 
+        /** @psalm-suppress DeprecatedMethod */
         return $this->requestStack->getMasterRequest();
     }
 }

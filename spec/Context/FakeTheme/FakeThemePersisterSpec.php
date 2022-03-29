@@ -51,10 +51,13 @@ final class FakeThemePersisterSpec extends ObjectBehavior
     ): void {
         $fakeThemeNameProvider->getName($request)->willReturn(null);
 
+        $mainRequest = defined('Symfony\\Component\\HttpKernel\\HttpKernelInterface::MAIN_REQUEST')
+            ? HttpKernelInterface::MAIN_REQUEST
+            : HttpKernelInterface::MASTER_REQUEST;
         $this->onKernelResponse(new ResponseEvent(
             $kernel->getWrappedObject(),
             $request->getWrappedObject(),
-            HttpKernelInterface::MAIN_REQUEST,
+            $mainRequest,
             $response->getWrappedObject()
         ));
     }
@@ -70,14 +73,17 @@ final class FakeThemePersisterSpec extends ObjectBehavior
 
         $response->headers = $responseHeaderBag;
         $responseHeaderBag
-            ->setCookie(Argument::that(static fn(Cookie $cookie): bool => $cookie->getName() === '_theme_name' && $cookie->getValue() === 'fake_theme_name'))
+            ->setCookie(Argument::that(static fn (Cookie $cookie): bool => $cookie->getName() === '_theme_name' && $cookie->getValue() === 'fake_theme_name'))
             ->shouldBeCalled()
         ;
 
+        $mainRequest = defined('Symfony\\Component\\HttpKernel\\HttpKernelInterface::MAIN_REQUEST')
+            ? HttpKernelInterface::MAIN_REQUEST
+            : HttpKernelInterface::MASTER_REQUEST;
         $this->onKernelResponse(new ResponseEvent(
             $kernel->getWrappedObject(),
             $request->getWrappedObject(),
-            HttpKernelInterface::MAIN_REQUEST,
+            $mainRequest,
             $response->getWrappedObject()
         ));
     }

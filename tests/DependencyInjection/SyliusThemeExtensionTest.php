@@ -15,12 +15,10 @@ namespace Sylius\Bundle\ThemeBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface;
-use Sylius\Bundle\ThemeBundle\Context\FakeTheme\FakeThemeContext;
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Sylius\Bundle\ThemeBundle\DependencyInjection\SyliusThemeExtension;
 use Sylius\Bundle\ThemeBundle\Translation\Translator;
 use Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateLocatorInterface;
-use Symfony\Component\DependencyInjection\Definition;
 
 final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
 {
