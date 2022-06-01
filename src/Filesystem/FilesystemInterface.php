@@ -37,7 +37,7 @@ interface FilesystemInterface
      *
      * @throws IOException On any directory creation failure
      */
-    public function mkdir($dirs, int $mode = 0777);
+    public function mkdir(iterable|string $dirs, int $mode = 0777) ;
 
     /**
      * Checks the existence of files or directories.
@@ -46,7 +46,7 @@ interface FilesystemInterface
      *
      * @return bool true if the file exists, false otherwise
      */
-    public function exists($files);
+    public function exists(iterable|string $files);
 
     /**
      * Sets access and modification time of file.
@@ -55,7 +55,7 @@ interface FilesystemInterface
      *
      * @throws IOException When touch fails
      */
-    public function touch($files, int $time = null, int $atime = null);
+    public function touch(iterable|string $files, int $time = null, int $atime = null);
 
     /**
      * Removes files or directories.
@@ -64,7 +64,7 @@ interface FilesystemInterface
      *
      * @throws IOException When removal fails
      */
-    public function remove($files);
+    public function remove(iterable|string $files);
 
     /**
      * Change mode for an array of files or directories.
@@ -73,7 +73,7 @@ interface FilesystemInterface
      *
      * @throws IOException When the change fail
      */
-    public function chmod($files, int $mode, int $umask = 0000, bool $recursive = false);
+    public function chmod(iterable|string $files, int $mode, int $umask = 0000, bool $recursive = false);
 
     /**
      * Change the owner of an array of files or directories.
@@ -82,7 +82,7 @@ interface FilesystemInterface
      *
      * @throws IOException When the change fail
      */
-    public function chown($files, string $user, bool $recursive = false);
+    public function chown(iterable|string $files, string $user, bool $recursive = false);
 
     /**
      * Change the group of an array of files or directories.
@@ -91,7 +91,7 @@ interface FilesystemInterface
      *
      * @throws IOException When the change fail
      */
-    public function chgrp($files, string $group, bool $recursive = false);
+    public function chgrp(iterable|string $files, string $group, bool $recursive = false);
 
     /**
      * Renames a file or a directory.
