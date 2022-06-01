@@ -64,7 +64,7 @@ final class SyliusThemeExtension extends Extension
         $container->setAlias(ThemeContextInterface::class, $config['context']);
         $container
             ->setAlias('sylius.context.theme', ThemeContextInterface::class)
-            ->setDeprecated(true, '"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.')
+            ->setDeprecated('sylius/theme-bundle', '2.0',  '"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.')
         ;
     }
 

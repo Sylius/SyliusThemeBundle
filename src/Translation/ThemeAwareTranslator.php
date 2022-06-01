@@ -18,6 +18,7 @@ use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Translation\MessageCatalogueInterface;
 
 final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagInterface, WarmableInterface, LocaleAwareInterface
 {
@@ -61,7 +62,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /**
      * @psalm-suppress MissingParamType Two interfaces defining the same method
      */
-    public function trans($id, array $parameters = [], $domain = null, $locale = null)
+    public function trans($id, array $parameters = [], $domain = null, $locale = null): string
     {
         return $this->translator->trans($id, $parameters, $domain, $this->transformLocale($locale));
     }
@@ -75,7 +76,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         return $this->translator->transChoice($id, $number, $parameters, $domain, $this->transformLocale($locale));
     }
 
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->translator->getLocale();
     }
@@ -94,9 +95,14 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     /**
      * @param string|null $locale
      */
-    public function getCatalogue($locale = null)
+    public function getCatalogue($locale = null): MessageCatalogueInterface
     {
         return $this->translator->getCatalogue($locale);
+    }
+
+    public function getCatalogues(): array
+    {
+        return $this->translator->getCatalogues();
     }
 
     /**
