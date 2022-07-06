@@ -23,19 +23,19 @@
             <argument type="service" id="sylius.theme.hierarchy_provider" />
         </service>
         <service id="sylius.theme.context.settable" alias="Sylius\Bundle\ThemeBundle\Context\SettableThemeContext">
-            <deprecated package="sylius/theme-bundle" version="2.0">"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
         </service>
 
         <service id="Sylius\Bundle\ThemeBundle\Repository\ThemeRepositoryInterface" class="Sylius\Bundle\ThemeBundle\Repository\InMemoryThemeRepository">
             <argument type="service" id="sylius.theme.loader" />
         </service>
         <service id="sylius.repository.theme" alias="Sylius\Bundle\ThemeBundle\Repository\ThemeRepositoryInterface">
-            <deprecated package="sylius/theme-bundle" version="2.0">"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
         </service>
 
         <service id="Sylius\Bundle\ThemeBundle\HierarchyProvider\ThemeHierarchyProviderInterface" class="Sylius\Bundle\ThemeBundle\HierarchyProvider\ThemeHierarchyProvider" />
 		<service id="sylius.theme.hierarchy_provider" alias="Sylius\Bundle\ThemeBundle\HierarchyProvider\ThemeHierarchyProviderInterface" >
-            <deprecated package="sylius/theme-bundle" version="2.0">"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
         </service>
     </services>
 </container>
