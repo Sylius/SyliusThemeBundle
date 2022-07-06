@@ -168,7 +168,7 @@ final class AssetTest extends WebTestCase
 
     private function getThemeAssetsInstaller(KernelBrowser $client): AssetsInstallerInterface
     {
-        $themeAssetsInstaller = static::$container->get(AssetsInstallerInterface::class);
+        $themeAssetsInstaller = static::getContainer()->get(AssetsInstallerInterface::class);
 
         assert($themeAssetsInstaller instanceof AssetsInstallerInterface);
 
