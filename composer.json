@@ -55,8 +55,8 @@
     },
     "config": {
         "allow-plugins": {
-            "symfony/flex": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "symfony/flex": true
         }
     },
     "extra": {
@@ -89,10 +89,5 @@
             "vendor/bin/phpunit --colors=always",
             "APP_ENV=test_legacy vendor/bin/phpunit --colors=always --exclude-group=none"
         ]
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
     }
 }
