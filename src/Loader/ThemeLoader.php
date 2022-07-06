@@ -38,7 +38,7 @@ final class ThemeLoader implements ThemeLoaderInterface
         ThemeFactoryInterface $themeFactory,
         ThemeAuthorFactoryInterface $themeAuthorFactory,
         ThemeScreenshotFactoryInterface $themeScreenshotFactory,
-        CircularDependencyCheckerInterface $circularDependencyChecker
+        CircularDependencyCheckerInterface $circularDependencyChecker,
     ) {
         $this->configurationProvider = $configurationProvider;
         $this->themeFactory = $themeFactory;
@@ -118,7 +118,7 @@ final class ThemeLoader implements ThemeLoaderInterface
                 throw new ThemeLoadingFailedException(sprintf(
                     'Unexisting theme "%s" is required by "%s".',
                     $parentName,
-                    $themeName
+                    $themeName,
                 ));
             }
 

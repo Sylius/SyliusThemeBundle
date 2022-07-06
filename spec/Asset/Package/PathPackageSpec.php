@@ -25,7 +25,7 @@ final class PathPackageSpec extends ObjectBehavior
     function let(
         VersionStrategyInterface $versionStrategy,
         ThemeContextInterface $themeContext,
-        PathResolverInterface $pathResolver
+        PathResolverInterface $pathResolver,
     ): void {
         $this->beConstructedWith('/', $versionStrategy, $themeContext, $pathResolver);
     }
@@ -37,7 +37,7 @@ final class PathPackageSpec extends ObjectBehavior
 
     function it_returns_vanilla_path_if_there_are_no_active_themes(
         ThemeContextInterface $themeContext,
-        VersionStrategyInterface $versionStrategy
+        VersionStrategyInterface $versionStrategy,
     ): void {
         $path = 'bundles/sample/asset.js';
         $versionedPath = 'bundles/sample/asset.js?v=42';
@@ -52,7 +52,7 @@ final class PathPackageSpec extends ObjectBehavior
         ThemeContextInterface $themeContext,
         VersionStrategyInterface $versionStrategy,
         PathResolverInterface $pathResolver,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $path = 'bundles/sample/asset.js';
         $themedPath = 'bundles/theme/foo/bar/sample/asset.js';
@@ -75,7 +75,7 @@ final class PathPackageSpec extends ObjectBehavior
         ThemeContextInterface $themeContext,
         VersionStrategyInterface $versionStrategy,
         PathResolverInterface $pathResolver,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $path = 'bundles/sample/asset.js';
         $themedPath = 'bundles/theme/foo/bar/sample/asset.js';
@@ -92,7 +92,7 @@ final class PathPackageSpec extends ObjectBehavior
         ThemeContextInterface $themeContext,
         VersionStrategyInterface $versionStrategy,
         PathResolverInterface $pathResolver,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $path = 'bundles/sample/asset.js';
         $themedPath = 'bundles/theme/foo/bar/sample/asset.js';

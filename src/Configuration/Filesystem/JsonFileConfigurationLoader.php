@@ -32,7 +32,7 @@ final class JsonFileConfigurationLoader implements ConfigurationLoaderInterface
 
         return array_merge(
             ['path' => dirname($identifier)],
-            json_decode($contents, true)
+            json_decode($contents, true),
         );
     }
 
@@ -41,7 +41,7 @@ final class JsonFileConfigurationLoader implements ConfigurationLoaderInterface
         if (!$this->filesystem->exists($path)) {
             throw new \InvalidArgumentException(sprintf(
                 'Given file "%s" does not exist!',
-                $path
+                $path,
             ));
         }
     }

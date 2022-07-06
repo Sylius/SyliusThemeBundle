@@ -39,7 +39,7 @@ final class FilesystemConfigurationProvider implements ConfigurationProviderInte
         try {
             return array_map(
                 [$this->loader, 'load'],
-                $this->fileLocator->locateFilesNamed($this->configurationFilename)
+                $this->fileLocator->locateFilesNamed($this->configurationFilename),
             );
         } catch (\InvalidArgumentException $exception) {
             return [];

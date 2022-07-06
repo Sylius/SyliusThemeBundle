@@ -33,7 +33,7 @@ final class LegacyAssetsProvider implements AssetsProviderInterface
     {
         @trigger_error(sprintf(
             '"%s" is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.',
-            self::class
+            self::class,
         ), \E_USER_DEPRECATED);
 
         $this->assetsProvider = $assetsProvider;

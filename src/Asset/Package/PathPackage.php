@@ -35,7 +35,7 @@ class PathPackage extends BasePathPackage
         VersionStrategyInterface $versionStrategy,
         ThemeContextInterface $themeContext,
         PathResolverInterface $pathResolver,
-        ?ContextInterface $context = null
+        ?ContextInterface $context = null,
     ) {
         parent::__construct($basePath, $versionStrategy, $context);
 

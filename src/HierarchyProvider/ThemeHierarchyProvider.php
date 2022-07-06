@@ -23,7 +23,7 @@ final class ThemeHierarchyProvider implements ThemeHierarchyProviderInterface
         foreach ($theme->getParents() as $parent) {
             $parents = array_merge(
                 $parents,
-                $this->getThemeHierarchy($parent)
+                $this->getThemeHierarchy($parent),
             );
         }
 

@@ -44,7 +44,7 @@ final class TranslatorResourceProviderPassTest extends AbstractCompilerPassTestC
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             SymfonyTranslatorResourceProvider::class,
             0,
-            ['/resources/messages.en.yml', '/resources/alerts.en.yml', '/resources/messages.es.yml']
+            ['/resources/messages.en.yml', '/resources/alerts.en.yml', '/resources/messages.es.yml'],
         );
     }
 
@@ -70,7 +70,7 @@ final class TranslatorResourceProviderPassTest extends AbstractCompilerPassTestC
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             SymfonyTranslatorResourceProvider::class,
             0,
-            ['/resources/alerts.en.yml', '/resources/messages.en.yml']
+            ['/resources/alerts.en.yml', '/resources/messages.en.yml'],
         );
     }
 
@@ -94,7 +94,7 @@ final class TranslatorResourceProviderPassTest extends AbstractCompilerPassTestC
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             SymfonyTranslatorResourceProvider::class,
             0,
-            []
+            [],
         );
     }
 
@@ -122,7 +122,7 @@ final class TranslatorResourceProviderPassTest extends AbstractCompilerPassTestC
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             SymfonyTranslatorResourceProvider::class,
             0,
-            ['/resources/messages.en.yml', '/resources/alerts.en.yml', '/resources/messages.es.yml']
+            ['/resources/messages.en.yml', '/resources/alerts.en.yml', '/resources/messages.es.yml'],
         );
     }
 
@@ -141,7 +141,7 @@ final class TranslatorResourceProviderPassTest extends AbstractCompilerPassTestC
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             SymfonyTranslatorResourceProvider::class,
             0,
-            []
+            [],
         );
     }
 

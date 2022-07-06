@@ -137,7 +137,7 @@ class Theme implements ThemeInterface
             throw new \InvalidArgumentException(sprintf(
                 'Given name "%s" does not match regular expression "%s".',
                 $name,
-                $pattern
+                $pattern,
             ));
         }
     }

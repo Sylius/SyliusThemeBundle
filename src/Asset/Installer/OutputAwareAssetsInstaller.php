@@ -46,7 +46,7 @@ final class OutputAwareAssetsInstaller implements AssetsInstallerInterface, Outp
         $this->output->writeln(sprintf(
             'Installing assets for <comment>%s</comment> into <comment>%s</comment>',
             $bundle->getNamespace(),
-            $targetDir
+            $targetDir,
         ));
 
         $effectiveSymlinkMask = $this->assetsInstaller->installBundleAssets($bundle, $targetDir, $symlinkMask);

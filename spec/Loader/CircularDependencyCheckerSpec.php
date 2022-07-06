@@ -26,7 +26,7 @@ final class CircularDependencyCheckerSpec extends ObjectBehavior
     }
 
     function it_does_not_find_circular_dependency_if_checking_a_theme_without_any_parents(
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $theme->getParents()->willReturn([]);
 
@@ -37,7 +37,7 @@ final class CircularDependencyCheckerSpec extends ObjectBehavior
         ThemeInterface $firstTheme,
         ThemeInterface $secondTheme,
         ThemeInterface $thirdTheme,
-        ThemeInterface $fourthTheme
+        ThemeInterface $fourthTheme,
     ): void {
         $firstTheme->getParents()->willReturn([$secondTheme, $thirdTheme]);
         $secondTheme->getParents()->willReturn([$thirdTheme, $fourthTheme]);
@@ -51,7 +51,7 @@ final class CircularDependencyCheckerSpec extends ObjectBehavior
         ThemeInterface $firstTheme,
         ThemeInterface $secondTheme,
         ThemeInterface $thirdTheme,
-        ThemeInterface $fourthTheme
+        ThemeInterface $fourthTheme,
     ): void {
         $firstTheme->getParents()->willReturn([$secondTheme, $thirdTheme]);
         $secondTheme->getParents()->willReturn([$thirdTheme]);

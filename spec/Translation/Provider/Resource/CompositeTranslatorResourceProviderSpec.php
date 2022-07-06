@@ -28,7 +28,7 @@ final class CompositeTranslatorResourceProviderSpec extends ObjectBehavior
         TranslatorResourceProviderInterface $firstResourceProvider,
         TranslatorResourceProviderInterface $secondResourceProvider,
         TranslationResourceInterface $firstResource,
-        TranslationResourceInterface $secondResource
+        TranslationResourceInterface $secondResource,
     ): void {
         $this->beConstructedWith([$firstResourceProvider, $secondResourceProvider]);
 
@@ -40,7 +40,7 @@ final class CompositeTranslatorResourceProviderSpec extends ObjectBehavior
 
     function it_aggregates_the_resources_locales(
         TranslatorResourceProviderInterface $firstResourceProvider,
-        TranslatorResourceProviderInterface $secondResourceProvider
+        TranslatorResourceProviderInterface $secondResourceProvider,
     ): void {
         $this->beConstructedWith([$firstResourceProvider, $secondResourceProvider]);
 
@@ -52,7 +52,7 @@ final class CompositeTranslatorResourceProviderSpec extends ObjectBehavior
 
     function it_aggregates_the_unique_resources_locales(
         TranslatorResourceProviderInterface $firstResourceProvider,
-        TranslatorResourceProviderInterface $secondResourceProvider
+        TranslatorResourceProviderInterface $secondResourceProvider,
     ): void {
         $this->beConstructedWith([$firstResourceProvider, $secondResourceProvider]);
 

@@ -30,7 +30,7 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             ConfigurationProviderInterface::class,
             0,
-            []
+            [],
         );
     }
 

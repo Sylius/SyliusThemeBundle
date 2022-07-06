@@ -29,7 +29,7 @@ final class OrderingTranslationFilesFinderSpec extends ObjectBehavior
     }
 
     function it_puts_application_translations_files_before_bundle_translations_files(
-        TranslationFilesFinderInterface $translationFilesFinder
+        TranslationFilesFinderInterface $translationFilesFinder,
     ): void {
         $translationFilesFinder->findTranslationFiles('/some/path/to/theme')->willReturn([
             '/some/path/to/theme/AcmeBundle/translations/messages.en.yml',

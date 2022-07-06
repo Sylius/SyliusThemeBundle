@@ -41,7 +41,7 @@ final class ThemeCollector extends DataCollector
     public function __construct(
         ThemeRepositoryInterface $themeRepository,
         ThemeContextInterface $themeContext,
-        ThemeHierarchyProviderInterface $themeHierarchyProvider
+        ThemeHierarchyProviderInterface $themeHierarchyProvider,
     ) {
         $this->themeRepository = $themeRepository;
         $this->themeContext = $themeContext;

@@ -39,7 +39,7 @@ final class AssetsInstaller implements AssetsInstallerInterface
         KernelInterface $kernel,
         ThemeRepositoryInterface $themeRepository,
         PathResolverInterface $pathResolver,
-        AssetsProviderInterface $assetsProvider
+        AssetsProviderInterface $assetsProvider,
     ) {
         $this->filesystem = $filesystem;
         $this->kernel = $kernel;
@@ -108,7 +108,7 @@ final class AssetsInstaller implements AssetsInstallerInterface
 
             $effectiveSymlinkMask = min(
                 $effectiveSymlinkMask,
-                $this->installAsset($originFile->getPathname(), $targetFile, $symlinkMask)
+                $this->installAsset($originFile->getPathname(), $targetFile, $symlinkMask),
             );
         }
 

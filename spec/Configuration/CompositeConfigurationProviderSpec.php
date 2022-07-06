@@ -35,7 +35,7 @@ final class CompositeConfigurationProviderSpec extends ObjectBehavior
 
     function it_returns_sum_of_configurations_returned_by_nested_configuration_providers(
         ConfigurationProviderInterface $firstConfigurationProvider,
-        ConfigurationProviderInterface $secondConfigurationProvider
+        ConfigurationProviderInterface $secondConfigurationProvider,
     ): void {
         $this->beConstructedWith([
             $firstConfigurationProvider,

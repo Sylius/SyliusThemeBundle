@@ -27,7 +27,7 @@ final class AssetsProviderSpec extends ObjectBehavior
         ThemeHierarchyProviderInterface $themeHierarchyProvider,
         BundleInterface $acmeBundle,
         ThemeInterface $childTheme,
-        ThemeInterface $parentTheme
+        ThemeInterface $parentTheme,
     ) {
         $kernel->getBundles()->willReturn([$acmeBundle]);
 

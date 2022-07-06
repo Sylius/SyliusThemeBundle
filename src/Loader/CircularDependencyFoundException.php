@@ -28,7 +28,7 @@ final class CircularDependencyFoundException extends \DomainException
         $message = sprintf(
             'Circular dependency was found while resolving theme "%s", caused by cycle "%s".',
             $this->getFirstTheme($themes)->getName(),
-            $this->formatCycleToString($cycle)
+            $this->formatCycleToString($cycle),
         );
 
         parent::__construct($message, 0, $previous);

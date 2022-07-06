@@ -31,7 +31,7 @@ final class ThemedTemplateLoader implements LoaderInterface
     public function __construct(
         TwigLoaderInterface $decoratedLoader,
         TemplateLocatorInterface $templateLocator,
-        ThemeContextInterface $themeContext
+        ThemeContextInterface $themeContext,
     ) {
         $this->decoratedLoader = $decoratedLoader;
         $this->templateLocator = $templateLocator;

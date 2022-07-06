@@ -38,7 +38,7 @@ final class ConfigurationTest extends TestCase
                 'enabled' => true,
                 'scan_depth' => 1,
             ]]],
-            'sources'
+            'sources',
         );
     }
 
@@ -57,7 +57,7 @@ final class ConfigurationTest extends TestCase
                 'enabled' => true,
                 'scan_depth' => null,
             ]]],
-            'sources'
+            'sources',
         );
     }
 
@@ -76,7 +76,7 @@ final class ConfigurationTest extends TestCase
                 'enabled' => true,
                 'scan_depth' => 1,
             ]]],
-            'sources.filesystem'
+            'sources.filesystem',
         );
     }
 
@@ -96,7 +96,7 @@ final class ConfigurationTest extends TestCase
                 'enabled' => true,
                 'scan_depth' => 1,
             ]]],
-            'sources.filesystem'
+            'sources.filesystem',
         );
     }
 
@@ -109,7 +109,7 @@ final class ConfigurationTest extends TestCase
             [
                 ['directories' => '/string/not/array'],
             ],
-            'sources.filesystem'
+            'sources.filesystem',
         );
     }
 
@@ -122,7 +122,7 @@ final class ConfigurationTest extends TestCase
             [
                 ['directories' => []],
             ],
-            'sources.filesystem'
+            'sources.filesystem',
         );
     }
 

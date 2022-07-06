@@ -293,7 +293,7 @@ final class TranslatorTest extends TestCase
     {
         return array_merge(
             $this->getThemedLocalesTests(),
-            $this->getThemelessLocalesTests()
+            $this->getThemelessLocalesTests(),
         );
     }
 

@@ -27,7 +27,7 @@ final class LegacyTranslationFilesFinder implements TranslationFilesFinderInterf
     {
         @trigger_error(sprintf(
             '"%s" is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.',
-            self::class
+            self::class,
         ), \E_USER_DEPRECATED);
 
         $this->finderFactory = $finderFactory;
@@ -68,7 +68,7 @@ final class LegacyTranslationFilesFinder implements TranslationFilesFinderInterf
 
     private function isTranslationFile(string $file): bool
     {
-        return false !== strpos($file, 'translations' . \DIRECTORY_SEPARATOR)
-            && (bool) preg_match('/^[^\.]+?\.[a-zA-Z_]{2,}?\.[a-z0-9]{2,}?$/', basename($file));
+        return false !== strpos($file, 'translations' . \DIRECTORY_SEPARATOR) &&
+            (bool) preg_match('/^[^\.]+?\.[a-zA-Z_]{2,}?\.[a-z0-9]{2,}?$/', basename($file));
     }
 }

@@ -63,7 +63,7 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
 
     function it_proxies_getting_catalogue_for_given_locale_to_the_decorated_translator(
         TranslatorBagInterface $translator,
-        MessageCatalogueInterface $messageCatalogue
+        MessageCatalogueInterface $messageCatalogue,
     ): void {
         $translator->getCatalogue('pl_PL')->willReturn($messageCatalogue);
 
@@ -91,7 +91,7 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
     function it_proxies_translating_with_modified_default_locale(
         TranslatorInterface $translator,
         ThemeContextInterface $themeContext,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $themeContext->getTheme()->willReturn($theme);
         $theme->getName()->willReturn('theme/name');
@@ -105,7 +105,7 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
     function it_proxies_translating_with_modified_custom_locale(
         TranslatorInterface $translator,
         ThemeContextInterface $themeContext,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $themeContext->getTheme()->willReturn($theme);
         $theme->getName()->willReturn('theme/name');

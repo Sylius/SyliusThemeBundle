@@ -25,7 +25,7 @@ final class HierarchicalTemplateLocatorSpec extends ObjectBehavior
         TemplateLocatorInterface $templateLocator,
         ThemeHierarchyProviderInterface $themeHierarchyProvider,
         ThemeInterface $childTheme,
-        ThemeInterface $parentTheme
+        ThemeInterface $parentTheme,
     ): void {
         $themeHierarchyProvider->getThemeHierarchy($childTheme)->willReturn([$childTheme, $parentTheme]);
 
@@ -40,7 +40,7 @@ final class HierarchicalTemplateLocatorSpec extends ObjectBehavior
     function it_locates_a_template_using_themes_hierarchy(
         TemplateLocatorInterface $templateLocator,
         ThemeInterface $childTheme,
-        ThemeInterface $parentTheme
+        ThemeInterface $parentTheme,
     ): void {
         $templateLocator->locate('template.html.twig', $childTheme)->willThrow(TemplateNotFoundException::class);
         $templateLocator->locate('template.html.twig', $parentTheme)->willReturn('located.html.twig');
@@ -51,7 +51,7 @@ final class HierarchicalTemplateLocatorSpec extends ObjectBehavior
     function it_throws_an_exception_if_no_locator_returns_meaningful_response_for_given_themes(
         TemplateLocatorInterface $templateLocator,
         ThemeInterface $childTheme,
-        ThemeInterface $parentTheme
+        ThemeInterface $parentTheme,
     ): void {
         $templateLocator->locate('template.html.twig', $childTheme)->willThrow(TemplateNotFoundException::class);
         $templateLocator->locate('template.html.twig', $parentTheme)->willThrow(TemplateNotFoundException::class);

@@ -37,7 +37,7 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             Translator::class,
             'setFallbackLocales',
-            ['pl_PL']
+            ['pl_PL'],
         );
     }
 
@@ -59,7 +59,7 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             Translator::class,
             'setFallbackLocales',
-            ['pl_PL']
+            ['pl_PL'],
         );
     }
 
@@ -80,13 +80,13 @@ final class TranslatorFallbackLocalesPassTest extends AbstractCompilerPassTestCa
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             Translator::class,
             'setFallbackLocales',
-            ['pl_PL']
+            ['pl_PL'],
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             Translator::class,
             'setFallbackLocales',
-            ['en_US']
+            ['en_US'],
         );
     }
 
