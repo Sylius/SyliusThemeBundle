@@ -1,7 +1,3 @@
-## UPGRADE FROM `2.2.0` RO `3.0.0`
-
-* The interface `Sylius\Bundle\ThemeBundle\Filesystem\FilesystemInterface` has been change. All `$files` and `$dirs` arguments are now typed `iterable|string `.
-
 ## UPGRADE FROM `2.0.0` TO `2.0.1`
 
 * Renamed `Sylius\Bundle\ThemeBundle\Configuration\Test\TestThemeConfigurationManager` service to `Sylius\Bundle\ThemeBundle\Configuration\Test\TestThemeConfigurationManagerInterface`
