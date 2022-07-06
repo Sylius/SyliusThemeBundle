@@ -1,5 +1,5 @@
 template:
     path: /template/{templateName}
-    defaults: { _controller: Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\Controller\TemplatingController:renderTemplateAction }
+    defaults: { _controller: Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\Controller\TemplatingController::renderTemplateAction }
     requirements:
         templateName: .+
