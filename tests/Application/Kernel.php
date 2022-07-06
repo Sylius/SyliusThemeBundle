@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Kernel as HttpKernel;
 
 final class Kernel extends HttpKernel
 {
-    public function registerBundles()
+    public function registerBundles(): iterable
     {
         return [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
