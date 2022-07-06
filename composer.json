@@ -89,10 +89,5 @@
             "vendor/bin/phpunit --colors=always",
             "APP_ENV=test_legacy vendor/bin/phpunit --colors=always --exclude-group=none"
         ]
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
     }
 }
