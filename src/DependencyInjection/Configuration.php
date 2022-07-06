@@ -46,7 +46,7 @@ final class Configuration implements ConfigurationInterface
         $rootNode->children()
             ->booleanNode('legacy_mode')
                 ->defaultFalse()
-                ->setDeprecated('sylius/theme-bundle', '2.0', '"%node%" at path "%path%" is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.')
+                ->setDeprecated('"%node%" at path "%path%" is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.')
         ;
 
         return $treeBuilder;

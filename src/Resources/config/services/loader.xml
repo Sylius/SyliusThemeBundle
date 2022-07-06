@@ -15,22 +15,22 @@
     <services>
         <service id="Sylius\Bundle\ThemeBundle\Factory\ThemeFactoryInterface" class="Sylius\Bundle\ThemeBundle\Factory\ThemeFactory" />
         <service id="sylius.factory.theme" alias="Sylius\Bundle\ThemeBundle\Factory\ThemeFactoryInterface">
-            <deprecated package="sylius/theme-bundle" version="2.0">"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
         </service>
 
         <service id="Sylius\Bundle\ThemeBundle\Factory\ThemeAuthorFactoryInterface" class="Sylius\Bundle\ThemeBundle\Factory\ThemeAuthorFactory" />
         <service id="sylius.factory.theme_author" alias="Sylius\Bundle\ThemeBundle\Factory\ThemeAuthorFactoryInterface">
-            <deprecated package="sylius/theme-bundle" version="2.0">"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
         </service>
 
         <service id="Sylius\Bundle\ThemeBundle\Factory\ThemeScreenshotFactoryInterface" class="Sylius\Bundle\ThemeBundle\Factory\ThemeScreenshotFactory" />
         <service id="sylius.factory.theme_screenshot" alias="Sylius\Bundle\ThemeBundle\Factory\ThemeScreenshotFactoryInterface">
-            <deprecated package="sylius/theme-bundle" version="2.0">"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
         </service>
 
         <service id="Sylius\Bundle\ThemeBundle\Loader\CircularDependencyCheckerInterface" class="Sylius\Bundle\ThemeBundle\Loader\CircularDependencyChecker" />
         <service id="sylius.theme.circular_dependency_checker" alias="Sylius\Bundle\ThemeBundle\Loader\CircularDependencyCheckerInterface">
-            <deprecated package="sylius/theme-bundle" version="2.0">"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
         </service>
 
         <service id="Sylius\Bundle\ThemeBundle\Loader\ThemeLoaderInterface" class="Sylius\Bundle\ThemeBundle\Loader\ThemeLoader">
@@ -41,7 +41,7 @@
             <argument type="service" id="Sylius\Bundle\ThemeBundle\Loader\CircularDependencyCheckerInterface" />
         </service>
         <service id="sylius.theme.loader" alias="Sylius\Bundle\ThemeBundle\Loader\ThemeLoaderInterface">
-            <deprecated package="sylius/theme-bundle" version="2.0">"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
+            <deprecated>"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.</deprecated>
         </service>
     </services>
 </container>
