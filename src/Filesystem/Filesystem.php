@@ -86,11 +86,11 @@ final class Filesystem implements FilesystemInterface
 
     public function makePathRelative(string $endPath, string $startPath)
     {
-        $this->filesystem->mirror($endPath, $startPath);
+        return $this->filesystem->makePathRelative($endPath, $startPath);
     }
 
     public function isAbsolutePath(string $file)
     {
-        $this->filesystem->isAbsolutePath($file);
+        return $this->filesystem->isAbsolutePath($file);
     }
 }
