@@ -31,9 +31,9 @@ final class TemplateNotFoundException extends \RuntimeException
                     static function (ThemeInterface $theme): string {
                         return $theme->getName();
                     },
-                    $themes
-                )
-            )
+                    $themes,
+                ),
+            ),
         ));
     }
 }

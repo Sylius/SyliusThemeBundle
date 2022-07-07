@@ -26,7 +26,7 @@ final class TranslatorLoaderProviderSpec extends ObjectBehavior
 
     function it_returns_previously_received_loaders(
         LoaderInterface $firstLoader,
-        LoaderInterface $secondLoader
+        LoaderInterface $secondLoader,
     ): void {
         $this->beConstructedWith(['first' => $firstLoader, 'second' => $secondLoader]);
 

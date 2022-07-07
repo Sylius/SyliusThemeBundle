@@ -26,7 +26,7 @@ final class ThemeTranslatorResourceProviderSpec extends ObjectBehavior
     function let(
         TranslationFilesFinderInterface $translationFilesFinder,
         ThemeRepositoryInterface $themeRepository,
-        ThemeHierarchyProviderInterface $themeHierarchyProvider
+        ThemeHierarchyProviderInterface $themeHierarchyProvider,
     ): void {
         $this->beConstructedWith($translationFilesFinder, $themeRepository, $themeHierarchyProvider);
     }
@@ -40,7 +40,7 @@ final class ThemeTranslatorResourceProviderSpec extends ObjectBehavior
         TranslationFilesFinderInterface $translationFilesFinder,
         ThemeRepositoryInterface $themeRepository,
         ThemeHierarchyProviderInterface $themeHierarchyProvider,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $themeRepository->findAll()->willReturn([$theme]);
         $themeHierarchyProvider->getThemeHierarchy($theme)->willReturn([$theme]);
@@ -60,7 +60,7 @@ final class ThemeTranslatorResourceProviderSpec extends ObjectBehavior
         ThemeRepositoryInterface $themeRepository,
         ThemeHierarchyProviderInterface $themeHierarchyProvider,
         ThemeInterface $mainTheme,
-        ThemeInterface $parentTheme
+        ThemeInterface $parentTheme,
     ): void {
         $themeRepository->findAll()->willReturn([$mainTheme]);
         $themeHierarchyProvider->getThemeHierarchy($mainTheme)->willReturn([$mainTheme, $parentTheme]);
@@ -85,7 +85,7 @@ final class ThemeTranslatorResourceProviderSpec extends ObjectBehavior
         ThemeRepositoryInterface $themeRepository,
         ThemeHierarchyProviderInterface $themeHierarchyProvider,
         ThemeInterface $mainTheme,
-        ThemeInterface $parentTheme
+        ThemeInterface $parentTheme,
     ): void {
         $themeRepository->findAll()->willReturn([$mainTheme, $parentTheme]);
         $themeHierarchyProvider->getThemeHierarchy($mainTheme)->willReturn([$mainTheme, $parentTheme]);
@@ -111,7 +111,7 @@ final class ThemeTranslatorResourceProviderSpec extends ObjectBehavior
         TranslationFilesFinderInterface $translationFilesFinder,
         ThemeRepositoryInterface $themeRepository,
         ThemeHierarchyProviderInterface $themeHierarchyProvider,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $themeRepository->findAll()->willReturn([$theme]);
         $themeHierarchyProvider->getThemeHierarchy($theme)->willReturn([$theme]);
@@ -129,7 +129,7 @@ final class ThemeTranslatorResourceProviderSpec extends ObjectBehavior
         ThemeRepositoryInterface $themeRepository,
         ThemeHierarchyProviderInterface $themeHierarchyProvider,
         ThemeInterface $mainTheme,
-        ThemeInterface $parentTheme
+        ThemeInterface $parentTheme,
     ): void {
         $themeRepository->findAll()->willReturn([$mainTheme]);
         $themeHierarchyProvider->getThemeHierarchy($mainTheme)->willReturn([$mainTheme, $parentTheme]);
@@ -151,7 +151,7 @@ final class ThemeTranslatorResourceProviderSpec extends ObjectBehavior
         ThemeRepositoryInterface $themeRepository,
         ThemeHierarchyProviderInterface $themeHierarchyProvider,
         ThemeInterface $mainTheme,
-        ThemeInterface $parentTheme
+        ThemeInterface $parentTheme,
     ): void {
         $themeRepository->findAll()->willReturn([$mainTheme, $parentTheme]);
         $themeHierarchyProvider->getThemeHierarchy($mainTheme)->willReturn([$mainTheme, $parentTheme]);

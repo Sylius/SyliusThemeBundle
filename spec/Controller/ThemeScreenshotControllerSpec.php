@@ -50,7 +50,7 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
 
     function it_throws_not_found_http_exception_if_screenshot_cannot_be_found(
         ThemeRepositoryInterface $themeRepository,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $themeRepository->findOneByName('theme/name')->willReturn($theme);
 
@@ -63,7 +63,7 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
         $this
             ->shouldThrow(new NotFoundHttpException(sprintf(
                 'Screenshot "%s/screenshot/1-awesome.jpg" does not exist',
-                $this->fixturesPath
+                $this->fixturesPath,
             )))
             ->during('streamScreenshotAction', ['theme/name', 1])
         ;
@@ -71,7 +71,7 @@ final class ThemeScreenshotControllerSpec extends ObjectBehavior
 
     function it_throws_not_found_http_exception_if_screenshot_number_exceeds_the_number_of_theme_screenshots(
         ThemeRepositoryInterface $themeRepository,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $themeRepository->findOneByName('theme/name')->willReturn($theme);
 

@@ -54,7 +54,8 @@ final class TranslationFilesFinder implements TranslationFilesFinderInterface
 
             $finder
                 ->ignoreUnreadableDirs()
-                ->in($path . '/translations');
+                ->in($path . '/translations')
+            ;
 
             return $finder;
         } catch (DirectoryNotFoundException $exception) {
@@ -64,7 +65,7 @@ final class TranslationFilesFinder implements TranslationFilesFinderInterface
 
     private function isTranslationFile(string $file): bool
     {
-        return false !== strpos($file, 'translations' . \DIRECTORY_SEPARATOR)
-            && (bool) preg_match('/^[^\.]+?\.[a-zA-Z_]{2,}?\.[a-z0-9]{2,}?$/', basename($file));
+        return false !== strpos($file, 'translations' . \DIRECTORY_SEPARATOR) &&
+            (bool) preg_match('/^[^\.]+?\.[a-zA-Z_]{2,}?\.[a-z0-9]{2,}?$/', basename($file));
     }
 }

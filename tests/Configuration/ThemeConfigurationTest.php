@@ -32,7 +32,7 @@ final class ThemeConfigurationTest extends TestCase
                 ['name' => 'example/sylius-theme'],
             ],
             ['name' => 'example/sylius-theme'],
-            'name'
+            'name',
         );
     }
 
@@ -45,14 +45,14 @@ final class ThemeConfigurationTest extends TestCase
             [
                 [/* no name defined */],
             ],
-            'name'
+            'name',
         );
 
         $this->assertPartialConfigurationIsInvalid(
             [
                 ['name' => ''],
             ],
-            'name'
+            'name',
         );
     }
 
@@ -65,14 +65,14 @@ final class ThemeConfigurationTest extends TestCase
             [
                 ['title' => ''],
             ],
-            'title'
+            'title',
         );
 
         $this->assertConfigurationIsValid(
             [
                 ['title' => 'Lorem ipsum'],
             ],
-            'title'
+            'title',
         );
     }
 
@@ -85,14 +85,14 @@ final class ThemeConfigurationTest extends TestCase
             [
                 ['description' => ''],
             ],
-            'description'
+            'description',
         );
 
         $this->assertConfigurationIsValid(
             [
                 ['description' => 'Lorem ipsum dolor sit amet'],
             ],
-            'description'
+            'description',
         );
     }
 
@@ -105,14 +105,14 @@ final class ThemeConfigurationTest extends TestCase
             [
                 ['path' => ''],
             ],
-            'path'
+            'path',
         );
 
         $this->assertConfigurationIsValid(
             [
                 ['path' => '/theme/path'],
             ],
-            'path'
+            'path',
         );
     }
 
@@ -125,7 +125,7 @@ final class ThemeConfigurationTest extends TestCase
             [
                 [/* no authors defined */],
             ],
-            'authors'
+            'authors',
         );
     }
 
@@ -138,35 +138,35 @@ final class ThemeConfigurationTest extends TestCase
             [
                 ['authors' => [['name' => 'Kamil Kokot']]],
             ],
-            'authors'
+            'authors',
         );
 
         $this->assertConfigurationIsValid(
             [
                 ['authors' => [['email' => 'kamil@kokot.me']]],
             ],
-            'authors'
+            'authors',
         );
 
         $this->assertConfigurationIsValid(
             [
                 ['authors' => [['homepage' => 'http://kamil.kokot.me']]],
             ],
-            'authors'
+            'authors',
         );
 
         $this->assertConfigurationIsValid(
             [
                 ['authors' => [['role' => 'Developer']]],
             ],
-            'authors'
+            'authors',
         );
 
         $this->assertPartialConfigurationIsInvalid(
             [
                 ['authors' => [['undefined' => '42']]],
             ],
-            'authors'
+            'authors',
         );
     }
 
@@ -180,7 +180,7 @@ final class ThemeConfigurationTest extends TestCase
                 ['authors' => [[/* empty author */]]],
             ],
             'authors',
-            'Author cannot be empty'
+            'Author cannot be empty',
         );
     }
 
@@ -195,7 +195,7 @@ final class ThemeConfigurationTest extends TestCase
                 ['authors' => [['name' => 'Krzysztof Krawczyk']]],
             ],
             ['authors' => [['name' => 'Krzysztof Krawczyk']]],
-            'authors'
+            'authors',
         );
     }
 
@@ -207,7 +207,7 @@ final class ThemeConfigurationTest extends TestCase
         $this->assertConfigurationIsValid(
             [
                 ['name' => 'example/sylius-theme', 'undefined_variable' => '42'],
-            ]
+            ],
         );
     }
 
@@ -220,14 +220,14 @@ final class ThemeConfigurationTest extends TestCase
             [
                 [],
             ],
-            'parents'
+            'parents',
         );
 
         $this->assertPartialConfigurationIsInvalid(
             [
                 ['parents' => [/* no elements */]],
             ],
-            'parents'
+            'parents',
         );
     }
 
@@ -240,7 +240,7 @@ final class ThemeConfigurationTest extends TestCase
             [
                 ['parents' => ['example/parent-theme', 'example/parent-theme-2']],
             ],
-            'parents'
+            'parents',
         );
     }
 
@@ -253,7 +253,7 @@ final class ThemeConfigurationTest extends TestCase
             [
                 ['parents' => ['']],
             ],
-            'parents'
+            'parents',
         );
     }
 
@@ -268,7 +268,7 @@ final class ThemeConfigurationTest extends TestCase
                 ['parents' => ['example/second-theme']],
             ],
             ['parents' => ['example/second-theme']],
-            'parents'
+            'parents',
         );
     }
 
@@ -281,7 +281,7 @@ final class ThemeConfigurationTest extends TestCase
             [
                 ['screenshots' => ['screenshot/krzysztof-krawczyk.jpg', 'screenshot/ryszard-rynkowski.jpg']],
             ],
-            'screenshots'
+            'screenshots',
         );
     }
 
@@ -294,7 +294,7 @@ final class ThemeConfigurationTest extends TestCase
             [
                 [/* no screenshots defined */],
             ],
-            'screenshots'
+            'screenshots',
         );
     }
 
@@ -307,7 +307,7 @@ final class ThemeConfigurationTest extends TestCase
             [
                 ['screenshots' => [/* no elements */]],
             ],
-            'screenshots'
+            'screenshots',
         );
     }
 
@@ -320,7 +320,7 @@ final class ThemeConfigurationTest extends TestCase
             [
                 ['screenshots' => ['']],
             ],
-            'screenshots'
+            'screenshots',
         );
     }
 
@@ -335,7 +335,7 @@ final class ThemeConfigurationTest extends TestCase
                 ['screenshots' => ['screenshot/maryla-rodowicz.jpg']],
             ],
             ['screenshots' => [['path' => 'screenshot/maryla-rodowicz.jpg']]],
-            'screenshots'
+            'screenshots',
         );
     }
 
@@ -348,7 +348,7 @@ final class ThemeConfigurationTest extends TestCase
             [
                 ['screenshots' => [['path' => 'screenshot/rick-astley.jpg']]],
             ],
-            'screenshots'
+            'screenshots',
         );
     }
 
@@ -361,7 +361,7 @@ final class ThemeConfigurationTest extends TestCase
             [
                 ['screenshots' => [['title' => 'Candy shop']]],
             ],
-            'screenshots'
+            'screenshots',
         );
     }
 
@@ -378,7 +378,7 @@ final class ThemeConfigurationTest extends TestCase
                     'description' => 'He\'ll never gonna give you up or let you down',
                 ]]],
             ],
-            'screenshots'
+            'screenshots',
         );
     }
 

@@ -31,7 +31,7 @@ final class ThemeTranslatorResourceProvider implements TranslatorResourceProvide
     public function __construct(
         TranslationFilesFinderInterface $translationFilesFinder,
         ThemeRepositoryInterface $themeRepository,
-        ThemeHierarchyProviderInterface $themeHierarchyProvider
+        ThemeHierarchyProviderInterface $themeHierarchyProvider,
     ) {
         $this->translationFilesFinder = $translationFilesFinder;
         $this->themeRepository = $themeRepository;

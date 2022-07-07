@@ -54,7 +54,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         FinderFactoryInterface $finderFactory,
         Finder $finder,
         SplFileInfo $firstSplFileInfo,
-        SplFileInfo $secondSplFileInfo
+        SplFileInfo $secondSplFileInfo,
     ): void {
         $finderFactory->create()->willReturn($finder);
 
@@ -82,7 +82,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         FinderFactoryInterface $finderFactory,
         Finder $finder,
         SplFileInfo $firstSplFileInfo,
-        SplFileInfo $secondSplFileInfo
+        SplFileInfo $secondSplFileInfo,
     ): void {
         $this->beConstructedWith($finderFactory, ['/search/path/'], 1);
         $finderFactory->create()->willReturn($finder);
@@ -118,7 +118,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_there_is_no_file_that_matches_the_given_name(
         FinderFactoryInterface $finderFactory,
-        Finder $finder
+        Finder $finder,
     ): void {
         $finderFactory->create()->willReturn($finder);
 
@@ -135,7 +135,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_there_is_there_are_not_any_files_that_matches_the_given_name(
         FinderFactoryInterface $finderFactory,
-        Finder $finder
+        Finder $finder,
     ): void {
         $finderFactory->create()->willReturn($finder);
 
@@ -154,7 +154,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         FinderFactoryInterface $finderFactory,
         Finder $firstFinder,
         Finder $secondFinder,
-        SplFileInfo $splFileInfo
+        SplFileInfo $splFileInfo,
     ): void {
         $this->beConstructedWith($finderFactory, ['/search/path/first/', '/search/path/second/']);
 
@@ -186,7 +186,7 @@ final class RecursiveFileLocatorSpec extends ObjectBehavior
         FinderFactoryInterface $finderFactory,
         Finder $firstFinder,
         Finder $secondFinder,
-        SplFileInfo $splFileInfo
+        SplFileInfo $splFileInfo,
     ): void {
         $this->beConstructedWith($finderFactory, ['/search/path/first/', '/search/path/second/']);
 

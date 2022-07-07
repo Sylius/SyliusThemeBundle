@@ -31,7 +31,7 @@ final class ProcessingConfigurationLoaderSpec extends ObjectBehavior
 
     function it_processes_the_configuration(
         ConfigurationLoaderInterface $decoratedLoader,
-        ConfigurationProcessorInterface $configurationProcessor
+        ConfigurationProcessorInterface $configurationProcessor,
     ): void {
         $basicConfiguration = ['name' => 'example/sylius-theme'];
 
@@ -48,7 +48,7 @@ final class ProcessingConfigurationLoaderSpec extends ObjectBehavior
 
     function it_processes_the_configuration_and_extracts_extra_sylius_theme_key_as_another_configuration(
         ConfigurationLoaderInterface $decoratedLoader,
-        ConfigurationProcessorInterface $configurationProcessor
+        ConfigurationProcessorInterface $configurationProcessor,
     ): void {
         $basicConfiguration = [
             'name' => 'example/sylius-theme',

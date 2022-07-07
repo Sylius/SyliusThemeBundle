@@ -28,14 +28,10 @@ final class Translator extends BaseTranslator implements WarmableInterface
         'debug' => false,
     ];
 
-    /**
-     * @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though
-     */
+    /** @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though */
     private TranslatorLoaderProviderInterface $loaderProvider;
 
-    /**
-     * @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though
-     */
+    /** @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though */
     private TranslatorResourceProviderInterface $resourceProvider;
 
     private bool $resourcesLoaded = false;
@@ -48,7 +44,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
         TranslatorResourceProviderInterface $resourceProvider,
         $messageFormatterOrSelector,
         string $locale,
-        array $options = []
+        array $options = [],
     ) {
         $this->assertOptionsAreKnown($options);
 
@@ -78,7 +74,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
         $locales = array_merge(
             $this->getFallbackLocales(),
             [$this->getLocale()],
-            $this->resourceProvider->getResourcesLocales()
+            $this->resourceProvider->getResourcesLocales(),
         );
         foreach (array_unique($locales) as $locale) {
             // reset catalogue in case it's already loaded during the dump of the other locales.
@@ -156,7 +152,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
                 $resource->getFormat(),
                 $resource->getName(),
                 $resource->getLocale(),
-                $resource->getDomain()
+                $resource->getDomain(),
             );
         }
 
@@ -198,7 +194,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
             'Expected an instance of "%s" or "%s", got "%s"!',
             MessageFormatterInterface::class,
             MessageSelector::class,
-            is_object($messageFormatterOrSelector) ? get_class($messageFormatterOrSelector) : gettype($messageFormatterOrSelector)
+            is_object($messageFormatterOrSelector) ? get_class($messageFormatterOrSelector) : gettype($messageFormatterOrSelector),
         ));
     }
 }

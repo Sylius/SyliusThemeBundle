@@ -35,7 +35,7 @@ final class PathResolverSpec extends ObjectBehavior
     function it_returns_modified_path_if_its_referencing_bundle_asset(
         AssetsProviderInterface $assetsProvider,
         FilesystemInterface $filesystem,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $theme->getName()->willReturn('theme/name');
 
@@ -60,7 +60,7 @@ final class PathResolverSpec extends ObjectBehavior
     function it_returns_modified_path_if_its_referencing_root_asset(
         AssetsProviderInterface $assetsProvider,
         FilesystemInterface $filesystem,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $theme->getName()->willReturn('theme/name');
 
@@ -78,7 +78,7 @@ final class PathResolverSpec extends ObjectBehavior
     function it_prepends_theme_path_if_the_base_path_is_not_found(
         AssetsProviderInterface $assetsProvider,
         FilesystemInterface $filesystem,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $theme->getName()->willReturn('theme/name');
 
@@ -110,7 +110,7 @@ final class PathResolverSpec extends ObjectBehavior
     function it_fallbacks_to_default_path_if_could_not_find_themed_asset(
         AssetsProviderInterface $assetsProvider,
         FilesystemInterface $filesystem,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $theme->getName()->willReturn('theme/name');
 

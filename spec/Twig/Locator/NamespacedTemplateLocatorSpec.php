@@ -33,7 +33,7 @@ final class NamespacedTemplateLocatorSpec extends ObjectBehavior
 
     function it_locates_bundle_resource_using_path_derived_from_twig_namespaces(
         Filesystem $filesystem,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $theme->getPath()->willReturn('/theme/path');
 
@@ -44,7 +44,7 @@ final class NamespacedTemplateLocatorSpec extends ObjectBehavior
 
     function it_locates_plugin_resource_using_path_derived_from_twig_namespaces(
         Filesystem $filesystem,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $theme->getPath()->willReturn('/theme/path');
 
@@ -55,7 +55,7 @@ final class NamespacedTemplateLocatorSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_resource_can_not_be_located_using_path_derived_from_twig_namespaces(
         Filesystem $filesystem,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $theme->getName()->willReturn('theme/name');
         $theme->getPath()->willReturn('/theme/path');

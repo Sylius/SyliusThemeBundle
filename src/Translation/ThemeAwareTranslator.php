@@ -37,7 +37,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
                 throw new \InvalidArgumentException(sprintf(
                     'The translator "%s" must implement %s.',
                     get_class($translator),
-                    $interface
+                    $interface,
                 ));
             }
         }

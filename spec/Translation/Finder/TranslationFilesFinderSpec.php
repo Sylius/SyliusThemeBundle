@@ -33,7 +33,7 @@ final class TranslationFilesFinderSpec extends ObjectBehavior
 
     function it_returns_an_array_of_translation_resources_paths(
         FinderFactoryInterface $finderFactory,
-        Finder $finder
+        Finder $finder,
     ): void {
         $finderFactory->create()->willReturn($finder);
 
@@ -53,7 +53,7 @@ final class TranslationFilesFinderSpec extends ObjectBehavior
 
     function it_does_not_provide_any_translation_resources_paths_if_translation_directory_does_not_exist(
         FinderFactoryInterface $finderFactory,
-        Finder $finder
+        Finder $finder,
     ): void {
         $finderFactory->create()->willReturn($finder);
 

@@ -32,7 +32,7 @@ final class ConfigurationTest extends TestCase
                 [],
             ],
             ['context' => 'sylius.theme.context.settable'],
-            'context'
+            'context',
         );
     }
 
@@ -45,7 +45,7 @@ final class ConfigurationTest extends TestCase
             [
                 [''],
             ],
-            'context'
+            'context',
         );
     }
 
@@ -59,7 +59,7 @@ final class ConfigurationTest extends TestCase
                 ['context' => 'sylius.theme.context.custom'],
             ],
             ['context' => 'sylius.theme.context.custom'],
-            'context'
+            'context',
         );
     }
 

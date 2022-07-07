@@ -86,7 +86,7 @@ final class ThemeConfiguration implements ConfigurationInterface
                     /** @param mixed $screenshot */
                     function ($screenshot): bool {
                         return [] === $screenshot || ['path' => ''] === $screenshot;
-                    }
+                    },
                 )
                 ->thenInvalid('Screenshot cannot be empty!')
         ;
@@ -97,7 +97,7 @@ final class ThemeConfiguration implements ConfigurationInterface
                     /** @param mixed $value */
                     function ($value): array {
                         return ['path' => $value];
-                    }
+                    },
                 )
         ;
 
@@ -123,7 +123,7 @@ final class ThemeConfiguration implements ConfigurationInterface
                     /** @param mixed $author */
                     function ($author): bool {
                         return [] === $author;
-                    }
+                    },
                 )
                 ->thenInvalid('Author cannot be empty!')
         ;

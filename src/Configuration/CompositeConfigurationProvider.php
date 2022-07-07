@@ -32,7 +32,7 @@ final class CompositeConfigurationProvider implements ConfigurationProviderInter
         foreach ($this->configurationProviders as $configurationProvider) {
             $configurations = array_merge(
                 $configurations,
-                $configurationProvider->getConfigurations()
+                $configurationProvider->getConfigurations(),
             );
         }
 

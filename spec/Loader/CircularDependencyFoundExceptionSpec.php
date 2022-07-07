@@ -37,7 +37,7 @@ final class CircularDependencyFoundExceptionSpec extends ObjectBehavior
         ThemeInterface $firstTheme,
         ThemeInterface $secondTheme,
         ThemeInterface $thirdTheme,
-        ThemeInterface $fourthTheme
+        ThemeInterface $fourthTheme,
     ): void {
         $this->beConstructedWith([$firstTheme, $secondTheme, $thirdTheme, $fourthTheme, $thirdTheme]);
 
@@ -53,7 +53,7 @@ final class CircularDependencyFoundExceptionSpec extends ObjectBehavior
         ThemeInterface $firstTheme,
         ThemeInterface $secondTheme,
         ThemeInterface $thirdTheme,
-        ThemeInterface $fourthTheme
+        ThemeInterface $fourthTheme,
     ): void {
         $this->beConstructedWith([$firstTheme, $secondTheme, $thirdTheme, $fourthTheme]);
 

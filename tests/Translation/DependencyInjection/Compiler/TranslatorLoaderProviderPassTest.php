@@ -38,7 +38,7 @@ final class TranslatorLoaderProviderPassTest extends AbstractCompilerPassTestCas
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             TranslatorLoaderProviderInterface::class,
             0,
-            ['yml' => new Reference('translation.loader.yml')]
+            ['yml' => new Reference('translation.loader.yml')],
         );
     }
 
@@ -58,7 +58,7 @@ final class TranslatorLoaderProviderPassTest extends AbstractCompilerPassTestCas
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             TranslatorLoaderProviderInterface::class,
             0,
-            ['xlf' => new Reference('translation.loader.xliff'), 'xliff' => new Reference('translation.loader.xliff')]
+            ['xlf' => new Reference('translation.loader.xliff'), 'xliff' => new Reference('translation.loader.xliff')],
         );
     }
 
@@ -79,7 +79,7 @@ final class TranslatorLoaderProviderPassTest extends AbstractCompilerPassTestCas
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             TranslatorLoaderProviderInterface::class,
             0,
-            ['yml' => new Reference('translation.loader.yml')]
+            ['yml' => new Reference('translation.loader.yml')],
         );
     }
 
@@ -95,7 +95,7 @@ final class TranslatorLoaderProviderPassTest extends AbstractCompilerPassTestCas
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             TranslatorLoaderProviderInterface::class,
             0,
-            []
+            [],
         );
     }
 

@@ -24,7 +24,7 @@ final class HierarchicalTemplateLocator implements TemplateLocatorInterface
 
     public function __construct(
         TemplateLocatorInterface $templateLocator,
-        ThemeHierarchyProviderInterface $themeHierarchyProvider
+        ThemeHierarchyProviderInterface $themeHierarchyProvider,
     ) {
         $this->templateLocator = $templateLocator;
         $this->themeHierarchyProvider = $themeHierarchyProvider;

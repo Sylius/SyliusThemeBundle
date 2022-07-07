@@ -32,7 +32,7 @@ final class LegacyTranslationFilesFinderSpec extends ObjectBehavior
 
     function it_returns_an_array_of_translation_resources_paths(
         FinderFactoryInterface $finderFactory,
-        Finder $finder
+        Finder $finder,
     ): void {
         $finderFactory->create()->willReturn($finder);
 

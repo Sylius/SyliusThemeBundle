@@ -34,14 +34,14 @@ final class ThemeLoaderSpec extends ObjectBehavior
         ThemeFactoryInterface $themeFactory,
         ThemeAuthorFactoryInterface $themeAuthorFactory,
         ThemeScreenshotFactoryInterface $themeScreenshotFactory,
-        CircularDependencyCheckerInterface $circularDependencyChecker
+        CircularDependencyCheckerInterface $circularDependencyChecker,
     ): void {
         $this->beConstructedWith(
             $configurationProvider,
             $themeFactory,
             $themeAuthorFactory,
             $themeScreenshotFactory,
-            $circularDependencyChecker
+            $circularDependencyChecker,
         );
     }
 
@@ -53,7 +53,7 @@ final class ThemeLoaderSpec extends ObjectBehavior
     function it_loads_a_single_theme(
         ConfigurationProviderInterface $configurationProvider,
         ThemeFactoryInterface $themeFactory,
-        CircularDependencyCheckerInterface $circularDependencyChecker
+        CircularDependencyCheckerInterface $circularDependencyChecker,
     ): void {
         $theme = new Theme('first/theme', '/theme/path');
 
@@ -79,7 +79,7 @@ final class ThemeLoaderSpec extends ObjectBehavior
         ConfigurationProviderInterface $configurationProvider,
         ThemeFactoryInterface $themeFactory,
         ThemeAuthorFactoryInterface $themeAuthorFactory,
-        CircularDependencyCheckerInterface $circularDependencyChecker
+        CircularDependencyCheckerInterface $circularDependencyChecker,
     ): void {
         $theme = new Theme('first/theme', '/theme/path');
 
@@ -111,7 +111,7 @@ final class ThemeLoaderSpec extends ObjectBehavior
         ConfigurationProviderInterface $configurationProvider,
         ThemeFactoryInterface $themeFactory,
         ThemeScreenshotFactoryInterface $themeScreenshotFactory,
-        CircularDependencyCheckerInterface $circularDependencyChecker
+        CircularDependencyCheckerInterface $circularDependencyChecker,
     ): void {
         $theme = new Theme('first/theme', '/theme/path');
 
@@ -144,7 +144,7 @@ final class ThemeLoaderSpec extends ObjectBehavior
     function it_loads_a_theme_with_its_dependency(
         ConfigurationProviderInterface $configurationProvider,
         ThemeFactoryInterface $themeFactory,
-        CircularDependencyCheckerInterface $circularDependencyChecker
+        CircularDependencyCheckerInterface $circularDependencyChecker,
     ): void {
         $firstTheme = new Theme('first/theme', '/first/theme/path');
         $secondTheme = new Theme('second/theme', '/second/theme/path');
@@ -182,7 +182,7 @@ final class ThemeLoaderSpec extends ObjectBehavior
 
     function it_throws_an_exception_if_requires_not_existing_dependency(
         ConfigurationProviderInterface $configurationProvider,
-        ThemeFactoryInterface $themeFactory
+        ThemeFactoryInterface $themeFactory,
     ): void {
         $firstTheme = new Theme('first/theme', '/theme/path');
 
@@ -207,7 +207,7 @@ final class ThemeLoaderSpec extends ObjectBehavior
     function it_throws_an_exception_if_there_is_a_circular_dependency_found(
         ConfigurationProviderInterface $configurationProvider,
         ThemeFactoryInterface $themeFactory,
-        CircularDependencyCheckerInterface $circularDependencyChecker
+        CircularDependencyCheckerInterface $circularDependencyChecker,
     ): void {
         $firstTheme = new Theme('first/theme', '/first/theme/path');
         $secondTheme = new Theme('second/theme', '/second/theme/path');

@@ -22,7 +22,7 @@ final class CompositeTemplateLocatorSpec extends ObjectBehavior
 {
     function let(
         TemplateLocatorInterface $firstTemplateLocator,
-        TemplateLocatorInterface $secondTemplateLocator
+        TemplateLocatorInterface $secondTemplateLocator,
     ): void {
         $this->beConstructedWith([$firstTemplateLocator, $secondTemplateLocator]);
     }
@@ -35,7 +35,7 @@ final class CompositeTemplateLocatorSpec extends ObjectBehavior
     function it_locates_a_template_using_locators_supporting_given_template(
         TemplateLocatorInterface $firstTemplateLocator,
         TemplateLocatorInterface $secondTemplateLocator,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $firstTemplateLocator->supports('template.html.twig')->willReturn(false);
         $secondTemplateLocator->supports('template.html.twig')->willReturn(true);
@@ -49,7 +49,7 @@ final class CompositeTemplateLocatorSpec extends ObjectBehavior
     function it_locates_a_template_ignoring_locator_failures(
         TemplateLocatorInterface $firstTemplateLocator,
         TemplateLocatorInterface $secondTemplateLocator,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $firstTemplateLocator->supports('template.html.twig')->willReturn(true);
         $secondTemplateLocator->supports('template.html.twig')->willReturn(true);
@@ -63,7 +63,7 @@ final class CompositeTemplateLocatorSpec extends ObjectBehavior
     function it_throws_an_exception_if_no_locator_supports_given_template(
         TemplateLocatorInterface $firstTemplateLocator,
         TemplateLocatorInterface $secondTemplateLocator,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $firstTemplateLocator->supports('template.html.twig')->willReturn(false);
         $secondTemplateLocator->supports('template.html.twig')->willReturn(false);
@@ -79,7 +79,7 @@ final class CompositeTemplateLocatorSpec extends ObjectBehavior
     function it_throws_an_exception_if_no_locator_returns_meaningful_response(
         TemplateLocatorInterface $firstTemplateLocator,
         TemplateLocatorInterface $secondTemplateLocator,
-        ThemeInterface $theme
+        ThemeInterface $theme,
     ): void {
         $firstTemplateLocator->supports('template.html.twig')->willReturn(true);
         $secondTemplateLocator->supports('template.html.twig')->willReturn(true);
@@ -94,7 +94,7 @@ final class CompositeTemplateLocatorSpec extends ObjectBehavior
 
     function it_supports_locating_a_template_if_one_of_locators_does(
         TemplateLocatorInterface $firstTemplateLocator,
-        TemplateLocatorInterface $secondTemplateLocator
+        TemplateLocatorInterface $secondTemplateLocator,
     ): void {
         $firstTemplateLocator->supports('template.html.twig')->willReturn(false);
         $secondTemplateLocator->supports('template.html.twig')->willReturn(true);
@@ -104,7 +104,7 @@ final class CompositeTemplateLocatorSpec extends ObjectBehavior
 
     function it_does_not_support_locating_a_template_if_no_locator_does(
         TemplateLocatorInterface $firstTemplateLocator,
-        TemplateLocatorInterface $secondTemplateLocator
+        TemplateLocatorInterface $secondTemplateLocator,
     ): void {
         $firstTemplateLocator->supports('template.html.twig')->willReturn(false);
         $secondTemplateLocator->supports('template.html.twig')->willReturn(false);

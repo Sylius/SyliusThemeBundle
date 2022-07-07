@@ -63,7 +63,8 @@ final class RecursiveFileLocator implements FileLocatorInterface
                     ->followLinks()
                     ->name($name)
                     ->ignoreUnreadableDirs()
-                    ->in($path);
+                    ->in($path)
+                ;
 
                 /** @var SplFileInfo $file */
                 foreach ($finder as $file) {
@@ -79,7 +80,7 @@ final class RecursiveFileLocator implements FileLocatorInterface
             throw new \InvalidArgumentException(sprintf(
                 'The file "%s" does not exist (searched in the following directories: %s).',
                 $name,
-                implode(', ', $this->paths)
+                implode(', ', $this->paths),
             ));
         }
     }
@@ -88,7 +89,7 @@ final class RecursiveFileLocator implements FileLocatorInterface
     {
         if ('' === $name) {
             throw new \InvalidArgumentException(
-                'An empty file name is not valid to be located.'
+                'An empty file name is not valid to be located.',
             );
         }
     }

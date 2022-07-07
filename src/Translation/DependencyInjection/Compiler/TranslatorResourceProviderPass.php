@@ -34,7 +34,7 @@ final class TranslatorResourceProviderPass implements CompilerPassInterface
 
         $syliusResourceProvider->replaceArgument(0, array_merge(
             $syliusResourceProvider->getArgument(0),
-            $symfonyResourcesFiles
+            $symfonyResourcesFiles,
         ));
     }
 

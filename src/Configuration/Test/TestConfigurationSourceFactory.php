@@ -35,7 +35,7 @@ final class TestConfigurationSourceFactory implements ConfigurationSourceFactory
             new Definition(TestThemeConfigurationManager::class, [
                 new Reference(ConfigurationProcessorInterface::class),
                 new Parameter('kernel.cache_dir'),
-            ])
+            ]),
         )->setPublic(true);
 
         return (new Definition(TestConfigurationProvider::class, [
