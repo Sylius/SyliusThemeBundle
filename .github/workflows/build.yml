@@ -19,11 +19,11 @@ jobs:
                 include:
                     -
                         php: 8.0
-                        symfony: ^4.4
-                        twig: 2.*
+                        symfony: ^5.4
+                        twig: 3.*
                     -
                         php: 8.0
-                        symfony: ^5.4
+                        symfony: ^6.0
                         twig: 3.*
 
         steps:
