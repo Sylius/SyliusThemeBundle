@@ -1,5 +1,10 @@
 ## CHANGELOG FOR `2.2.x`
 
+## v2.3.0 (2022-09-04)
+
+#### Details
+
+
 ## v2.3.0-ALPHA.1 (2022-08-24)
 
 #### Details
