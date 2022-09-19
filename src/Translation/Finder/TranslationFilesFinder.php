@@ -54,6 +54,7 @@ final class TranslationFilesFinder implements TranslationFilesFinderInterface
 
             $finder
                 ->ignoreUnreadableDirs()
+                ->followLinks()
                 ->in($path . '/translations')
             ;
 
