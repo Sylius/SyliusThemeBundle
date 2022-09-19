@@ -22,6 +22,13 @@ use Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateLocatorInterface;
 
 final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->container->setParameter('kernel.debug', false);
+    }
+
     /**
      * @test
      */
