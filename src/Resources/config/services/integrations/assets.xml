@@ -40,14 +40,5 @@
             <argument type="service" id="kernel" />
             <argument type="service" id="Sylius\Bundle\ThemeBundle\HierarchyProvider\ThemeHierarchyProviderInterface" />
         </service>
-
-        <!-- Overridden services -->
-        <service id="assets.path_package" class="Sylius\Bundle\ThemeBundle\Asset\Package\PathPackage" abstract="true">
-            <argument /> <!-- base path -->
-            <argument /> <!-- version strategy -->
-            <argument type="service" id="Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface" />
-            <argument type="service" id="Sylius\Bundle\ThemeBundle\Asset\PathResolverInterface" />
-            <argument type="service" id="assets.context" />
-        </service>
     </services>
 </container>
