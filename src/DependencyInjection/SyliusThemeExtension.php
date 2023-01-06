@@ -13,18 +13,26 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ThemeBundle\DependencyInjection;
 
+use Sylius\Bundle\ThemeBundle\Asset\Package\PathPackage;
+use Sylius\Bundle\ThemeBundle\Asset\PathResolverInterface;
 use Sylius\Bundle\ThemeBundle\Configuration\ConfigurationProviderInterface;
 use Sylius\Bundle\ThemeBundle\Configuration\ConfigurationSourceFactoryInterface;
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Argument\AbstractArgument;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 
-final class SyliusThemeExtension extends Extension
+final class SyliusThemeExtension extends Extension implements CompilerPassInterface
 {
     /** @var ConfigurationSourceFactoryInterface[] */
     private array $configurationSourceFactories = [];
+
+    private bool $overrideAssetsPathPackage = false;
 
     /**
      * @internal
@@ -37,6 +45,7 @@ final class SyliusThemeExtension extends Extension
 
         if ($config['assets']['enabled']) {
             $loader->load('services/integrations/assets.xml');
+            $this->overrideAssetsPathPackage = true;
 
             if ($config['legacy_mode']) {
                 $loader->load('services/integrations/legacy_assets.xml');
@@ -99,6 +108,23 @@ final class SyliusThemeExtension extends Extension
 
         foreach ($this->configurationSourceFactories as $configurationSourceFactory) {
             $container->addObjectResource($configurationSourceFactory);
+        }
+    }
+
+    public function process(ContainerBuilder $container)
+    {
+        if ($this->overrideAssetsPathPackage) {
+            $assetsPathPackageDefinition = new Definition('assets.path_package');
+            $assetsPathPackageDefinition
+                ->setClass(PathPackage::class)
+                ->setAbstract(true)
+                ->addArgument(new AbstractArgument('base path'))
+                ->addArgument(new AbstractArgument('version strategy'))
+                ->addArgument(new Reference(ThemeContextInterface::class))
+                ->addArgument(new Reference(PathResolverInterface::class))
+                ->addArgument(new Reference('assets.context'))
+            ;
+            $container->setDefinition('assets.path_package', $assetsPathPackageDefinition);
         }
     }
 }
