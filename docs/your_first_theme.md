@@ -25,7 +25,7 @@ When adding or removing a theme, it's necessary to rebuild the container (same a
 
 ### Theme structure
 
-Themes can override and add both bundle resources and app resources. When your theme configuration is in `SampleTheme/theme.json`,
+Themes can override and add both bundle resources and app resources. When your theme configuration is in `SampleTheme/composer.json`,
 app resources should be located at `SampleTheme/templates` for templates, `SampleTheme/translations` for translations and `SampleTheme/public` for assets.
 To override a specific bundle's template (eg. `FOSUserBundle`), put it in `SampleTheme/templates/bundles/FOSUserBundle` directory.
 
@@ -65,9 +65,13 @@ Create an event listener and register it as listening for `kernel.request` event
 ```php
 use Sylius\Bundle\ThemeBundle\Context\SettableThemeContext;
 use Sylius\Bundle\ThemeBundle\Repository\ThemeRepositoryInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
+#[AsEventListener(
+    event: RequestEvent::class,
+)]
 final class ThemeRequestListener
 {
     /** @var ThemeRepositoryInterface */
@@ -82,7 +86,7 @@ final class ThemeRequestListener
         $this->themeContext = $themeContext;
     }
 
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest(RequestEvent $event): void
     {
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
             // don't do anything if it's not the master request
