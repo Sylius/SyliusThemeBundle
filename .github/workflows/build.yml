@@ -23,13 +23,21 @@ jobs:
                         symfony: ^5.4
                         twig: 3.*
                     -
-                        php: 8.0
+                        php: 8.1
                         symfony: ^6.0
+                        twig: 3.*
+                    -
+                        php: 8.2
+                        symfony: ^7.0
+                        twig: 3.*
+                    -
+                        php: 8.3
+                        symfony: ^7.0
                         twig: 3.*
 
         steps:
             -
-                uses: actions/checkout@v2
+                uses: actions/checkout@v4
 
             -
                 name: Setup PHP
@@ -43,7 +51,7 @@ jobs:
                 if: matrix.symfony != ''
                 run: |
                     composer global config --no-plugins allow-plugins.symfony/flex true
-                    composer global require --no-progress --no-scripts --no-plugins "symfony/flex:^1.10"
+                    composer global require --no-progress --no-scripts --no-plugins "symfony/flex:^2.4"
                     composer config extra.symfony.require "${{ matrix.symfony }}"
 
             -
@@ -57,13 +65,48 @@ jobs:
                 run: composer require --dev "twig/twig:${{ matrix.twig }}" --no-update --no-scripts
 
             -
+                name: Remove analyse dependencies
+                run: |
+                    composer remove vimeo/psalm --no-update
+                    composer remove sylius-labs/coding-standard --no-update
+                    composer remove rector/rector --no-update
+
+            -
+                name: Install dependencies
+                run: composer update
+
+            -
+                name: Run tests
+                run: composer test
+
+    analyse:
+        runs-on: ubuntu-latest
+        name: "PHP Analyse"
+        strategy:
+            fail-fast: false
+
+        steps:
+            -
+                uses: actions/checkout@v4
+
+            -
+                name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: "8.1"
+                    coverage: none
+
+            -
+                name: Restrict Symfony version
+                run: |
+                    composer global config --no-plugins allow-plugins.symfony/flex true
+                    composer global require --no-progress --no-scripts --no-plugins "symfony/flex:^2.4"
+                    composer config extra.symfony.require "6.4.*"
+
+            -
                 name: Install dependencies
                 run: composer update
 
             -
                 name: Run analysis
                 run: composer analyse
-
-            -
-                name: Run tests
-                run: composer test
