@@ -126,7 +126,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
     {
         $modifier = strrchr($locale, '@');
 
-        return $modifier ?: '';
+        return $modifier !== false ? $modifier : '';
     }
 
     private function getLocaleWithoutModifier(string $locale, string $modifier): string

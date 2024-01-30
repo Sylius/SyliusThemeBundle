@@ -35,6 +35,7 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         foreach ([LocaleAwareInterface::class, TranslatorBagInterface::class] as $interface) {
             /** @psalm-suppress DocblockTypeContradiction Better safe than sorry */
             if (!$translator instanceof $interface) {
+                /** @psalm-suppress NoValue Better safe than sorry */
                 throw new \InvalidArgumentException(sprintf(
                     'The translator "%s" must implement %s.',
                     get_class($translator),
