@@ -51,7 +51,7 @@
         "symfony/twig-bundle": "^5.4 || ^6.0",
         "twig/twig": "^2.0 || ^3.0",
         "vimeo/psalm": "4.23.0",
-        "rector/rector": "^0.11.57"
+        "rector/rector": "^0.19.5"
     },
     "config": {
         "allow-plugins": {
@@ -79,9 +79,11 @@
         "analyse": [
             "@composer validate --strict",
             "vendor/bin/ecs check spec src tests || true",
-            "vendor/bin/psalm"
+            "vendor/bin/psalm",
+            "vendor/bin/rector process --dry-run"
         ],
         "fix": [
+            "vendor/bin/rector process",
             "vendor/bin/ecs check spec src tests --fix"
         ],
         "test": [
