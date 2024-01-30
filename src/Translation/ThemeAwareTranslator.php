@@ -23,7 +23,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagInterface, WarmableInterface, LocaleAwareInterface
 {
     /** @var TranslatorInterface&LocaleAwareInterface&TranslatorBagInterface */
-    private $translator;
+    private TranslatorInterface $translator;
 
     private ThemeContextInterface $themeContext;
 

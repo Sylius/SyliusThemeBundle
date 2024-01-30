@@ -15,11 +15,9 @@ namespace Sylius\Bundle\ThemeBundle\Model;
 
 class Theme implements ThemeInterface
 {
-    /** @var string */
-    protected $name;
+    protected string $name;
 
-    /** @var string */
-    protected $path;
+    protected string $path;
 
     /** @var string|null */
     protected $title;

@@ -13,6 +13,10 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ThemeBundle\Tests\Application;
 
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\TwigBundle\TwigBundle;
+use Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\TestBundle;
+use Sylius\Bundle\ThemeBundle\SyliusThemeBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel as HttpKernel;
 
@@ -21,10 +25,10 @@ final class Kernel extends HttpKernel
     public function registerBundles(): iterable
     {
         return [
-            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new \Symfony\Bundle\TwigBundle\TwigBundle(),
-            new \Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\TestBundle(),
-            new \Sylius\Bundle\ThemeBundle\SyliusThemeBundle(),
+            new FrameworkBundle(),
+            new TwigBundle(),
+            new TestBundle(),
+            new SyliusThemeBundle(),
         ];
     }
 
