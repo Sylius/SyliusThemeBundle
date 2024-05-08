@@ -122,7 +122,7 @@ final class ThemeAwareTranslatorSpec extends ObjectBehavior
 
     function it_warms_up_if_decorated_translator_is_warmable(WarmableInterface $translator): void
     {
-        $translator->warmUp('cache')->shouldBeCalled();
+        $translator->warmUp('cache')->shouldBeCalled()->willReturn([]);
 
         $this->warmUp('cache');
     }
