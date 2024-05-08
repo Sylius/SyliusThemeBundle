@@ -67,9 +67,9 @@ jobs:
             -
                 name: Remove analyse dependencies
                 run: |
-                    composer remove vimeo/psalm --no-update
-                    composer remove sylius-labs/coding-standard --no-update
-                    composer remove rector/rector --no-update
+                    composer remove vimeo/psalm --dev --no-update
+                    composer remove sylius-labs/coding-standard --dev --no-update
+                    composer remove rector/rector --dev --no-update
 
             -
                 name: Install dependencies
