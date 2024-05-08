@@ -63,7 +63,7 @@ final class Translator extends BaseTranslator implements WarmableInterface
      * @psalm-suppress MissingParamType
      * @psalm-suppress MissingReturnType
      */
-    public function warmUp($cacheDir)
+    public function warmUp($cacheDir, ?string $buildDir = null): array
     {
         // skip warmUp when translator doesn't use cache
         if (null === $this->options['cache_dir']) {

@@ -56,7 +56,7 @@ final class AssetsInstallCommand extends Command
     /**
      * @throws \InvalidArgumentException When the target directory does not exist or symlink cannot be used
      */
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if ($this->assetsInstaller instanceof OutputAwareInterface) {
             $this->assetsInstaller->setOutput($output);
