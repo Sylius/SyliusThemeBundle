@@ -50,7 +50,7 @@ final class TranslatorResourceProviderPass implements CompilerPassInterface
             $options = [];
         }
 
-        $languagesFiles = $options['resource_files'] ?? [];
+        $languagesFiles = isset($options['resource_files']) && is_iterable($options['resource_files']) ? $options['resource_files'] : [];
 
         $resourceFiles = [];
         foreach ($languagesFiles as $language => $files) {
