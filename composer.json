@@ -80,7 +80,9 @@
             "@composer validate --strict",
             "vendor/bin/ecs check spec src tests || true",
             "vendor/bin/psalm",
-            "vendor/bin/rector process --dry-run"
+            "vendor/bin/rector process --dry-run",
+            "tests/Application/bin/console lint:container --env dev",
+            "tests/Application/bin/console lint:container --env prod"
         ],
         "fix": [
             "vendor/bin/rector process",
