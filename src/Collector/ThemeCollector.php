@@ -55,7 +55,7 @@ final class ThemeCollector extends DataCollector
     }
 
     /**
-     * @return array|ThemeInterface[]
+     * @return ThemeInterface[]
      */
     public function getUsedThemes(): array
     {
