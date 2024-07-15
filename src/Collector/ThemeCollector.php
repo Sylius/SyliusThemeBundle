@@ -21,6 +21,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
+/**
+ * @property $data array{used_theme: ?ThemeInterface, used_themes: ThemeInterface[], themes: ThemeInterface[]}
+
+ */
 final class ThemeCollector extends DataCollector
 {
     private ThemeRepositoryInterface $themeRepository;
@@ -28,15 +32,6 @@ final class ThemeCollector extends DataCollector
     private ThemeContextInterface $themeContext;
 
     private ThemeHierarchyProviderInterface $themeHierarchyProvider;
-
-    /**
-     * @var array
-     *
-     * @psalm-var array{used_theme: ?ThemeInterface, used_themes: ThemeInterface[], themes: ThemeInterface[]}
-     *
-     * @psalm-suppress NonInvariantDocblockPropertyType
-     */
-    protected $data;
 
     public function __construct(
         ThemeRepositoryInterface $themeRepository,
