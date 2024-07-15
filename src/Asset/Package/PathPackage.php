@@ -24,11 +24,9 @@ use Symfony\Component\Asset\VersionStrategy\VersionStrategyInterface;
  */
 class PathPackage extends BasePathPackage
 {
-    /** @var ThemeContextInterface */
-    protected $themeContext;
+    protected ThemeContextInterface $themeContext;
 
-    /** @var PathResolverInterface */
-    protected $pathResolver;
+    protected PathResolverInterface $pathResolver;
 
     public function __construct(
         string $basePath,

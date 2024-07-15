@@ -2,17 +2,20 @@
 
 declare(strict_types=1);
 
-use Rector\Core\Configuration\Option;
-use Rector\Php74\Rector\Property\TypedPropertyRector;
-use Rector\Set\ValueObject\SetList;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
+use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromAssignsRector;
+use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromStrictConstructorRector;
+use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromStrictSetUpRector;
 
-return static function (ContainerConfigurator $containerConfigurator): void
-{
-    $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
-    $parameters->set(Option::IMPORT_SHORT_CLASSES, false);
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->paths(['src', 'tests']);
 
-    $services = $containerConfigurator->services();
-    $services->set(TypedPropertyRector::class);
+    $rectorConfig->importNames();
+    $rectorConfig->importShortClasses(false);
+
+    $rectorConfig->rules([
+        TypedPropertyFromStrictConstructorRector::class,
+        TypedPropertyFromStrictSetUpRector::class,
+        TypedPropertyFromAssignsRector::class,
+    ]);
 };
