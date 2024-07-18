@@ -23,7 +23,6 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 /**
  * @property $data array{used_theme: ?ThemeInterface, used_themes: ThemeInterface[], themes: ThemeInterface[]}
-
  */
 final class ThemeCollector extends DataCollector
 {
