@@ -45,6 +45,7 @@ final class FilesystemConfigurationSourceFactory implements ConfigurationSourceF
             ->arrayNode('directories')
                 ->defaultValue(['%kernel.project_dir%/themes'])
                 ->requiresAtLeastOneElement()
+                ->performNoDeepMerging()
                 ->prototype('scalar')
         ;
     }
