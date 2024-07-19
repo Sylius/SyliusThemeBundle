@@ -1,14 +1,37 @@
-## CHANGELOG FOR `2.2.x`
+## CHANGELOG
+
+## v2.4.0 (2024-07-19)
+
+- [#133](https://github.com/Sylius/SyliusThemeBundle/issues/133) Upgrade psalm to 5.20 ([@alexander-schranz](https://github.com/alexander-schranz))
+- [#132](https://github.com/Sylius/SyliusThemeBundle/issues/132) Upgrade rector to 1.0 ([@alexander-schranz](https://github.com/alexander-schranz))
+- [#131](https://github.com/Sylius/SyliusThemeBundle/issues/131) Allow installation with Symfony 7 ([@alexander-schranz](https://github.com/alexander-schranz))
+- [#134](https://github.com/Sylius/SyliusThemeBundle/issues/134) Fix ThemeCollector Symfony 7 compatibility ([@alexander-schranz](https://github.com/alexander-schranz))
+- [#129](https://github.com/Sylius/SyliusThemeBundle/issues/129) doc: Update "Your first theme" documentation ([@pocky](https://github.com/pocky))
+- [#135](https://github.com/Sylius/SyliusThemeBundle/issues/135) Bump up PHP and Symfony 6 versions ([@GSadee](https://github.com/GSadee))
+- [#128](https://github.com/Sylius/SyliusThemeBundle/issues/128) Remove performNoDeepMerging to authorise additional custom theme folders ([@lanfisis](https://github.com/lanfisis))
+- [#136](https://github.com/Sylius/SyliusThemeBundle/issues/136) Revert "Remove performNoDeepMerging to authorise additional custom theme folders" ([@GSadee](https://github.com/GSadee))
 
 ## v2.3.0 (2022-09-04)
 
 #### Details
 
+- [#110](https://github.com/Sylius/SyliusThemeBundle/issues/110) Use PHP 7.4 syntax ([@Zales0123](https://github.com/Zales0123))
+- [#113](https://github.com/Sylius/SyliusThemeBundle/issues/113) Drop support for PHP7.4, Symfony version upgraded to 5.4 ([@Rafikooo](https://github.com/Rafikooo))
+- [#120](https://github.com/Sylius/SyliusThemeBundle/issues/120) [Maintenance] Allow flex plugin during plugin installation ([@lchrusciel](https://github.com/lchrusciel))
+- [#122](https://github.com/Sylius/SyliusThemeBundle/issues/122) Fix coding standard ([@loic425](https://github.com/loic425), [@lchrusciel](https://github.com/lchrusciel))
+- [#121](https://github.com/Sylius/SyliusThemeBundle/issues/121) Add support for Symfony 6 ([@macintoshplus](https://github.com/macintoshplus), [@loic425](https://github.com/loic425))
+- [#125](https://github.com/Sylius/SyliusThemeBundle/issues/125) [GH] Allow to trigger GH Actions manually ([@lchrusciel](https://github.com/lchrusciel))
 
 ## v2.3.0-ALPHA.1 (2022-08-24)
 
 #### Details
 
+- [#110](https://github.com/Sylius/SyliusThemeBundle/issues/110) Use PHP 7.4 syntax ([@Zales0123](https://github.com/Zales0123))
+- [#113](https://github.com/Sylius/SyliusThemeBundle/issues/113) Drop support for PHP7.4, Symfony version upgraded to 5.4 ([@Rafikooo](https://github.com/Rafikooo))
+- [#120](https://github.com/Sylius/SyliusThemeBundle/issues/120) [Maintenance] Allow flex plugin during plugin installation ([@lchrusciel](https://github.com/lchrusciel))
+- [#122](https://github.com/Sylius/SyliusThemeBundle/issues/122) Fix coding standard ([@loic425](https://github.com/loic425), [@lchrusciel](https://github.com/lchrusciel))
+- [#121](https://github.com/Sylius/SyliusThemeBundle/issues/121) Add support for Symfony 6 ([@macintoshplus](https://github.com/macintoshplus), [@loic425](https://github.com/loic425))
+- [#125](https://github.com/Sylius/SyliusThemeBundle/issues/125) [GH] Allow to trigger GH Actions manually ([@lchrusciel](https://github.com/lchrusciel))
 
 ### v2.2.0 (2021-03-19)
 
