@@ -55,7 +55,7 @@ interface FilesystemInterface
      *
      * @throws IOException When touch fails
      */
-    public function touch($files, int $time = null, int $atime = null);
+    public function touch($files, ?int $time = null, ?int $atime = null);
 
     /**
      * Removes files or directories.
@@ -111,8 +111,8 @@ interface FilesystemInterface
     /**
      * Mirrors a directory to another.
      *
-     * @param \Traversable $iterator  A Traversable instance
-     * @param array        $options   An array of boolean options
+     * @param \Traversable|null $iterator  A Traversable instance
+     * @param array             $options   An array of boolean options
      *                                Valid options are:
      *                                - $options['override'] Whether to override an existing file on copy or not (see copy())
      *                                - $options['copy_on_windows'] Whether to copy files instead of links on Windows (see symlink())
@@ -120,7 +120,7 @@ interface FilesystemInterface
      *
      * @throws IOException When file type is unknown
      */
-    public function mirror(string $originDir, string $targetDir, \Traversable $iterator = null, array $options = []);
+    public function mirror(string $originDir, string $targetDir, ?\Traversable $iterator = null, array $options = []);
 
     /**
      * Given an existing path, convert it to a path relative to a given starting path.

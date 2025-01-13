@@ -44,7 +44,7 @@ final class Filesystem implements FilesystemInterface
         return $this->filesystem->exists($files);
     }
 
-    public function touch($files, int $time = null, int $atime = null)
+    public function touch($files, ?int $time = null, ?int $atime = null)
     {
         $this->filesystem->touch($files, $time, $atime);
     }
@@ -79,7 +79,7 @@ final class Filesystem implements FilesystemInterface
         $this->filesystem->symlink($originDir, $targetDir, $copyOnWindows);
     }
 
-    public function mirror(string $originDir, string $targetDir, \Traversable $iterator = null, array $options = [])
+    public function mirror(string $originDir, string $targetDir, ?\Traversable $iterator = null, array $options = [])
     {
         $this->filesystem->mirror($originDir, $targetDir, $iterator, $options);
     }
