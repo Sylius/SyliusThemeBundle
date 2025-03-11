@@ -1,5 +1,10 @@
 ## CHANGELOG
 
+## v2.4.1 (2025-03-11)
+
+- [#139](https://github.com/Sylius/Sylius/issues/139) PHP 8.4 fix ([@codingioanniskrikos](https://github.com/codingioanniskrikos))
+- [#138](https://github.com/Sylius/Sylius/issues/138) Replace check for master request with isMainRequest in first theme documentation ([@alexander-schranz](https://github.com/alexander-schranz))
+
 ## v2.4.0 (2024-07-19)
 
 - [#133](https://github.com/Sylius/SyliusThemeBundle/issues/133) Upgrade psalm to 5.20 ([@alexander-schranz](https://github.com/alexander-schranz))
