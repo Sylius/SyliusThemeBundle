@@ -55,7 +55,7 @@ interface FilesystemInterface
      *
      * @throws IOException When touch fails
      */
-    public function touch($files, int $time = null, int $atime = null);
+    public function touch($files, ?int $time = null, ?int $atime = null);
 
     /**
      * Removes files or directories.
@@ -76,7 +76,7 @@ interface FilesystemInterface
     public function chmod($files, int $mode, int $umask = 0000, bool $recursive = false);
 
     /**
-     * Change the owner of an array of files or directories.
+     * Change the owner of an array of files or directories.#
      *
      * @param string|array|\Traversable $files     A filename, an array of files, or a \Traversable instance to change owner
      *
@@ -120,7 +120,7 @@ interface FilesystemInterface
      *
      * @throws IOException When file type is unknown
      */
-    public function mirror(string $originDir, string $targetDir, \Traversable $iterator = null, array $options = []);
+    public function mirror(string $originDir, string $targetDir, ?\Traversable $iterator = null, array $options = []);
 
     /**
      * Given an existing path, convert it to a path relative to a given starting path.
