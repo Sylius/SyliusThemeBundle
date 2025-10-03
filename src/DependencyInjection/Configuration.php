@@ -44,6 +44,11 @@ final class Configuration implements ConfigurationInterface
         $rootNode->children()->arrayNode('translations')->canBeDisabled();
         $rootNode->children()->scalarNode('context')->defaultValue('sylius.theme.context.settable')->cannotBeEmpty();
         $rootNode->children()
+            ->booleanNode('optimize_empty')
+                ->info('Remove theme decorators at compile time when no themes are detected. Requires cache:clear when adding first theme.')
+                ->defaultFalse()
+        ;
+        $rootNode->children()
             ->booleanNode('legacy_mode')
                 ->defaultFalse()
                 ->setDeprecated('sylius/theme-bundle', '2.0', '"%node%" at path "%path%" is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.')

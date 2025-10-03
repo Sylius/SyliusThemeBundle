@@ -15,10 +15,12 @@ namespace Sylius\Bundle\ThemeBundle;
 
 use Sylius\Bundle\ThemeBundle\Configuration\Filesystem\FilesystemConfigurationSourceFactory;
 use Sylius\Bundle\ThemeBundle\Configuration\Test\TestConfigurationSourceFactory;
+use Sylius\Bundle\ThemeBundle\DependencyInjection\Compiler\ConditionalDecoratorsPass;
 use Sylius\Bundle\ThemeBundle\DependencyInjection\SyliusThemeExtension;
 use Sylius\Bundle\ThemeBundle\Translation\DependencyInjection\Compiler\TranslatorFallbackLocalesPass;
 use Sylius\Bundle\ThemeBundle\Translation\DependencyInjection\Compiler\TranslatorLoaderProviderPass;
 use Sylius\Bundle\ThemeBundle\Translation\DependencyInjection\Compiler\TranslatorResourceProviderPass;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -34,5 +36,9 @@ final class SyliusThemeBundle extends Bundle
         $container->addCompilerPass(new TranslatorFallbackLocalesPass());
         $container->addCompilerPass(new TranslatorLoaderProviderPass());
         $container->addCompilerPass(new TranslatorResourceProviderPass());
+
+        // Run optimization pass early, before services are resolved
+        // This prevents decoration-related dependency issues
+        $container->addCompilerPass(new ConditionalDecoratorsPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, -10);
     }
 }

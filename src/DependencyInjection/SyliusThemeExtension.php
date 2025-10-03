@@ -35,6 +35,12 @@ final class SyliusThemeExtension extends Extension
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 
+        // Store config for later use in compiler pass
+        $container->setParameter('sylius_theme.optimize_empty', $config['optimize_empty']);
+        $container->setParameter('sylius_theme.assets_enabled', $config['assets']['enabled']);
+        $container->setParameter('sylius_theme.templating_enabled', $config['templating']['enabled']);
+        $container->setParameter('sylius_theme.translations_enabled', $config['translations']['enabled']);
+
         if ($config['assets']['enabled']) {
             $loader->load('services/integrations/assets.xml');
 
