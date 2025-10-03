@@ -8,6 +8,7 @@ Flexible theming system for Symfony applications.
 * [Configuration sources](configuration_sources.md)
 * [Theme inheritance](theme_inheritance.md)
 * [Theme configuration reference](theme_configuration_reference.md)
+* [Performance optimization](performance_optimization.md)
 
 ### Learn more
 

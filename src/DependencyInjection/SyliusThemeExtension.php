@@ -33,39 +33,104 @@ final class SyliusThemeExtension extends Extension
     {
         $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.xml');
 
-        if ($config['assets']['enabled']) {
-            $loader->load('services/integrations/assets.xml');
+        // Check if we should skip loading services when no themes exist
+        $shouldOptimize = $config['optimize_empty'];
+        $hasThemes = !$shouldOptimize || $this->hasThemes($container, $config);
 
-            if ($config['legacy_mode']) {
-                $loader->load('services/integrations/legacy_assets.xml');
+        // Store parameters
+        $container->setParameter('sylius_theme.optimize_empty', $config['optimize_empty']);
+        $container->setParameter('sylius_theme.has_themes', $hasThemes);
+
+        if ($hasThemes) {
+            // Load all theme services only if themes exist or optimization is disabled
+            $loader->load('services.xml');
+
+            if ($config['assets']['enabled']) {
+                $loader->load('services/integrations/assets.xml');
+
+                if ($config['legacy_mode']) {
+                    $loader->load('services/integrations/legacy_assets.xml');
+                }
+            }
+
+            if ($config['templating']['enabled']) {
+                $loader->load('services/integrations/templates.xml');
+
+                if ($config['legacy_mode']) {
+                    $loader->load('services/integrations/legacy_templates.xml');
+                }
+            }
+
+            if ($config['translations']['enabled']) {
+                $loader->load('services/integrations/translations.xml');
+
+                if ($config['legacy_mode']) {
+                    $loader->load('services/integrations/legacy_translations.xml');
+                }
+            }
+
+            $this->resolveConfigurationSources($container, $config);
+
+            $container->setAlias(ThemeContextInterface::class, $config['context']);
+            $container
+                ->setAlias('sylius.context.theme', ThemeContextInterface::class)
+                ->setDeprecated('sylius/theme-bundle', '2.0', '"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.')
+            ;
+        } else {
+            // No themes - provide minimal services
+            $container->setDefinition(
+                ThemeContextInterface::class,
+                new \Symfony\Component\DependencyInjection\Definition(
+                    'Sylius\Bundle\ThemeBundle\Context\EmptyThemeContext'
+                )
+            );
+        }
+    }
+
+    private function hasThemes(ContainerBuilder $container, array $config): bool
+    {
+        // Check filesystem sources for themes
+        if (isset($config['sources']['filesystem']) && $config['sources']['filesystem']['enabled']) {
+            $directories = $config['sources']['filesystem']['directories'] ?? ['%kernel.project_dir%/themes'];
+            $filename = $config['sources']['filesystem']['filename'] ?? 'composer.json';
+
+            foreach ($directories as $directory) {
+                $resolvedDir = $container->getParameterBag()->resolveValue($directory);
+
+                if (!is_dir($resolvedDir)) {
+                    continue;
+                }
+
+                $entries = @scandir($resolvedDir);
+                if ($entries === false) {
+                    continue;
+                }
+
+                foreach ($entries as $entry) {
+                    if ($entry === '.' || $entry === '..') {
+                        continue;
+                    }
+
+                    $themeDir = $resolvedDir . '/' . $entry;
+                    if (!is_dir($themeDir)) {
+                        continue;
+                    }
+
+                    $configFile = $themeDir . '/' . $filename;
+                    if (file_exists($configFile)) {
+                        return true; // Found at least one theme
+                    }
+                }
             }
         }
 
-        if ($config['templating']['enabled']) {
-            $loader->load('services/integrations/templates.xml');
-
-            if ($config['legacy_mode']) {
-                $loader->load('services/integrations/legacy_templates.xml');
-            }
+        // Test source always has themes (programmatic)
+        if (isset($config['sources']['test']) && $config['sources']['test']['enabled']) {
+            return true;
         }
 
-        if ($config['translations']['enabled']) {
-            $loader->load('services/integrations/translations.xml');
-
-            if ($config['legacy_mode']) {
-                $loader->load('services/integrations/legacy_translations.xml');
-            }
-        }
-
-        $this->resolveConfigurationSources($container, $config);
-
-        $container->setAlias(ThemeContextInterface::class, $config['context']);
-        $container
-            ->setAlias('sylius.context.theme', ThemeContextInterface::class)
-            ->setDeprecated('sylius/theme-bundle', '2.0', '"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.')
-        ;
+        return false;
     }
 
     public function addConfigurationSourceFactory(ConfigurationSourceFactoryInterface $configurationSourceFactory): void
