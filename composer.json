@@ -50,7 +50,6 @@
         "symfony/security-csrf": "^6.4 || ^7.4 || ^8.0",
         "symfony/twig-bundle": "^6.4 || ^7.4 || ^8.0",
         "twig/twig": "^3.0",
-        "vimeo/psalm": "^5.20 || ^6.0",
         "rector/rector": "^1.0"
     },
     "config": {
@@ -78,8 +77,7 @@
     "scripts": {
         "analyse": [
             "@composer validate --strict",
-            "vendor/bin/ecs check spec src tests || true",
-            "vendor/bin/psalm",
+            "vendor/bin/ecs check spec src tests",
             "vendor/bin/rector process --dry-run",
             "tests/Application/bin/console lint:container --env dev",
             "tests/Application/bin/console lint:container --env prod"
