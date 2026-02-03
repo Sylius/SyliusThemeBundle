@@ -123,7 +123,7 @@ final class AssetTest extends WebTestCase
         $this->assertFileContent($lines, $publicDirectory);
     }
 
-    public function getSymlinkMasks(): array
+    public static function getSymlinkMasks(): array
     {
         return [
             [AssetsInstallerInterface::RELATIVE_SYMLINK],

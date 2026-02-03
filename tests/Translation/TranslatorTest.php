@@ -272,7 +272,7 @@ final class TranslatorTest extends TestCase
         $this->assertEquals($catalogue, $translator->getCatalogue());
     }
 
-    public function getInvalidLocalesTests(): array
+    public static function getInvalidLocalesTests(): array
     {
         return [
             ['fr FR'],
@@ -289,15 +289,15 @@ final class TranslatorTest extends TestCase
         ];
     }
 
-    public function getAllValidLocalesTests(): array
+    public static function getAllValidLocalesTests(): array
     {
         return array_merge(
-            $this->getThemedLocalesTests(),
-            $this->getThemelessLocalesTests(),
+            self::getThemedLocalesTests(),
+            self::getThemelessLocalesTests(),
         );
     }
 
-    public function getThemedLocalesTests(): array
+    public static function getThemedLocalesTests(): array
     {
         return [
             ['fr@heron'],
@@ -308,7 +308,7 @@ final class TranslatorTest extends TestCase
         ];
     }
 
-    public function getThemelessLocalesTests(): array
+    public static function getThemelessLocalesTests(): array
     {
         return [
             ['fr'],
@@ -319,7 +319,7 @@ final class TranslatorTest extends TestCase
         ];
     }
 
-    public function getValidOptionsTests(): array
+    public static function getValidOptionsTests(): array
     {
         return [
             [['cache_dir' => null, 'debug' => false]],
@@ -330,7 +330,7 @@ final class TranslatorTest extends TestCase
         ];
     }
 
-    public function getInvalidOptionsTests(): array
+    public static function getInvalidOptionsTests(): array
     {
         return [
             [['heron' => '']],
