@@ -19,7 +19,7 @@ use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class SyliusThemeExtension extends Extension
 {
@@ -32,30 +32,30 @@ final class SyliusThemeExtension extends Extension
     public function load(array $configs, ContainerBuilder $container): void
     {
         $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.xml');
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('services.php');
 
         if ($config['assets']['enabled']) {
-            $loader->load('services/integrations/assets.xml');
+            $loader->load('services/integrations/assets.php');
 
             if ($config['legacy_mode']) {
-                $loader->load('services/integrations/legacy_assets.xml');
+                $loader->load('services/integrations/legacy_assets.php');
             }
         }
 
         if ($config['templating']['enabled']) {
-            $loader->load('services/integrations/templates.xml');
+            $loader->load('services/integrations/templates.php');
 
             if ($config['legacy_mode']) {
-                $loader->load('services/integrations/legacy_templates.xml');
+                $loader->load('services/integrations/legacy_templates.php');
             }
         }
 
         if ($config['translations']['enabled']) {
-            $loader->load('services/integrations/translations.xml');
+            $loader->load('services/integrations/translations.php');
 
             if ($config['legacy_mode']) {
-                $loader->load('services/integrations/legacy_translations.xml');
+                $loader->load('services/integrations/legacy_translations.php');
             }
         }
 
