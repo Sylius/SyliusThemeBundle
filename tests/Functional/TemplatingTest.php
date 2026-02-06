@@ -3,7 +3,7 @@
 /*
  * This file is part of the Sylius package.
  *
- * (c) Paweł Jędrzejewski
+ * (c) Sylius Sp. z o.o.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,6 +19,7 @@ final class TemplatingTest extends WebTestCase
 {
     /**
      * @test
+     *
      * @dataProvider getBundleTemplatesUsingNamespacedPaths
      */
     public function it_renders_bundle_templates_using_namespaced_paths(string $templateName, string $contents): void
@@ -47,6 +48,7 @@ final class TemplatingTest extends WebTestCase
 
     /**
      * @test
+     *
      * @dataProvider getPluginTemplatesUsingNamespacedPaths
      */
     public function it_renders_sylius_plugin_templates_using_namespaced_paths(string $templateName, string $contents): void
@@ -67,6 +69,7 @@ final class TemplatingTest extends WebTestCase
 
     /**
      * @test
+     *
      * @dataProvider getAppTemplatesUsingNamespacedPaths
      */
     public function it_renders_application_templates_using_namespaced_paths(string $templateName, string $contents): void
@@ -91,7 +94,9 @@ final class TemplatingTest extends WebTestCase
 
     /**
      * @test
+     *
      * @group legacy
+     *
      * @dataProvider getLegacyTemplates
      */
     public function it_renders_legacy_templates(string $templateName, string $contents): void

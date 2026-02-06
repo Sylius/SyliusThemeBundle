@@ -3,7 +3,7 @@
 /*
  * This file is part of the Sylius package.
  *
- * (c) Paweł Jędrzejewski
+ * (c) Sylius Sp. z o.o.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -29,6 +29,7 @@ final class TranslatorTest extends TestCase
 {
     /**
      * @test
+     *
      * @dataProvider getInvalidOptionsTests
      */
     public function it_throws_exception_on_instantiating_with_invalid_options(array $options): void
@@ -40,6 +41,7 @@ final class TranslatorTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider getValidOptionsTests
      */
     public function it_instantiates_with_valid_options(array $options): void
@@ -49,6 +51,7 @@ final class TranslatorTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider getInvalidLocalesTests
      */
     public function it_throws_exception_on_instantiating_with_invalid_locale(string $locale): void
@@ -60,6 +63,7 @@ final class TranslatorTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider getAllValidLocalesTests
      */
     public function it_instantiates_with_valid_locale(string $locale): void
@@ -71,6 +75,7 @@ final class TranslatorTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider getInvalidLocalesTests
      */
     public function its_throws_exception_on_setting_invalid_fallback_locales(string $locale): void
@@ -83,6 +88,7 @@ final class TranslatorTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider getAllValidLocalesTests
      */
     public function its_fallback_locales_can_be_set_only_if_valid(string $locale): void
@@ -95,6 +101,7 @@ final class TranslatorTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider getAllValidLocalesTests
      */
     public function it_adds_resources_with_valid_locales(string $locale): void
@@ -108,6 +115,7 @@ final class TranslatorTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider getAllValidLocalesTests
      */
     public function it_translates_valid_locales(string $locale): void
@@ -154,6 +162,7 @@ final class TranslatorTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider getThemelessLocalesTests
      */
     public function it_gets_catalogue_with_fallback_catalogues_of_a_simple_locale(string $locale): void
@@ -166,6 +175,7 @@ final class TranslatorTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider getThemedLocalesTests
      */
     public function it_gets_catalogue_with_fallback_catalogues_of_a_themed_locale(string $locale): void
