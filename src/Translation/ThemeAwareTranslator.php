@@ -33,18 +33,15 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
     public function __construct(TranslatorInterface $translator, ThemeContextInterface $themeContext)
     {
         foreach ([LocaleAwareInterface::class, TranslatorBagInterface::class] as $interface) {
-            /** @psalm-suppress DocblockTypeContradiction Better safe than sorry */
             if (!$translator instanceof $interface) {
-                /** @psalm-suppress NoValue Better safe than sorry */
                 throw new \InvalidArgumentException(sprintf(
                     'The translator "%s" must implement %s.',
-                    get_class($translator),
+                    $translator::class,
                     $interface,
                 ));
             }
         }
 
-        /** @psalm-suppress InvalidPropertyAssignmentValue */
         $this->translator = $translator;
         $this->themeContext = $themeContext;
     }
@@ -60,21 +57,9 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         return $translator->$method(...$arguments);
     }
 
-    /**
-     * @psalm-suppress MissingParamType Two interfaces defining the same method
-     */
     public function trans($id, array $parameters = [], $domain = null, $locale = null): string
     {
         return $this->translator->trans($id, $parameters, $domain, $this->transformLocale($locale));
-    }
-
-    public function transChoice(string $id, int $number, array $parameters = [], ?string $domain = null, ?string $locale = null): string
-    {
-        if (!method_exists($this->translator, 'transChoice')) {
-            throw new \RuntimeException(sprintf('%s::transChoice is not supported with symfony/translation v5', static::class));
-        }
-
-        return $this->translator->transChoice($id, $number, $parameters, $domain, $this->transformLocale($locale));
     }
 
     public function getLocale(): string
@@ -101,10 +86,6 @@ final class ThemeAwareTranslator implements TranslatorInterface, TranslatorBagIn
         return $this->translator->getCatalogue($locale);
     }
 
-    /**
-     * @psalm-suppress MissingParamType
-     * @psalm-suppress MissingReturnType
-     */
     public function warmUp($cacheDir, ?string $buildDir = null): array
     {
         if ($this->translator instanceof WarmableInterface) {
