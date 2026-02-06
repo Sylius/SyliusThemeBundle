@@ -16,7 +16,6 @@ namespace Sylius\Bundle\ThemeBundle\Twig\Loader;
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateLocatorInterface;
 use Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateNotFoundException;
-use Symfony\Component\Templating\TemplateReferenceInterface;
 use Twig\Loader\LoaderInterface as TwigLoaderInterface;
 use Twig\Source;
 
@@ -38,76 +37,52 @@ final class ThemedTemplateLoader implements LoaderInterface
         $this->themeContext = $themeContext;
     }
 
-    /**
-     * @param string|TemplateReferenceInterface $name
-     */
     public function getSourceContext($name): Source
     {
         try {
             $path = $this->locateTemplate($name);
 
-            /** @psalm-suppress RedundantCastGivenDocblockType */
             return new Source((string) file_get_contents($path), (string) $name, $path);
-        } catch (TemplateNotFoundException | \InvalidArgumentException $exception) {
-            /** @psalm-suppress PossiblyInvalidArgument */
+        } catch (TemplateNotFoundException $exception) {
             return $this->decoratedLoader->getSourceContext($name);
         }
     }
 
-    /**
-     * @param string|TemplateReferenceInterface $name
-     */
     public function getCacheKey($name): string
     {
         try {
             return $this->locateTemplate($name);
-        } catch (TemplateNotFoundException | \InvalidArgumentException $exception) {
-            /** @psalm-suppress PossiblyInvalidArgument */
+        } catch (TemplateNotFoundException $exception) {
             return $this->decoratedLoader->getCacheKey($name);
         }
     }
 
     /**
-     * @param string|TemplateReferenceInterface $name
      * @param int $time
      */
     public function isFresh($name, $time): bool
     {
         try {
             return filemtime($this->locateTemplate($name)) <= $time;
-        } catch (TemplateNotFoundException | \InvalidArgumentException $exception) {
-            /** @psalm-suppress PossiblyInvalidArgument */
+        } catch (TemplateNotFoundException $exception) {
             return $this->decoratedLoader->isFresh($name, $time);
         }
     }
 
-    /**
-     * @param string|TemplateReferenceInterface $name
-     */
     public function exists($name): bool
     {
         try {
             return stat($this->locateTemplate($name)) !== false;
-        } catch (TemplateNotFoundException | \InvalidArgumentException $exception) {
-            /** @psalm-suppress PossiblyInvalidArgument */
+        } catch (TemplateNotFoundException $exception) {
             return $this->decoratedLoader->exists($name);
         }
     }
 
     /**
-     * @psalm-assert string $template
-     *
-     * @param string|TemplateReferenceInterface $template
-     *
-     * @throws TemplateNotFoundException|\InvalidArgumentException
+     * @throws TemplateNotFoundException
      */
-    private function locateTemplate($template): string
+    private function locateTemplate(string $template): string
     {
-        if ($template instanceof TemplateReferenceInterface) {
-            // Symfony 4.x still pushes TemplateReferenceInterface to Twig loader (especially when warming up cache)
-            throw new \InvalidArgumentException(sprintf('Instances of "%s" are not supported.', TemplateReferenceInterface::class));
-        }
-
         $theme = $this->themeContext->getTheme();
 
         if ($theme === null) {

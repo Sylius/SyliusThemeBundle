@@ -16,9 +16,7 @@ namespace Sylius\Bundle\ThemeBundle\Translation;
 use Sylius\Bundle\ThemeBundle\Translation\Provider\Loader\TranslatorLoaderProviderInterface;
 use Sylius\Bundle\ThemeBundle\Translation\Provider\Resource\TranslatorResourceProviderInterface;
 use Symfony\Component\HttpKernel\CacheWarmer\WarmableInterface;
-use Symfony\Component\Translation\Formatter\MessageFormatter;
 use Symfony\Component\Translation\Formatter\MessageFormatterInterface;
-use Symfony\Component\Translation\MessageSelector;
 use Symfony\Component\Translation\Translator as BaseTranslator;
 
 final class Translator extends BaseTranslator implements WarmableInterface
@@ -28,21 +26,16 @@ final class Translator extends BaseTranslator implements WarmableInterface
         'debug' => false,
     ];
 
-    /** @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though */
     private TranslatorLoaderProviderInterface $loaderProvider;
 
-    /** @psalm-suppress PropertyNotSetInConstructor It is set in the constructor though */
     private TranslatorResourceProviderInterface $resourceProvider;
 
     private bool $resourcesLoaded = false;
 
-    /**
-     * @param MessageSelector|MessageFormatterInterface $messageFormatterOrSelector
-     */
     public function __construct(
         TranslatorLoaderProviderInterface $loaderProvider,
         TranslatorResourceProviderInterface $resourceProvider,
-        $messageFormatterOrSelector,
+        MessageFormatterInterface $messageFormatter,
         string $locale,
         array $options = [],
     ) {
@@ -56,13 +49,9 @@ final class Translator extends BaseTranslator implements WarmableInterface
             $this->addResources();
         }
 
-        parent::__construct($locale, $this->provideMessageFormatter($messageFormatterOrSelector), $this->options['cache_dir'], $this->options['debug']);
+        parent::__construct($locale, $messageFormatter, $this->options['cache_dir'], $this->options['debug']);
     }
 
-    /**
-     * @psalm-suppress MissingParamType
-     * @psalm-suppress MissingReturnType
-     */
     public function warmUp($cacheDir, ?string $buildDir = null): array
     {
         // skip warmUp when translator doesn't use cache
@@ -70,7 +59,6 @@ final class Translator extends BaseTranslator implements WarmableInterface
             return [];
         }
 
-        /** @psalm-suppress InternalMethod */
         $locales = array_merge(
             $this->getFallbackLocales(),
             [$this->getLocale()],
@@ -172,29 +160,5 @@ final class Translator extends BaseTranslator implements WarmableInterface
         if ($diff = array_diff(array_keys($options), array_keys($this->options))) {
             throw new \InvalidArgumentException(sprintf('The Translator does not support the following options: \'%s\'.', implode('\', \'', $diff)));
         }
-    }
-
-    /**
-     * @param mixed $messageFormatterOrSelector
-     */
-    private function provideMessageFormatter($messageFormatterOrSelector): MessageFormatterInterface
-    {
-        if ($messageFormatterOrSelector instanceof MessageSelector) {
-            @trigger_error(sprintf('Passing a "%s" instance into the "%s" as a third argument is deprecated since Sylius 1.2 and will be removed in 2.0. Inject a "%s" implementation instead.', MessageSelector::class, __METHOD__, MessageFormatterInterface::class), \E_USER_DEPRECATED);
-
-            /** @psalm-suppress InvalidArgument */
-            return new MessageFormatter($this, $messageFormatterOrSelector);
-        }
-
-        if ($messageFormatterOrSelector instanceof MessageFormatterInterface) {
-            return $messageFormatterOrSelector;
-        }
-
-        throw new \UnexpectedValueException(sprintf(
-            'Expected an instance of "%s" or "%s", got "%s"!',
-            MessageFormatterInterface::class,
-            MessageSelector::class,
-            is_object($messageFormatterOrSelector) ? get_class($messageFormatterOrSelector) : gettype($messageFormatterOrSelector),
-        ));
     }
 }
