@@ -3,7 +3,7 @@
 /*
  * This file is part of the Sylius package.
  *
- * (c) Paweł Jędrzejewski
+ * (c) Sylius Sp. z o.o.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,6 +19,7 @@ final class TemplatingTest extends WebTestCase
 {
     /**
      * @test
+     *
      * @dataProvider getBundleTemplatesUsingNamespacedPaths
      */
     public function it_renders_bundle_templates_using_namespaced_paths(string $templateName, string $contents): void
@@ -29,7 +30,7 @@ final class TemplatingTest extends WebTestCase
         $this->assertEquals($contents, trim($crawler->text()));
     }
 
-    public function getBundleTemplatesUsingNamespacedPaths(): array
+    public static function getBundleTemplatesUsingNamespacedPaths(): array
     {
         return [
             ['@Test/Templating/vanillaTemplate.txt.twig', 'TestBundle:Templating:vanillaTemplate.txt.twig'],
@@ -47,6 +48,7 @@ final class TemplatingTest extends WebTestCase
 
     /**
      * @test
+     *
      * @dataProvider getPluginTemplatesUsingNamespacedPaths
      */
     public function it_renders_sylius_plugin_templates_using_namespaced_paths(string $templateName, string $contents): void
@@ -57,7 +59,7 @@ final class TemplatingTest extends WebTestCase
         $this->assertEquals($contents, trim($crawler->text()));
     }
 
-    public function getPluginTemplatesUsingNamespacedPaths(): array
+    public static function getPluginTemplatesUsingNamespacedPaths(): array
     {
         return [
             ['@TestPlugin/Templating/twigNamespacedVanillaOverriddenThemeTemplate.txt.twig', '@TestPlugin/Templating/twigNamespacedVanillaOverriddenThemeTemplate.txt.twig|sylius/first-test-theme'],
@@ -67,6 +69,7 @@ final class TemplatingTest extends WebTestCase
 
     /**
      * @test
+     *
      * @dataProvider getAppTemplatesUsingNamespacedPaths
      */
     public function it_renders_application_templates_using_namespaced_paths(string $templateName, string $contents): void
@@ -77,7 +80,7 @@ final class TemplatingTest extends WebTestCase
         $this->assertEquals($contents, trim($crawler->text()));
     }
 
-    public function getAppTemplatesUsingNamespacedPaths(): array
+    public static function getAppTemplatesUsingNamespacedPaths(): array
     {
         return [
             ['Templating/vanillaTemplate.txt.twig', ':Templating:vanillaTemplate.txt.twig'],
@@ -91,7 +94,9 @@ final class TemplatingTest extends WebTestCase
 
     /**
      * @test
+     *
      * @group legacy
+     *
      * @dataProvider getLegacyTemplates
      */
     public function it_renders_legacy_templates(string $templateName, string $contents): void
@@ -102,7 +107,7 @@ final class TemplatingTest extends WebTestCase
         $this->assertEquals($contents, trim($crawler->text()));
     }
 
-    public function getLegacyTemplates(): array
+    public static function getLegacyTemplates(): array
     {
         return [
             ['Templating/legacyTemplate.txt.twig', 'Templating/legacyTemplate.txt.twig|sylius/legacy-test-theme'],

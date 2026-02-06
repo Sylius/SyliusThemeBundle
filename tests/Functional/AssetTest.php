@@ -3,7 +3,7 @@
 /*
  * This file is part of the Sylius package.
  *
- * (c) Paweł Jędrzejewski
+ * (c) Sylius Sp. z o.o.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -22,6 +22,7 @@ final class AssetTest extends WebTestCase
 {
     /**
      * @test
+     *
      * @dataProvider getSymlinkMasks
      */
     public function it_dumps_assets(int $symlinkMask): void
@@ -68,6 +69,7 @@ final class AssetTest extends WebTestCase
 
     /**
      * @test
+     *
      * @dataProvider getSymlinkMasks
      */
     public function it_dumps_assets_correctly_even_if_nothing_has_changed(int $symlinkMask): void
@@ -87,6 +89,7 @@ final class AssetTest extends WebTestCase
 
     /**
      * @test
+     *
      * @dataProvider getSymlinkMasks
      */
     public function it_falls_back_to_regular_assets_if_themed_not_found(int $symlinkMask): void
@@ -106,7 +109,9 @@ final class AssetTest extends WebTestCase
 
     /**
      * @test
+     *
      * @group legacy
+     *
      * @dataProvider getSymlinkMasks
      */
     public function it_dumps_legacy_assets(int $symlinkMask): void
@@ -123,7 +128,7 @@ final class AssetTest extends WebTestCase
         $this->assertFileContent($lines, $publicDirectory);
     }
 
-    public function getSymlinkMasks(): array
+    public static function getSymlinkMasks(): array
     {
         return [
             [AssetsInstallerInterface::RELATIVE_SYMLINK],

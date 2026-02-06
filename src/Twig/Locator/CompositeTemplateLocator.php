@@ -3,7 +3,7 @@
 /*
  * This file is part of the Sylius package.
  *
- * (c) Paweł Jędrzejewski
+ * (c) Sylius Sp. z o.o.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -19,14 +19,12 @@ final class CompositeTemplateLocator implements TemplateLocatorInterface
 {
     /**
      * @psalm-var iterable<TemplateLocatorInterface>
-     *
      * @var iterable|TemplateLocatorInterface[]
      */
     private iterable $themedTemplateLocators;
 
     /**
      * @psalm-param iterable<TemplateLocatorInterface> $themedTemplateLocators
-     *
      * @param iterable|TemplateLocatorInterface[] $themedTemplateLocators
      */
     public function __construct(iterable $themedTemplateLocators)
