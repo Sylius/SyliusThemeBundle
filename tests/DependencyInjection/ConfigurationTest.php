@@ -15,6 +15,7 @@ namespace Sylius\Bundle\ThemeBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
+use Sylius\Bundle\ThemeBundle\Context\SettableThemeContext;
 use Sylius\Bundle\ThemeBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -31,7 +32,7 @@ final class ConfigurationTest extends TestCase
             [
                 [],
             ],
-            ['context' => 'sylius.theme.context.settable'],
+            ['context' => SettableThemeContext::class],
             'context',
         );
     }

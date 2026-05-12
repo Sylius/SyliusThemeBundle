@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Sylius\Bundle\ThemeBundle\Context\SettableThemeContext;
+use Sylius\Bundle\ThemeBundle\Repository\ThemeRepositoryInterface;
 use Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\Controller\TemplatingController;
 use Sylius\Bundle\ThemeBundle\Tests\Application\TestBundle\Listener\RequestListener;
 
@@ -29,8 +31,8 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set('test.sylius_theme.request_listener', RequestListener::class)
         ->args([
-            service('sylius.repository.theme'),
-            service('sylius.theme.context.settable'),
+            service(ThemeRepositoryInterface::class),
+            service(SettableThemeContext::class),
         ])
         ->tag('kernel.event_listener', ['event' => 'kernel.request', 'method' => 'onKernelRequest']);
 };
