@@ -18,6 +18,7 @@ use Sylius\Bundle\ThemeBundle\Context\SettableThemeContext;
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Sylius\Bundle\ThemeBundle\HierarchyProvider\ThemeHierarchyProvider;
 use Sylius\Bundle\ThemeBundle\HierarchyProvider\ThemeHierarchyProviderInterface;
+use Sylius\Bundle\ThemeBundle\Loader\ThemeLoaderInterface;
 use Sylius\Bundle\ThemeBundle\Repository\InMemoryThemeRepository;
 use Sylius\Bundle\ThemeBundle\Repository\ThemeRepositoryInterface;
 
@@ -28,7 +29,7 @@ return static function (ContainerConfigurator $container): void {
 
     $services->set(ThemeContextInterface::class, EmptyThemeContext::class);
 
-    $services->set(SettableThemeContext::class)->args([service('sylius.theme.hierarchy_provider')]);
+    $services->set(SettableThemeContext::class)->args([service(ThemeHierarchyProviderInterface::class)]);
     $services
         ->alias('sylius.theme.context.settable', SettableThemeContext::class)
         ->deprecate('sylius/theme-bundle', '2.0', '"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.')
@@ -37,7 +38,7 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(ThemeRepositoryInterface::class, InMemoryThemeRepository::class)
         ->args([
-            service('sylius.theme.loader'),
+            service(ThemeLoaderInterface::class),
         ])
     ;
     $services
