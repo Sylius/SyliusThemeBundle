@@ -282,6 +282,18 @@ final class TranslatorTest extends TestCase
         $this->assertEquals($catalogue, $translator->getCatalogue());
     }
 
+    /**
+     * @test
+     */
+    public function it_does_not_load_unused_locales(): void
+    {
+        $translator = $this->createTranslator('en', enabledLocales: ['en']);
+        $translator->setFallbackLocales(['en']);
+
+        $this->assertNotNull($translator->getCatalogue());
+        $this->assertCount(1, $translator->getCatalogues());
+    }
+
     public static function getInvalidLocalesTests(): array
     {
         return [
@@ -351,13 +363,14 @@ final class TranslatorTest extends TestCase
 
     /**
      * @param string[] $options
+     * @param string[] $enabledLocales
      */
-    private function createTranslator(string $locale = 'en', array $options = []): Translator
+    private function createTranslator(string $locale = 'en', array $options = [], array $enabledLocales = []): Translator
     {
         $loaderProvider = new TranslatorLoaderProvider();
         $resourceProvider = new SymfonyTranslatorResourceProvider();
         $messageFormatter = new MessageFormatter();
 
-        return new Translator($loaderProvider, $resourceProvider, $messageFormatter, $locale, $options);
+        return new Translator($loaderProvider, $resourceProvider, $messageFormatter, $locale, $options, $enabledLocales);
     }
 }
