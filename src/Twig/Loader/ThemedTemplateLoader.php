@@ -56,7 +56,7 @@ final class ThemedTemplateLoader implements LoaderInterface
             $cacheKey = $this->decoratedLoader->getCacheKey($name);
             $theme = $this->themeContext->getTheme();
 
-            if ($theme !== null) {
+            if (null !== $theme) {
                 $cacheKey .= '|' . $theme->getName();
             }
 
