@@ -53,7 +53,14 @@ final class ThemedTemplateLoader implements LoaderInterface
         try {
             return $this->locateTemplate($name);
         } catch (TemplateNotFoundException $exception) {
-            return $this->decoratedLoader->getCacheKey($name);
+            $cacheKey = $this->decoratedLoader->getCacheKey($name);
+            $theme = $this->themeContext->getTheme();
+
+            if (null !== $theme) {
+                $cacheKey .= '|' . $theme->getName();
+            }
+
+            return $cacheKey;
         }
     }
 
