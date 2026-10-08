@@ -42,6 +42,7 @@ final class Configuration implements ConfigurationInterface
         $rootNode->children()->arrayNode('assets')->canBeDisabled();
         $rootNode->children()->arrayNode('templating')->canBeDisabled();
         $rootNode->children()->arrayNode('translations')->canBeDisabled();
+        $rootNode->children()->arrayNode('webpack_encore')->canBeEnabled();
         $rootNode->children()->scalarNode('context')->defaultValue('sylius.theme.context.settable')->cannotBeEmpty();
         $rootNode->children()
             ->booleanNode('legacy_mode')

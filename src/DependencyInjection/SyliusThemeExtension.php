@@ -20,6 +20,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
 
 final class SyliusThemeExtension extends Extension
 {
@@ -57,6 +58,14 @@ final class SyliusThemeExtension extends Extension
             if ($config['legacy_mode']) {
                 $loader->load('services/integrations/legacy_translations.php');
             }
+        }
+
+        if ($config['webpack_encore']['enabled']) {
+            if (!class_exists(TagRenderer::class)) {
+                throw new \LogicException('Webpack Encore integration cannot be enabled as the WebpackEncoreBundle is not installed. Try running "composer require symfony/webpack-encore-bundle".');
+            }
+
+            $loader->load('services/integrations/webpack_encore.php');
         }
 
         $this->resolveConfigurationSources($container, $config);

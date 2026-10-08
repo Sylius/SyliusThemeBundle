@@ -126,6 +126,27 @@ final class ConfigurationTest extends TestCase
         $this->assertProcessedConfigurationEquals([['translations' => false]], ['translations' => ['enabled' => false]], 'translations');
     }
 
+    /**
+     * @test
+     */
+    public function webpack_encore_support_is_disabled_by_default(): void
+    {
+        $this->assertProcessedConfigurationEquals([[]], ['webpack_encore' => ['enabled' => false]], 'webpack_encore');
+    }
+
+    /**
+     * @test
+     */
+    public function webpack_encore_support_may_be_toggled(): void
+    {
+        $this->assertProcessedConfigurationEquals([['webpack_encore' => ['enabled' => true]]], ['webpack_encore' => ['enabled' => true]], 'webpack_encore');
+        $this->assertProcessedConfigurationEquals([['webpack_encore' => []]], ['webpack_encore' => ['enabled' => true]], 'webpack_encore');
+        $this->assertProcessedConfigurationEquals([['webpack_encore' => null]], ['webpack_encore' => ['enabled' => true]], 'webpack_encore');
+
+        $this->assertProcessedConfigurationEquals([['webpack_encore' => ['enabled' => false]]], ['webpack_encore' => ['enabled' => false]], 'webpack_encore');
+        $this->assertProcessedConfigurationEquals([['webpack_encore' => false]], ['webpack_encore' => ['enabled' => false]], 'webpack_encore');
+    }
+
     protected function getConfiguration(): ConfigurationInterface
     {
         return new Configuration();
