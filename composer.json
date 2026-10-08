@@ -49,8 +49,12 @@
         "symfony/browser-kit": "^6.4 || ^7.4 || ^8.0",
         "symfony/security-csrf": "^6.4 || ^7.4 || ^8.0",
         "symfony/twig-bundle": "^6.4 || ^7.4 || ^8.0",
+        "symfony/webpack-encore-bundle": "^2.2",
         "twig/twig": "^3.0",
         "rector/rector": "^1.0"
+    },
+    "suggest": {
+        "symfony/webpack-encore-bundle": "To render Webpack Encore entries of the current theme"
     },
     "config": {
         "allow-plugins": {

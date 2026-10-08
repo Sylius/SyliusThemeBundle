@@ -18,6 +18,7 @@ use Sylius\Bundle\ThemeBundle\Asset\Installer\AssetsInstallerInterface;
 use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
 use Sylius\Bundle\ThemeBundle\DependencyInjection\SyliusThemeExtension;
 use Sylius\Bundle\ThemeBundle\Translation\Translator;
+use Sylius\Bundle\ThemeBundle\Twig\Extension\WebpackEncoreExtension;
 use Sylius\Bundle\ThemeBundle\Twig\Locator\TemplateLocatorInterface;
 
 final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
@@ -72,6 +73,26 @@ final class SyliusThemeExtensionTest extends AbstractExtensionTestCase
         $this->load(['translations' => ['enabled' => false]]);
 
         $this->assertContainerBuilderNotHasService(Translator::class);
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_load_webpack_encore_support_by_default(): void
+    {
+        $this->load([]);
+
+        $this->assertContainerBuilderNotHasService(WebpackEncoreExtension::class);
+    }
+
+    /**
+     * @test
+     */
+    public function it_loads_webpack_encore_support_if_its_enabled(): void
+    {
+        $this->load(['webpack_encore' => ['enabled' => true]]);
+
+        $this->assertContainerBuilderHasServiceDefinitionWithTag(WebpackEncoreExtension::class, 'twig.extension');
     }
 
     protected function getContainerExtensions(): array
