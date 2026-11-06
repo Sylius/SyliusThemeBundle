@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Twig\Error\LoaderError;
 
 final class TemplatingTest extends WebTestCase
 {
@@ -87,6 +88,19 @@ final class TemplatingTest extends WebTestCase
             ['Templating/twigNamespacedBothThemesTemplate.txt.twig', 'Templating/twigNamespacedBothThemesTemplate.txt.twig|sylius/first-test-theme'],
             ['Templating/twigNamespacedLastThemeTemplate.txt.twig', 'Templating/twigNamespacedLastThemeTemplate.txt.twig|sylius/second-test-theme'],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_render_templates_from_outside_of_theme_templates_directory(): void
+    {
+        $client = self::createClient();
+        $client->catchExceptions(false);
+
+        $this->expectException(LoaderError::class);
+
+        $client->request('GET', '/template/../composer.json');
     }
 
     /**
