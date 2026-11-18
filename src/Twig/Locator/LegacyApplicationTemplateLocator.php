@@ -15,6 +15,7 @@ namespace Sylius\Bundle\ThemeBundle\Twig\Locator;
 
 use Sylius\Bundle\ThemeBundle\Model\ThemeInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
 
 /**
  * Handles paths like "template.html.twig" or "Directory/template.html.twig".
@@ -37,8 +38,10 @@ final class LegacyApplicationTemplateLocator implements TemplateLocatorInterface
 
     public function locate(string $template, ThemeInterface $theme): string
     {
-        $path = sprintf('%s/views/%s', $theme->getPath(), $template);
-        if (!$this->filesystem->exists($path)) {
+        $viewsDirectory = sprintf('%s/views', $theme->getPath());
+        $path = Path::canonicalize(sprintf('%s/%s', $viewsDirectory, str_replace('\\', '/', $template)));
+
+        if (!Path::isBasePath($viewsDirectory, $path) || !$this->filesystem->exists($path)) {
             throw new TemplateNotFoundException($template, [$theme]);
         }
 
