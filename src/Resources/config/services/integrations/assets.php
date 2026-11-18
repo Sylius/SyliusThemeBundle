@@ -73,17 +73,4 @@ return static function (ContainerConfigurator $container): void {
             service(ThemeHierarchyProviderInterface::class),
         ])
     ;
-
-    // Overridden services
-    $services
-        ->set('assets.path_package', PathPackage::class)
-        ->args([
-            abstract_arg('base path'),
-            abstract_arg('version strategy'),
-            service(ThemeContextInterface::class),
-            service(PathResolverInterface::class),
-            service('assets.context'),
-        ])
-        ->abstract()
-    ;
 };
