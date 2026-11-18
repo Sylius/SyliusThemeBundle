@@ -44,6 +44,7 @@ return static function (ContainerConfigurator $container): void {
                 'cache_dir' => '%kernel.cache_dir%/translations',
                 'debug' => '%kernel.debug%',
             ],
+            '%kernel.enabled_locales%',
         ])
     ;
 

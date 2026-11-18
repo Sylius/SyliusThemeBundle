@@ -32,17 +32,22 @@ final class Translator extends BaseTranslator implements WarmableInterface
 
     private bool $resourcesLoaded = false;
 
+    /** @var array<string> */
+    private array $enabledLocales = [];
+
     public function __construct(
         TranslatorLoaderProviderInterface $loaderProvider,
         TranslatorResourceProviderInterface $resourceProvider,
         MessageFormatterInterface $messageFormatter,
         string $locale,
         array $options = [],
+        array $enabledLocales = [],
     ) {
         $this->assertOptionsAreKnown($options);
 
         $this->loaderProvider = $loaderProvider;
         $this->resourceProvider = $resourceProvider;
+        $this->enabledLocales = $enabledLocales;
 
         $this->options = array_merge($this->options, $options);
         if (null !== $this->options['cache_dir'] && $this->options['debug']) {
@@ -59,11 +64,12 @@ final class Translator extends BaseTranslator implements WarmableInterface
             return [];
         }
 
-        $locales = array_merge(
+        $locales = $this->enabledLocales ?: array_merge(
             $this->getFallbackLocales(),
             [$this->getLocale()],
             $this->resourceProvider->getResourcesLocales(),
         );
+
         foreach (array_unique($locales) as $locale) {
             // reset catalogue in case it's already loaded during the dump of the other locales.
             if (isset($this->catalogues[$locale])) {
