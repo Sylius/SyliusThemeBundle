@@ -28,4 +28,13 @@ final class SettableThemeContext implements ThemeContextInterface
     {
         return $this->theme;
     }
+
+    /**
+     * On a long-running runtime the theme set during one request would otherwise still
+     * be returned during the next one, which has no theme of its own.
+     */
+    public function reset(): void
+    {
+        $this->theme = null;
+    }
 }

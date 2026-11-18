@@ -28,7 +28,11 @@ return static function (ContainerConfigurator $container): void {
 
     $services->set(ThemeContextInterface::class, EmptyThemeContext::class);
 
-    $services->set(SettableThemeContext::class)->args([service('sylius.theme.hierarchy_provider')]);
+    $services
+        ->set(SettableThemeContext::class)
+        ->args([service('sylius.theme.hierarchy_provider')])
+        ->tag('kernel.reset', ['method' => 'reset'])
+    ;
     $services
         ->alias('sylius.theme.context.settable', SettableThemeContext::class)
         ->deprecate('sylius/theme-bundle', '2.0', '"%alias_id%" service is deprecated since Sylius/ThemeBundle 2.0 and will be removed in 3.0.')

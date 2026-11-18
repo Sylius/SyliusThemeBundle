@@ -70,4 +70,10 @@ final class InMemoryThemeRepository implements ThemeRepositoryInterface
 
         $this->themesLoaded = true;
     }
+
+    public function reset(): void
+    {
+        $this->themes = [];
+        $this->themesLoaded = false;
+    }
 }

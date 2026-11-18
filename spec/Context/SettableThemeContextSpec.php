@@ -31,4 +31,13 @@ final class SettableThemeContextSpec extends ObjectBehavior
         $this->setTheme($theme);
         $this->getTheme()->shouldReturn($theme);
     }
+
+    function it_forgets_the_theme_when_reset(ThemeInterface $theme): void
+    {
+        $this->setTheme($theme);
+
+        $this->reset();
+
+        $this->getTheme()->shouldReturn(null);
+    }
 }
