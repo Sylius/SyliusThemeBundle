@@ -15,22 +15,25 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Sylius\Bundle\ThemeBundle\Collector\ThemeCollector;
 use Sylius\Bundle\ThemeBundle\Command\ListCommand;
+use Sylius\Bundle\ThemeBundle\Context\ThemeContextInterface;
+use Sylius\Bundle\ThemeBundle\HierarchyProvider\ThemeHierarchyProviderInterface;
+use Sylius\Bundle\ThemeBundle\Repository\ThemeRepositoryInterface;
 
 return static function (ContainerConfigurator $container): void {
     $services = $container->services();
 
     $services
         ->set(ListCommand::class)
-        ->args([service('sylius.repository.theme')])
+        ->args([service(ThemeRepositoryInterface::class)])
         ->tag('console.command')
     ;
 
     $services
         ->set(ThemeCollector::class)
         ->args([
-            service('sylius.repository.theme'),
-            service('sylius.context.theme'),
-            service('sylius.theme.hierarchy_provider'),
+            service(ThemeRepositoryInterface::class),
+            service(ThemeContextInterface::class),
+            service(ThemeHierarchyProviderInterface::class),
         ])
         ->tag('data_collector', ['template' => '@SyliusTheme/Collector/theme', 'id' => 'sylius_theme'])
     ;

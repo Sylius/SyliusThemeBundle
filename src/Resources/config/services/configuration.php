@@ -32,7 +32,7 @@ return static function (ContainerConfigurator $container): void {
     $services
         ->set(ConfigurationProcessorInterface::class, SymfonyConfigurationProcessor::class)
         ->args([
-            service('sylius.theme.configuration'),
+            service(ThemeConfiguration::class),
             inline_service(Processor::class),
         ])
     ;

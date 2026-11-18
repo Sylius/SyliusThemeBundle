@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ThemeBundle\DependencyInjection;
 
 use Sylius\Bundle\ThemeBundle\Configuration\ConfigurationSourceFactoryInterface;
+use Sylius\Bundle\ThemeBundle\Context\SettableThemeContext;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -42,7 +43,7 @@ final class Configuration implements ConfigurationInterface
         $rootNode->children()->arrayNode('assets')->canBeDisabled();
         $rootNode->children()->arrayNode('templating')->canBeDisabled();
         $rootNode->children()->arrayNode('translations')->canBeDisabled();
-        $rootNode->children()->scalarNode('context')->defaultValue('sylius.theme.context.settable')->cannotBeEmpty();
+        $rootNode->children()->scalarNode('context')->defaultValue(SettableThemeContext::class)->cannotBeEmpty();
         $rootNode->children()
             ->booleanNode('legacy_mode')
                 ->defaultFalse()
